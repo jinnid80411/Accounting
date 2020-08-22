@@ -60,6 +60,7 @@
   <ItemGroup>
     <Content Include="css\dashboard.css" />
     <Content Include="dashboard.html" />
+    <Content Include="dashboard_test.html" />
     <Content Include="js\dashboard.js" />
     <Content Include="MasterPage.master" />
     <Content Include="appSettings.config" />
