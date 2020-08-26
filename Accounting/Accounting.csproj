@@ -60,7 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\dashboard.css" />
+    <Content Include="css\signin.css" />
     <Content Include="dashboard.html" />
+    <Content Include="SignIn.html" />
     <Content Include="ExpendIem.html" />
     <Content Include="DayIncome.html" />
     <Content Include="DayExpend.html" />
