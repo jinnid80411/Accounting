@@ -41,6 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -59,9 +60,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CompanyGroupList.aspx" />
     <Content Include="css\dashboard.css" />
     <Content Include="css\signin.css" />
     <Content Include="dashboard.html" />
+    <Content Include="js\Format.js" />
+    <Content Include="js\jquery-3.5.1.js" />
+    <Content Include="js\jquery-3.5.1.min.js" />
+    <Content Include="js\jquery-3.5.1.slim.min.js" />
     <Content Include="SignIn.html" />
     <Content Include="ExpendIem.html" />
     <Content Include="DayIncome.html" />
@@ -79,12 +85,21 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="xml\CompanyGroupList.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\ClsCompany.cs" />
     <Compile Include="App_Code\ClsMenus.cs" />
+    <Compile Include="CompanyGroupList.aspx.cs">
+      <DependentUpon>CompanyGroupList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyGroupList.aspx.designer.cs">
+      <DependentUpon>CompanyGroupList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -102,6 +117,9 @@
     </Compile>
     <Compile Include="Site1.Master.designer.cs">
       <DependentUpon>Site1.Master</DependentUpon>
+    </Compile>
+    <Compile Include="xml\CompanyGroupList.ashx.cs">
+      <DependentUpon>CompanyGroupList.ashx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
