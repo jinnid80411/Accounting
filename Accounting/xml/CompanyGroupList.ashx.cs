@@ -36,10 +36,75 @@ namespace Accounting.xml
             switch (Action)
             {
                 case "SendEdit":
+                    if (objCP.CompanyGroupCRUD(objInfo.CRUD, objInfo.cg_code, objInfo.cg_name))
+                    {
+                        
+                        if (objInfo.CRUD == "U")
+                        {
+                            Dt = objCP.GetCompanyGroupData(objInfo.cg_code, true);
+                            ResultDt.Columns.Add("cg_code");
+                            ResultDt.Columns.Add("cg_name");
+                            for (int i = 0; i < Dt.Rows.Count; i++)
+                            {
+                                ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["cg_name"].ToString());
+                            }
+                        }
+                        else
+                        {
+                            Dt = objCP.GetCompanyGroupData("", true);
+                            if (objInfo.CRUD == "D" && Dt.Rows.Count == 0)
+                            {
+                                ResultDt.Rows.Add("NoData", "");
+
+                            }
+                            else
+                            {
+                                ResultDt.Columns.Add("cg_code");
+                                ResultDt.Columns.Add("cg_name");
+                                for (int i = 0; i < Dt.Rows.Count; i++)
+                                {
+                                    ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["cg_name"].ToString());
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+
+                        ResultDt.Rows.Add("0", "編輯失敗");
+                    }
                     break;
                 case "GetData":
+                    Dt = objCP.GetCompanyGroupData(objInfo.cg_code, true);
+                    if (Dt.Rows.Count > 0)
+                    {
+                        ResultDt.Columns.Add("cg_code");
+                        ResultDt.Columns.Add("cg_name");
+                        for (int i = 0; i < Dt.Rows.Count; i++)
+                        {
+                            ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["cg_name"].ToString());
+                        }
+                    }
+                    else
+                    {
+                        ResultDt.Rows.Add("NoData", "");
+                    }
                     break;
                 case "ShowEdit":
+                    Dt = objCP.GetCompanyGroupData(objInfo.cg_code, true);
+                    if (Dt.Rows.Count > 0)
+                    {
+                        ResultDt.Columns.Add("cg_code");
+                        ResultDt.Columns.Add("cg_name");
+                        for (int i = 0; i < Dt.Rows.Count; i++)
+                        {
+                            ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["cg_name"].ToString());
+                        }
+                    }
+                    else
+                    {
+                        ResultDt.Rows.Add("NoData", "");
+                    }
                     break;
                 case "GetAll":
                     Dt = objCP.GetCompanyGroupData("",true);

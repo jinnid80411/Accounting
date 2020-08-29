@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="App_Code\ClsCompany.cs" />
     <Compile Include="App_Code\ClsMenus.cs" />
+    <Compile Include="App_Code\FileTrace.cs" />
     <Compile Include="CompanyGroupList.aspx.cs">
       <DependentUpon>CompanyGroupList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -123,6 +124,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="debug\" />
     <Folder Include="images\" />
     <Folder Include="User_Control\" />
   </ItemGroup>
