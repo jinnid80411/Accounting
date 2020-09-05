@@ -57,12 +57,16 @@
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
     <script src="js/Format.js"></script>
+    <script src="js/Tools.js"></script>
     
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
    <script src="https://code.jquery.com/jquery.min.js"></script>
    <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://getbootstrap.com/docs/4.5/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>    
+    <link href="bootstrapdatepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="bootstrapdatepicker/js/bootstrap-datepicker.js"></script>
+    <script src="bootstrapdatepicker/locales/bootstrap-datepicker.zh-TW.min.js"></script>
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -97,6 +101,7 @@
  
         </div>
     </div>   
+        
     </form>
  
 </body>

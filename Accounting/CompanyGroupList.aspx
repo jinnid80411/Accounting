@@ -42,13 +42,15 @@
         var btn_cancel_format = "<a href=\"javascript:void(0)\" onclick=\"RunAjax('GetData','{0}','')\">取消</a>";
         var btn_edit_format = "<a href=\"javascript:void(0)\" onclick=\"RunAjax('ShowEdit','{0}','')\">編輯</a>";
         var btn_delete_format = "<a href=\"javascript:void(0)\" onclick=\"RunAjax('SendEdit','{0}','D')\">刪除</a>";
+        var btn_company_format = "<a href=\"javascript:void(0)\" onclick=\"location.href='CompanyList.aspx?cg_code={0}'\">店家</a>";
+
         var hidden_format = "<input type=\"hidden\" id=\"{0}\" value=\"{1}\">";
         var textbox_format = "<input type=\"input\" class=\"form-control\" id=\"txb_{1}\" value=\"{0}\" ></input>";
         var textbox_edit_format = "<input type=\"input\" class=\"form-control\" id=\"txb_{1}_{2}\" value=\"{0}\" ></input>";
         var tr_add_format = "<tr class=\"normal_tr\" id=\"tr_add\">" +
             "<td scope=\"row\" class=\"normal_td\">" + String.format(textbox_format,"","cg_name") + "</td>" +
             "<td scope=\"row\" class=\"normal_td\"><a href=\"javascript:void(0)\" onclick=\"RunAjax('SendEdit','','C')\">新增</a><a href=\"javascript:void(0)\" onclick=\"AddHide()\">取消</a></td></tr>";
-
+    
         $(document).ready(function () {
             RunAjax("GetAll","","");
         });
@@ -90,7 +92,7 @@
             var content = "";
             var i = 0;
             content += String.format(td_format, jsonObj[i].cg_name);
-            var button = String.format(btn_edit_format,jsonObj[i].cg_code)+String.format(btn_delete_format,jsonObj[i].cg_code);
+            var button = String.format(btn_edit_format,jsonObj[i].cg_code)+"&nbsp;"+String.format(btn_delete_format,jsonObj[i].cg_code)+"&nbsp;"+String.format(btn_company_format,jsonObj[i].cg_code);
             content += String.format(td_format, button);
             //var result = String.format(tr_format, content, jsonObj[i].cg_code);
             $("#tr_code_"+jsonObj[i].cg_code).html(content);
@@ -102,7 +104,7 @@
             var i = 0;
             var txb_cg_name = String.format(textbox_edit_format, jsonObj[i].cg_name, "cg_name",jsonObj[i].cg_code);
             content += String.format(td_format, txb_cg_name);
-            var button = String.format(btn_save_format,jsonObj[i].cg_code)+String.format(btn_cancel_format,jsonObj[i].cg_code);
+            var button = String.format(btn_save_format,jsonObj[i].cg_code)+"&nbsp;"+String.format(btn_cancel_format,jsonObj[i].cg_code);
             content += String.format(td_format, button);
             $("#tr_code_"+jsonObj[i].cg_code).html(content);
            
@@ -121,7 +123,7 @@
                 {
                     var content = "";
                     content += String.format(td_format, jsonObj[i].cg_name);
-                    var button = String.format(btn_edit_format,jsonObj[i].cg_code)+String.format(btn_delete_format,jsonObj[i].cg_code);
+                    var button = String.format(btn_edit_format,jsonObj[i].cg_code)+"&nbsp;"+String.format(btn_delete_format,jsonObj[i].cg_code)+"&nbsp;"+String.format(btn_company_format,jsonObj[i].cg_code);;
                     content += String.format(td_format, button);
                     result += String.format(tr_format,content,jsonObj[i].cg_code);
                 }
