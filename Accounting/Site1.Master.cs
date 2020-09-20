@@ -23,13 +23,36 @@ namespace Accounting
                                             {1}
                                         </a>
                                     </li>";
-
+        string UserNo = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             string url = Request.Url.AbsolutePath.ToString().Trim();
             string pagename = "";
-            
-            DataTable Dt_Menu = objMU.MenuControl();
+
+            #region==Session身分判定==
+
+            if (Session["UserNo"] == null || Session["UserNo"].ToString().Trim() == "")
+            {
+                string retUrl = "";
+                retUrl = Request.ServerVariables["Script_Name"].ToString();
+                string qstring = Request.QueryString.ToString();
+                if (Request.QueryString.ToString() != "")
+                    retUrl += "?" + Request.QueryString.ToString();
+                // 保留登入前網址
+                Session["retUrl"] = Server.UrlEncode(retUrl);
+                Response.Write("<script>alert('您離開系統時間太久，請重新登入!!');</script>");
+                Response.Redirect("~/SignIn.aspx");
+                Response.End();
+            }
+            else
+            {
+
+                UserNo = HttpUtility.HtmlEncode(Session["UserNo"].ToString().Trim());
+            }
+
+            #endregion
+
+            DataTable Dt_Menu = objMU.MenuControl(UserNo);
             lit_Menu.Text = "";
 
             for (int i = 0; i < Dt_Menu.Rows.Count; i++)

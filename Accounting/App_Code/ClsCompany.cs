@@ -201,6 +201,128 @@ namespace Accounting.App_Code
 
 
         #endregion
+        #region==UsersList==
+
+        public DataTable GetLoginData(string id)
+        {
+            DataTable Dt = new DataTable();
+
+            string strSQL = @"";
+
+            //strSQL = @" select * from AdvUsers with (nolock) where Code=@pno ";
+            strSQL = @" select * from [vw_Users_isUse] with (nolock)                    
+                    Where 1=1 and u_id=@u_id ";
+            
+            string connString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AccountingConn"].ToString();
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand(strSQL);
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@u_id", id);
+
+                cmd.Connection = conn;
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                Dt.Load(dr);
+                conn.Close();
+            }
+
+            return Dt;
+        }
+
+
+        public DataTable GetUsersListData(string u_code, bool IsUse)
+        {
+            DataTable Dt = new DataTable();
+
+            string strSQL = @"";
+
+            //strSQL = @" select * from AdvUsers with (nolock) where Code=@pno ";
+            strSQL = @" select * from [Users] with (nolock)                    
+                    Where 1=1";
+            if (u_code != "")
+                strSQL += " and u_code=@u_code ";
+            if (IsUse)
+                strSQL += " and isUse = 'Y'";
+            string connString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AccountingConn"].ToString();
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand(strSQL);
+                cmd.Parameters.Clear();
+                if (u_code != "")
+                    cmd.Parameters.AddWithValue("@u_code", u_code);
+
+                cmd.Connection = conn;
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                Dt.Load(dr);
+                conn.Close();
+            }
+
+            return Dt;
+        }
+
+        public bool UsersListCRUD(string CRUD, string u_code, string u_name,string u_id,string u_password)
+        {
+            SqlConnection conn = new SqlConnection(System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AccountingConn"].ToString());
+            conn.Open();
+            SqlTransaction tran = conn.BeginTransaction();
+            SqlCommand comm = new SqlCommand("", conn);
+            comm.Transaction = tran;
+            try
+            {
+
+                string strSQL = @"";
+
+                switch (CRUD)
+                {
+                    case "C":
+                        strSQL += @" insert into Users (u_name,u_id,u_password) values (@u_name,@u_id,@u_password) ";
+                        comm.CommandText = strSQL;
+                        comm.Parameters.Clear();
+                        comm.Parameters.AddWithValue("@u_name", u_name);
+                        comm.Parameters.AddWithValue("@u_id", u_id);
+                        comm.Parameters.AddWithValue("@u_password", u_password);
+                        comm.ExecuteNonQuery();
+                        break;
+                    case "U":
+                        strSQL += @" Update Users Set u_name=@u_name,u_id=@u_id,u_password=@u_password Where u_code=@u_code ";
+                        comm.CommandText = strSQL;
+                        comm.Parameters.Clear();
+                        comm.Parameters.AddWithValue("@u_name", u_name);
+                        comm.Parameters.AddWithValue("@u_id", u_id);
+                        comm.Parameters.AddWithValue("@u_password", u_password);
+                        comm.Parameters.AddWithValue("@u_code", u_code);
+                        comm.ExecuteNonQuery();
+                        break;
+                    case "D":
+                        strSQL += @" Update Users Set isUse='N' Where u_code=@u_code ";
+                        comm.CommandText = strSQL;
+                        comm.Parameters.Clear();
+                        comm.Parameters.AddWithValue("@u_code", u_code);
+                        comm.ExecuteNonQuery();
+                        break;
+                }
+                tran.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                ft.ftrace(ex.ToString());
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+                comm.Dispose();
+            }
+        }
+
+
+        #endregion
     }
 
 

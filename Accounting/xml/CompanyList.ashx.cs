@@ -13,6 +13,7 @@ namespace Accounting.xml
     {
 
         ClsCompany objCP = new ClsCompany();
+        ClsTool objTL = new ClsTool();
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
@@ -50,9 +51,7 @@ namespace Accounting.xml
                             ResultDt.Columns.Add("c_builddate");                            
                             for (int i = 0; i < Dt.Rows.Count; i++)
                             {
-                                string c_builddate = "";
-                                if (Dt.Rows[i]["c_builddate"].ToString() != "")
-                                    c_builddate = Convert.ToDateTime(Dt.Rows[i]["c_builddate"]).ToString("yyyy/MM/dd");
+                                string c_builddate = objTL.DateChange(Dt.Rows[i]["c_builddate"].ToString(), "yyyy/MM/dd");
                                 ResultDt.Rows.Add("OK", "", Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["c_name"].ToString()
                                     , Dt.Rows[i]["c_id"].ToString(), Dt.Rows[i]["c_address"].ToString()
                                     , Dt.Rows[i]["c_telephone"].ToString(), c_builddate);
@@ -76,9 +75,7 @@ namespace Accounting.xml
                                 ResultDt.Columns.Add("c_builddate");
                                 for (int i = 0; i < Dt.Rows.Count; i++)
                                 {
-                                    string c_builddate = "";
-                                    if (Dt.Rows[i]["c_builddate"].ToString() != "")
-                                        c_builddate = Convert.ToDateTime(Dt.Rows[i]["c_builddate"]).ToString("yyyy/MM/dd");
+                                    string c_builddate = objTL.DateChange(Dt.Rows[i]["c_builddate"].ToString(), "yyyy/MM/dd");
                                     ResultDt.Rows.Add("OK", "", Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["c_name"].ToString()
                                         , Dt.Rows[i]["c_id"].ToString(), Dt.Rows[i]["c_address"].ToString()
                                         , Dt.Rows[i]["c_telephone"].ToString(), c_builddate);
@@ -104,9 +101,7 @@ namespace Accounting.xml
                         ResultDt.Columns.Add("c_builddate");
                         for (int i = 0; i < Dt.Rows.Count; i++)
                         {
-                            string c_builddate = "";
-                            if (Dt.Rows[i]["c_builddate"].ToString() != "")
-                                c_builddate = Convert.ToDateTime(Dt.Rows[i]["c_builddate"]).ToString("yyyy/MM/dd");
+                            string c_builddate = objTL.DateChange(Dt.Rows[i]["c_builddate"].ToString(), "yyyy/MM/dd");
                             ResultDt.Rows.Add("OK", "", Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["c_name"].ToString()
                                 , Dt.Rows[i]["c_id"].ToString(), Dt.Rows[i]["c_address"].ToString()
                                 , Dt.Rows[i]["c_telephone"].ToString(), c_builddate);
@@ -129,9 +124,7 @@ namespace Accounting.xml
                         ResultDt.Columns.Add("c_builddate");
                         for (int i = 0; i < Dt.Rows.Count; i++)
                         {
-                            string c_builddate = "";
-                            if (Dt.Rows[i]["c_builddate"].ToString() != "")
-                                c_builddate = Convert.ToDateTime(Dt.Rows[i]["c_builddate"]).ToString("yyyy/MM/dd");
+                            string c_builddate = objTL.DateChange(Dt.Rows[i]["c_builddate"].ToString(), "yyyy/MM/dd");
                             ResultDt.Rows.Add("OK", "", Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["c_name"].ToString()
                                 , Dt.Rows[i]["c_id"].ToString(), Dt.Rows[i]["c_address"].ToString()
                                 , Dt.Rows[i]["c_telephone"].ToString(), c_builddate);
@@ -154,9 +147,7 @@ namespace Accounting.xml
                         ResultDt.Columns.Add("c_builddate");
                         for (int i = 0; i < Dt.Rows.Count; i++)
                         {
-                            string c_builddate = "";
-                            if (Dt.Rows[i]["c_builddate"].ToString() != "")
-                                c_builddate = Convert.ToDateTime(Dt.Rows[i]["c_builddate"]).ToString("yyyy/MM/dd");
+                            string c_builddate = objTL.DateChange(Dt.Rows[i]["c_builddate"].ToString(), "yyyy/MM/dd");
                             ResultDt.Rows.Add("OK", "", Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["c_name"].ToString()
                                 , Dt.Rows[i]["c_id"].ToString(), Dt.Rows[i]["c_address"].ToString()
                                 , Dt.Rows[i]["c_telephone"].ToString(), c_builddate);
