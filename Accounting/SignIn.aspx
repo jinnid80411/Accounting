@@ -11,21 +11,18 @@
     <meta name="generator" content="Jekyll v4.1.1"/>
     <title>記帳系統</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/"/>
-
     <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
-
-    
+    <link href="css/bootstrap.min.css" rel="stylesheet" />    
     <link href="css/dashboard.css" rel="stylesheet"/>
+    <!--other js-->
     <script src="js/Format.js"></script>
     <script src="js/Tools.js"></script>
     
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-   <script src="https://code.jquery.com/jquery.min.js"></script>
-   <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://getbootstrap.com/docs/4.5/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>    
+    <script src="js/jquery-3.5.1.min.js"></script>
+   <script src="js/jquery.min.js"></script>
+   <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/feather.min.js"></script>    
     <link href="bootstrapdatepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
     <script src="bootstrapdatepicker/js/bootstrap-datepicker.js"></script>
     <script src="bootstrapdatepicker/locales/bootstrap-datepicker.zh-TW.min.js"></script>

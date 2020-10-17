@@ -138,14 +138,19 @@
     <Content Include="bootstrapdatepicker\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="CompanyGroupList.aspx" />
     <Content Include="CompanyList.aspx" />
+    <Content Include="CompanyShopList.aspx" />
+    <Content Include="css\bootstrap.min.css" />
     <Content Include="css\dashboard.css" />
     <Content Include="css\signin.css" />
     <Content Include="dashboard.html" />
     <Content Include="GenerateAuthCode.aspx" />
+    <Content Include="js\bootstrap.bundle.min.js" />
+    <Content Include="js\feather.min.js" />
     <Content Include="js\Format.js" />
     <Content Include="js\jquery-3.5.1.js" />
     <Content Include="js\jquery-3.5.1.min.js" />
     <Content Include="js\jquery-3.5.1.slim.min.js" />
+    <Content Include="js\jquery.js" />
     <Content Include="js\Tools.js" />
     <Content Include="SignIn.aspx" />
     <Content Include="SignIn.html" />
@@ -178,6 +183,8 @@
     <Content Include="xml\CompanyList.ashx" />
     <Content Include="xml\UsersList.ashx" />
     <Content Include="xml\SignIn.ashx" />
+    <Content Include="xml\CompanyShopList.ashx" />
+    <Content Include="xml\CompanyUsers.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
@@ -200,6 +207,13 @@
     </Compile>
     <Compile Include="CompanyList.aspx.designer.cs">
       <DependentUpon>CompanyList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyShopList.aspx.cs">
+      <DependentUpon>CompanyShopList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyShopList.aspx.designer.cs">
+      <DependentUpon>CompanyShopList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -245,6 +259,12 @@
     </Compile>
     <Compile Include="xml\CompanyList.ashx.cs">
       <DependentUpon>CompanyList.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="xml\CompanyShopList.ashx.cs">
+      <DependentUpon>CompanyShopList.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="xml\CompanyUsers.ashx.cs">
+      <DependentUpon>CompanyUsers.ashx</DependentUpon>
     </Compile>
     <Compile Include="xml\SignIn.ashx.cs">
       <DependentUpon>SignIn.ashx</DependentUpon>

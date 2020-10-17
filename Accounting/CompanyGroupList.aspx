@@ -42,7 +42,7 @@
         var btn_cancel_format = "<a href=\"javascript:void(0)\" onclick=\"RunAjax('GetData','{0}','')\">取消</a>";
         var btn_edit_format = "<a href=\"javascript:void(0)\" onclick=\"RunAjax('ShowEdit','{0}','')\">編輯</a>";
         var btn_delete_format = "<a href=\"javascript:void(0)\" onclick=\"RunAjax('SendEdit','{0}','D')\">刪除</a>";
-        var btn_company_format = "<a href=\"javascript:void(0)\" onclick=\"location.href='CompanyList.aspx?cg_code={0}'\">店家</a>";
+        var btn_company_format = "<a href=\"javascript:void(0)\" onclick=\"location.href='CompanyList.aspx?cg_code={0}'\">公司</a>";
 
         var hidden_format = "<input type=\"hidden\" id=\"{0}\" value=\"{1}\">";
         var textbox_format = "<input type=\"input\" class=\"form-control\" id=\"txb_{1}\" value=\"{0}\" ></input>";
@@ -50,7 +50,7 @@
         var tr_add_format = "<tr class=\"normal_tr\" id=\"tr_add\">" +
             "<td scope=\"row\" class=\"normal_td\">" + String.format(textbox_format,"","cg_name") + "</td>" +
             "<td scope=\"row\" class=\"normal_td\"><a href=\"javascript:void(0)\" onclick=\"RunAjax('SendEdit','','C')\">新增</a><a href=\"javascript:void(0)\" onclick=\"AddHide()\">取消</a></td></tr>";
-    
+        
         $(document).ready(function () {
             RunAjax("GetAll","","");
         });

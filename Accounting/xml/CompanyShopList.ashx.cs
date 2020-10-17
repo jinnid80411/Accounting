@@ -4,14 +4,14 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Data;
 using Accounting.App_Code;
+
 namespace Accounting.xml
 {
     /// <summary>
-    /// CompanyList 的摘要描述
+    /// CompanyShopList 的摘要描述
     /// </summary>
-    public class CompanyList : IHttpHandler
+    public class CompanyShopList : IHttpHandler
     {
-
         ClsCompany objCP = new ClsCompany();
         ClsTool objTL = new ClsTool();
         public void ProcessRequest(HttpContext context)
@@ -37,27 +37,27 @@ namespace Accounting.xml
             switch (Action)
             {
                 case "SendEdit":
-                    if (objCP.CompanyCRUD(objInfo.CRUD, objInfo.c_code, objInfo.c_name, objInfo.c_id, objInfo.c_builddate, objInfo.cg_code))
+                    if (objCP.CompanyShopCRUD(objInfo.CRUD, objInfo.cs_code, objInfo.cs_name, objInfo.cs_address, objInfo.cs_telephone, objInfo.cg_code, objInfo.c_code))
                     {
 
                         if (objInfo.CRUD == "U")
                         {
-                            Dt = objCP.GetCompanyData(objInfo.c_code, true, objInfo.cg_code);
+                            Dt = objCP.GetCompanyShopData(objInfo.cs_code, true, objInfo.c_code, objInfo.cg_code);
                             ResultDt.Columns.Add("cg_code");
                             ResultDt.Columns.Add("c_code");
-                            ResultDt.Columns.Add("c_name");
-                            ResultDt.Columns.Add("c_id");
-                            ResultDt.Columns.Add("c_builddate");                            
+                            ResultDt.Columns.Add("cs_code");
+                            ResultDt.Columns.Add("cs_name");
+                            ResultDt.Columns.Add("cs_address");
+                            ResultDt.Columns.Add("cs_telephone");
                             for (int i = 0; i < Dt.Rows.Count; i++)
                             {
-                                string c_builddate = objTL.DateChange(Dt.Rows[i]["c_builddate"].ToString(), "yyyy/MM/dd");
-                                ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["c_name"].ToString()
-                                    , Dt.Rows[i]["c_id"].ToString(), c_builddate);
+                                ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["cs_code"].ToString(), Dt.Rows[i]["cs_name"].ToString()
+                                    , Dt.Rows[i]["cs_address"].ToString(), Dt.Rows[i]["cs_telephone"].ToString());
                             }
                         }
                         else
                         {
-                            Dt = objCP.GetCompanyData("", true, objInfo.cg_code);
+                            Dt = objCP.GetCompanyShopData("", true, objInfo.c_code, objInfo.cg_code);
                             if (objInfo.CRUD == "D" && Dt.Rows.Count == 0)
                             {
                                 ResultDt.Rows.Add("NoData", "");
@@ -67,14 +67,14 @@ namespace Accounting.xml
                             {
                                 ResultDt.Columns.Add("cg_code");
                                 ResultDt.Columns.Add("c_code");
-                                ResultDt.Columns.Add("c_name");
-                                ResultDt.Columns.Add("c_id");
-                                ResultDt.Columns.Add("c_builddate");
+                                ResultDt.Columns.Add("cs_code");
+                                ResultDt.Columns.Add("cs_name");
+                                ResultDt.Columns.Add("cs_address");
+                                ResultDt.Columns.Add("cs_telephone");
                                 for (int i = 0; i < Dt.Rows.Count; i++)
                                 {
-                                    string c_builddate = objTL.DateChange(Dt.Rows[i]["c_builddate"].ToString(), "yyyy/MM/dd");
-                                    ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["c_name"].ToString()
-                                        , Dt.Rows[i]["c_id"].ToString(), c_builddate);
+                                    ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["cs_code"].ToString(), Dt.Rows[i]["cs_name"].ToString()
+                                    , Dt.Rows[i]["cs_address"].ToString(), Dt.Rows[i]["cs_telephone"].ToString());
                                 }
                             }
                         }
@@ -86,19 +86,19 @@ namespace Accounting.xml
                     }
                     break;
                 case "GetData":
-                    Dt = objCP.GetCompanyData(objInfo.c_code, true, objInfo.cg_code);
+                    Dt = objCP.GetCompanyShopData(objInfo.cs_code, true, objInfo.c_code, objInfo.cg_code);
                     if (Dt.Rows.Count > 0)
                     {
                         ResultDt.Columns.Add("cg_code");
                         ResultDt.Columns.Add("c_code");
-                        ResultDt.Columns.Add("c_name");
-                        ResultDt.Columns.Add("c_id");
-                        ResultDt.Columns.Add("c_builddate");
+                        ResultDt.Columns.Add("cs_code");
+                        ResultDt.Columns.Add("cs_name");
+                        ResultDt.Columns.Add("cs_address");
+                        ResultDt.Columns.Add("cs_telephone");
                         for (int i = 0; i < Dt.Rows.Count; i++)
                         {
-                            string c_builddate = objTL.DateChange(Dt.Rows[i]["c_builddate"].ToString(), "yyyy/MM/dd");
-                            ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["c_name"].ToString()
-                                , Dt.Rows[i]["c_id"].ToString(), c_builddate);
+                            ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["cs_code"].ToString(), Dt.Rows[i]["cs_name"].ToString()
+                                    , Dt.Rows[i]["cs_address"].ToString(), Dt.Rows[i]["cs_telephone"].ToString());
                         }
                     }
                     else
@@ -107,19 +107,19 @@ namespace Accounting.xml
                     }
                     break;
                 case "ShowEdit":
-                    Dt = objCP.GetCompanyData(objInfo.c_code, true, objInfo.cg_code);
+                    Dt = objCP.GetCompanyShopData(objInfo.cs_code, true, objInfo.c_code, objInfo.cg_code);
                     if (Dt.Rows.Count > 0)
                     {
                         ResultDt.Columns.Add("cg_code");
                         ResultDt.Columns.Add("c_code");
-                        ResultDt.Columns.Add("c_name");
-                        ResultDt.Columns.Add("c_id");
-                        ResultDt.Columns.Add("c_builddate");
+                        ResultDt.Columns.Add("cs_code");
+                        ResultDt.Columns.Add("cs_name");
+                        ResultDt.Columns.Add("cs_address");
+                        ResultDt.Columns.Add("cs_telephone");
                         for (int i = 0; i < Dt.Rows.Count; i++)
                         {
-                            string c_builddate = objTL.DateChange(Dt.Rows[i]["c_builddate"].ToString(), "yyyy/MM/dd");
-                            ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["c_name"].ToString()
-                                , Dt.Rows[i]["c_id"].ToString(), c_builddate);
+                            ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["cs_code"].ToString(), Dt.Rows[i]["cs_name"].ToString()
+                                    , Dt.Rows[i]["cs_address"].ToString(), Dt.Rows[i]["cs_telephone"].ToString());
                         }
                     }
                     else
@@ -128,19 +128,19 @@ namespace Accounting.xml
                     }
                     break;
                 case "GetAll":
-                    Dt = objCP.GetCompanyData("", true, objInfo.cg_code);
+                    Dt = objCP.GetCompanyShopData("", true, objInfo.c_code, objInfo.cg_code);
                     if (Dt.Rows.Count > 0)
                     {
                         ResultDt.Columns.Add("cg_code");
                         ResultDt.Columns.Add("c_code");
-                        ResultDt.Columns.Add("c_name");
-                        ResultDt.Columns.Add("c_id");
-                        ResultDt.Columns.Add("c_builddate");
+                        ResultDt.Columns.Add("cs_code");
+                        ResultDt.Columns.Add("cs_name");
+                        ResultDt.Columns.Add("cs_address");
+                        ResultDt.Columns.Add("cs_telephone");
                         for (int i = 0; i < Dt.Rows.Count; i++)
                         {
-                            string c_builddate = objTL.DateChange(Dt.Rows[i]["c_builddate"].ToString(), "yyyy/MM/dd");
-                            ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["c_name"].ToString()
-                                , Dt.Rows[i]["c_id"].ToString(), c_builddate);
+                            ResultDt.Rows.Add("OK", "", Dt.Rows[i]["cg_code"].ToString(), Dt.Rows[i]["c_code"].ToString(), Dt.Rows[i]["cs_code"].ToString(), Dt.Rows[i]["cs_name"].ToString()
+                                    , Dt.Rows[i]["cs_address"].ToString(), Dt.Rows[i]["cs_telephone"].ToString());
                         }
                     }
                     else
@@ -170,11 +170,12 @@ namespace Accounting.xml
         {
             public string Action { set; get; }
             public string cg_code { set; get; }
-            public string CRUD { set; get; }
-            public string c_name { set; get; }
             public string c_code { set; get; }
-            public string c_id { set; get; }
-            public string c_builddate { set; get; }
+            public string CRUD { set; get; }
+            public string cs_name { set; get; }
+            public string cs_code { set; get; }
+            public string cs_address { set; get; }
+            public string cs_telephone { set; get; }
         }
     }
 }
