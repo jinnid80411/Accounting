@@ -29,43 +29,6 @@ namespace Accounting.xml
             int input_10 = 0;
             int input_5 = 0;
 
-            if (objInfo != null)
-            {
-                Action = objInfo.Action;
-                Int32.TryParse(objInfo.input_1000,out input_1000);
-                Int32.TryParse(objInfo.input_1000,out input_100);
-                Int32.TryParse(objInfo.input_1000,out input_50);
-                Int32.TryParse(objInfo.input_1000,out input_10);
-                Int32.TryParse(objInfo.input_1000,out input_5);                
-            }
-
-            string result = "";
-            string ResultMsg = "";
-            /*
-            Info.cg_code = cg_code;
-            Info.CRUD = "";
-            Info.c_name = "";*/
-            switch (Action)
-            {
-                case "Save":
-                    if (objCP.InsertTodayInCome(cs_code, input_1000, input_100, input_50, input_10, input_5))
-                    {
-                        result = "OK";
-                        ResultMsg = "編輯成功!";
-                    }
-                    else
-                    {
-                        result = "Error";
-                        ResultMsg = "編輯失敗!";
-                    }
-                    break;
-            
-                case "Read":
-                    result = "OK";
-                    ResultMsg = "讀取成功!";
-                    break;
-            }
-            DataTable Dt = objCP.GetCompanyShopToday(cs_code);
             DataTable ResultDt = new DataTable();
             ResultDt.Columns.Add("result");
             ResultDt.Columns.Add("Msg");
@@ -74,20 +37,74 @@ namespace Accounting.xml
             ResultDt.Columns.Add("input_50");
             ResultDt.Columns.Add("input_10");
             ResultDt.Columns.Add("input_5");
-            if (Dt.Rows.Count > 0)
+
+            if (HttpContext.Current.Session["cs_code"] != null)
             {
-                ResultDt.Rows.Add(result, ResultMsg
-                    , Dt.Rows[0]["ic_1000"].ToString()
-                    , Dt.Rows[0]["ic_100"].ToString()
-                    , Dt.Rows[0]["ic_50"].ToString()
-                    , Dt.Rows[0]["ic_10"].ToString()
-                    , Dt.Rows[0]["ic_5"].ToString()
-                    );
+                cs_code = HttpContext.Current.Session["cs_code"].ToString();
+                if (objInfo != null)
+                {
+                    Action = objInfo.Action;
+                    Int32.TryParse(objInfo.input_1000, out input_1000);
+                    Int32.TryParse(objInfo.input_1000, out input_100);
+                    Int32.TryParse(objInfo.input_1000, out input_50);
+                    Int32.TryParse(objInfo.input_1000, out input_10);
+                    Int32.TryParse(objInfo.input_1000, out input_5);
+                }
+
+                string result = "";
+                string ResultMsg = "";
+                /*
+                Info.cg_code = cg_code;
+                Info.CRUD = "";
+                Info.c_name = "";*/
+                switch (Action)
+                {
+                    case "Save":
+                        if (objCP.InsertTodayInCome(cs_code, input_1000, input_100, input_50, input_10, input_5))
+                        {
+                            result = "OK";
+                            ResultMsg = "編輯成功!";
+                        }
+                        else
+                        {
+                            result = "Error";
+                            ResultMsg = "編輯失敗!";
+                        }
+                        break;
+
+                    case "Read":
+                        result = "OK";
+                        ResultMsg = "讀取成功!";
+                        break;
+                }
+                DataTable Dt = objCP.GetCompanyShopToday(cs_code);
+
+                if (Dt.Rows.Count > 0)
+                {
+                    ResultDt.Rows.Add(result, ResultMsg
+                        , Dt.Rows[0]["ic_1000"].ToString()
+                        , Dt.Rows[0]["ic_100"].ToString()
+                        , Dt.Rows[0]["ic_50"].ToString()
+                        , Dt.Rows[0]["ic_10"].ToString()
+                        , Dt.Rows[0]["ic_5"].ToString()
+                        );
+                }
+                else
+                {
+                    ResultDt.Rows.Add("OK"
+                        , ""
+                        , ""
+                        , ""
+                        , ""
+                        , ""
+                        );
+                }
+
             }
             else
             {
                 ResultDt.Rows.Add("OK"
-                    , ""
+                    , "請先選擇店面!"
                     , ""
                     , ""
                     , ""
@@ -95,6 +112,7 @@ namespace Accounting.xml
                     );
             }
 
+            
 
            
             string ajson = JsonConvert.SerializeObject(ResultDt, Formatting.Indented);
