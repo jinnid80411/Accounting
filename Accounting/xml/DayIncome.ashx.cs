@@ -103,7 +103,7 @@ namespace Accounting.xml
             }
             else
             {
-                ResultDt.Rows.Add("OK"
+                ResultDt.Rows.Add("Error"
                     , "請先選擇店面!"
                     , ""
                     , ""
