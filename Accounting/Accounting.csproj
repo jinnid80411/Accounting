@@ -143,6 +143,7 @@
     <Content Include="css\dashboard.css" />
     <Content Include="css\signin.css" />
     <Content Include="dashboard.html" />
+    <Content Include="DayIncome.aspx" />
     <Content Include="GenerateAuthCode.aspx" />
     <Content Include="js\bootstrap.bundle.min.js" />
     <Content Include="js\feather.min.js" />
@@ -185,6 +186,7 @@
     <Content Include="xml\SignIn.ashx" />
     <Content Include="xml\CompanyShopList.ashx" />
     <Content Include="xml\CompanyUsers.ashx" />
+    <Content Include="xml\DayIncome.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
@@ -214,6 +216,13 @@
     </Compile>
     <Compile Include="CompanyShopList.aspx.designer.cs">
       <DependentUpon>CompanyShopList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DayIncome.aspx.cs">
+      <DependentUpon>DayIncome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DayIncome.aspx.designer.cs">
+      <DependentUpon>DayIncome.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -265,6 +274,9 @@
     </Compile>
     <Compile Include="xml\CompanyUsers.ashx.cs">
       <DependentUpon>CompanyUsers.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="xml\DayIncome.ashx.cs">
+      <DependentUpon>DayIncome.ashx</DependentUpon>
     </Compile>
     <Compile Include="xml\SignIn.ashx.cs">
       <DependentUpon>SignIn.ashx</DependentUpon>

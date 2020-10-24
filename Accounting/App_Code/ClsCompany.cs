@@ -536,6 +536,108 @@ namespace Accounting.App_Code
 
 
         #endregion
+        #region
+
+        public DataTable GetCompanyShopToday(string cs_code)
+        {
+            DataTable Dt = new DataTable();
+
+            string strSQL = @"";
+
+            //strSQL = @" select * from AdvUsers with (nolock) where Code=@pno ";
+            strSQL = @" select * from [InCome] with (nolock)                    
+                    Where 1=1 and cs_code=@cs_code ";
+
+            string connString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AccountingConn"].ToString();
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand(strSQL);
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@cs_code", cs_code);
+
+                cmd.Connection = conn;
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                Dt.Load(dr);
+                conn.Close();
+            }
+
+            return Dt;
+        }
+
+        public bool InsertTodayInCome(string cs_code,int input_1000, int input_100, int input_50, int input_10, int input_5)
+        {
+            SqlConnection conn = new SqlConnection(System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AccountingConn"].ToString());
+            conn.Open();
+            SqlTransaction tran = conn.BeginTransaction();
+            SqlCommand comm = new SqlCommand("", conn);
+            comm.Transaction = tran;
+            try
+            {
+
+                string strSQL = @"";
+                
+                    
+                strSQL += @"
+                                Declare @ic_sqno int
+                                Set @ic_sqno = (Select Top(1)ic_sqno From [InCome] Where cs_code = @cs_code and convert(varchar, getdate(), 111) = convert(varchar, [createdate], 111))
+                            
+                                IF(@ic_sqno is not null)
+                                Begin
+                                   Update InCome 
+                                   Set [ic_1000]=@ic_1000
+                                      ,[ic_100]=@ic_100
+                                      ,[ic_50]=@ic_50
+                                      ,[ic_10]=@ic_10
+                                      ,[ic_5])=@ic_5
+                                      ,[ic_sum]=(@ic_1000+@ic_100+@ic_50+@ic_10+@ic_5)
+                                    Where ic_sqno=@ic_sqno
+                                End
+                                Else
+                                Begin
+                                    Insert into InCome(
+                                       [cs_code]
+                                      ,[ic_1000]
+                                      ,[ic_100]
+                                      ,[ic_50]
+                                      ,[ic_10]
+                                      ,[ic_5]
+                                      ,[ic_sum])
+                                      values
+                                      (@cs_code,@ic_1000,@ic_100,@ic_50,@ic_10,@ic_5,(@ic_1000+@ic_100+@ic_50+@ic_10+@ic_5))
+                                End
+                            ";
+                comm.CommandText = strSQL;
+                comm.Parameters.Clear();
+                comm.Parameters.AddWithValue("@cs_code", cs_code);
+                comm.Parameters.AddWithValue("@ic_1000", input_1000);
+                comm.Parameters.AddWithValue("@ic_100", input_100);
+                comm.Parameters.AddWithValue("@ic_50", input_50);
+                comm.Parameters.AddWithValue("@ic_10", input_10);
+                comm.Parameters.AddWithValue("@ic_5", input_5);
+                comm.ExecuteNonQuery();
+                    
+                
+                tran.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                ft.ftrace(ex.ToString());
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+                comm.Dispose();
+            }
+        }
+
+        #endregion
+
+
     }
 
 
