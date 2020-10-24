@@ -11,18 +11,21 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
 
-    <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-    <link rel="icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-    <link rel="manifest" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/manifest.json">
-    <link rel="mask-icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
-    <link rel="icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/favicon.ico">
-    <meta name="msapplication-config" content="https://getbootstrap.com/docs/4.5/assets/img/favicons/browserconfig.xml">
-    <meta name="theme-color" content="#563d7c">
+     <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />    
+    <link href="css/dashboard.css" rel="stylesheet"/>
+    <!--other js-->
+    <script src="js/Format.js"></script>
+    <script src="js/Tools.js"></script>
+    
+    <script src="js/jquery-3.5.1.min.js"></script>
+   <script src="js/jquery.min.js"></script>
+   <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/feather.min.js"></script>    
+    <link href="bootstrapdatepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="bootstrapdatepicker/js/bootstrap-datepicker.js"></script>
+    <script src="bootstrapdatepicker/locales/bootstrap-datepicker.zh-TW.min.js"></script>
 
 
     <style>
@@ -42,7 +45,6 @@
         }
     </style>
     <!-- Custom styles for this template -->
-    <link href="css/dashboard.css" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -153,7 +155,7 @@
                         <label class="input-group-text"style="min-width:75px"  for="inputGroupSelect01">$1000</label>
                     </div>
 
-                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                    <input type="text" id="input_1000" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">元</label>
                     </div>
@@ -164,7 +166,7 @@
                         <label class="input-group-text"style="min-width:75px"  for="inputGroupSelect01">$100</label>
                     </div>
 
-                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                    <input type="text"  id="input_100" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">元</label>
                     </div>
@@ -175,7 +177,7 @@
                         <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$50</label>
                     </div>
 
-                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                    <input type="text" id="input_50" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">元</label>
                     </div>
@@ -186,7 +188,7 @@
                         <label class="input-group-text" style="min-width:75px"  for="inputGroupSelect01">$10</label>
                     </div>
 
-                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                    <input type="text" id="input_10" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">元</label>
                     </div>
@@ -197,7 +199,7 @@
                         <label class="input-group-text" style="min-width:75px"  for="inputGroupSelect01">$5</label>
                     </div>
 
-                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                    <input type="text" id="input_5" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">元</label>
                     </div>
@@ -208,9 +210,9 @@
                         <label class="input-group-text" style="min-width:75px"  for="inputGroupSelect01">總計</label>
                     </div>
 
-                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                    <input type="text" id="output_sum" class="form-control" aria-label="Text input with segmented dropdown button">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button">送出</button>
+                        <button class="btn btn-outline-secondary" type="button" onclick="RunAjax('Save')" >送出</button>
                     </div>
                 </div>
 
@@ -220,6 +222,100 @@
                 
         </div>
     </div>
+    <script>
+        function daily_sum()
+        {
+            var input_1000 = TryParseInt($("#input_1000").val());
+            var input_100 = TryParseInt($("#input_100").val());
+            var input_50 = TryParseInt($("#input_50").val());
+            var input_10 = TryParseInt($("#input_10").val());
+            var input_5 = TryParseInt($("#input_5").val());
+
+            $("#output_sum").val((input_1000 + input_100 + input_10 + input_50 + input_5).toString());
+        }
+        function RunAjax(Action) {
+
+            
+            var input_1000 = TryParseInt($("#input_1000").val()).toString();
+            var input_100 = TryParseInt($("#input_100").val()).toString();
+            var input_50 = TryParseInt($("#input_50").val()).toString();
+            var input_10 = TryParseInt($("#input_10").val()).toString();
+            var input_5 = TryParseInt($("#input_5").val()).toString();
+
+            
+            var Msg = CheckMsg();
+            if (Msg != "") {
+                alert(Msg);
+                return false;
+            }
+
+            var Info = {};
+            Info.input_1000 = input_1000;
+            Info.input_100 = input_100;
+            Info.input_50 = input_50;
+            Info.input_10 = input_10;
+            Info.input_5 = input_5;
+            Info.Action = Action;
+            
+
+
+            var jsonData = JSON.stringify(Info);
+            console.log(jsonData);
+            $.ajax({
+                url: "xml/SignIn.ashx",
+                data: jsonData,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    var jsonObj;
+                    var TotalPage;
+                    if (typeof (data) == 'undefined' || data == null) {
+                        jsonObj = "";
+                    }
+                    else {
+                        jsonObj = data;
+                    }
+                    console.log(jsonObj);
+                    if (jsonObj != "") {
+                        if (jsonObj.length > 0) {
+                            if (jsonObj[0].result == "OK") {
+                                console.log("讀取成功");
+                                $("#input_1000").val(jsonObj[0].input_1000);
+                                $("#input_100").val(jsonObj[0].input_100);
+                                $("#input_50").val(jsonObj[0].input_50);
+                                $("#input_10").val(jsonObj[0].input_10);
+                                $("#input_5").val(jsonObj[0].input_5);
+                                //location.href = jsonObj[0].url;
+                            }
+                            else {
+                                console.log(jsonObj[0].result);
+                                alert(jsonObj[0].Msg);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        function CheckMsg()
+        {
+            var Msg = "";
+            var remainder_input_1000 = TryParseInt($("#input_1000").val()) % 1000;
+            var remainder_input_100 = TryParseInt($("#input_100").val()) % 100;
+            var remainder_input_50 = TryParseInt($("#input_50").val()) % 50;
+            var remainder_input_10 = TryParseInt($("#input_10").val()) % 10;
+            var remainder_input_5 = TryParseInt($("#input_5").val()) % 5;
+
+            if (remainder_input_1000 != 0) { Msg += "1000元輸入有誤\n"; }
+            if (remainder_input_100 != 0) { Msg += "100元輸入有誤\n"; }
+            if (remainder_input_50 != 0) { Msg += "50元輸入有誤\n"; }
+            if (remainder_input_10 != 0) { Msg += "10元輸入有誤\n"; }
+            if (remainder_input_5 != 0) { Msg += "5元輸入有誤\n"; }
+            
+            return Msg;
+        }
+    </script>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
     <script src="https://getbootstrap.com/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>

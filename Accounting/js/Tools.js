@@ -13,3 +13,12 @@ function BDatePickerByID(object) {
         language: 'zh-TW'
     });
 }
+
+
+function TryParseInt(input)
+{
+    if (!isNaN(parseInt(input)))
+        return parseInt(input);
+    else
+        return 0;
+}
