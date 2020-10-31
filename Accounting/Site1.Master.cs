@@ -12,11 +12,15 @@ namespace Accounting
     public partial class Site1 : System.Web.UI.MasterPage
     {
         ClsMenus objMU = new ClsMenus();
+        ClsCompany objCP = new ClsCompany();
+        public string TopComanyShopMenu = @"";
+        string TopCompanyShopFormat = @"<span style=""font-size:18px;color:white;font-weight:bold;""><a  href=""CompanyShopSelect.aspx?cs_code={1}"">{0}</a></span>";
+
         string MasterFormat = @"<li class=""nav-item"">
-                                        <a class=""nav-link{2}"" href=""{0}""  style=""font-weight: bold;font-size: 16px;"">
-                                            {1}
-                                        </a>
-                                    </li>";
+                                    <a class=""nav-link{2}"" href=""{0}""  style=""font-weight: bold;font-size: 16px;"">
+                                        {1}
+                                    </a>
+                                </li>";
         string DetailFormat = @"<li class=""nav-item"">
                                         <a class=""nav-link{2}"" href=""{0}"">
                                             <span data-feather=""file-text""></span>
@@ -52,6 +56,17 @@ namespace Accounting
 
             #endregion
 
+            #region==店家切換==
+
+            DataTable Dt_CompanyShop = objCP.GetUsersCompanyShopData(UserNo, "", false);
+            for (int i = 0; i < Dt_CompanyShop.Rows.Count; i++)
+            {
+                TopComanyShopMenu += string.Format(TopCompanyShopFormat,Dt_CompanyShop.Rows[i]["cs_name"].ToString(),Dt_CompanyShop.Rows[i]["code"].ToString());
+            }
+
+
+            #endregion
+
             DataTable Dt_Menu = objMU.MenuControl(UserNo);
             lit_Menu.Text = "";
 
@@ -62,7 +77,7 @@ namespace Accounting
                 if (Dt_Menu.Rows[i]["PageUrl"].ToString().Trim() == url)
                 {
                     Active = " active";
-                    lit_PageName.Text = Dt_Menu.Rows[i]["PageName"].ToString().Trim();
+                    //lit_PageName.Text = Dt_Menu.Rows[i]["PageName"].ToString().Trim();
                 }
                 pagename = Dt_Menu.Rows[i]["PageName"].ToString();
                 if (IsMaster)
