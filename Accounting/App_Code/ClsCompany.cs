@@ -534,9 +534,80 @@ namespace Accounting.App_Code
             }
         }
 
+        public bool InsertCompanyUseLog(string type,string u_code, string cs_code)
+        {
+            SqlConnection conn = new SqlConnection(System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AccountingConn"].ToString());
+            conn.Open();
+            SqlTransaction tran = conn.BeginTransaction();
+            SqlCommand comm = new SqlCommand("", conn);
+            comm.Transaction = tran;
+            try
+            {
 
+                string strSQL = @"";
+                    
+                strSQL += @" insert into [CompanyUsersUseLog] ([type],[code],[u_code]) values (@type,@code,@u_code) ";
+                comm.CommandText = strSQL;
+                comm.Parameters.Clear();
+                comm.Parameters.AddWithValue("@type", type);
+                comm.Parameters.AddWithValue("@code", cs_code);
+                comm.Parameters.AddWithValue("@u_code", u_code);
+                comm.ExecuteNonQuery();
+                 
+                tran.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                ft.ftrace(ex.ToString());
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+                comm.Dispose();
+            }
+        }
+
+        public DataTable GetUsersCompanyShopData(string u_code,string cs_code,bool IsNow)
+        {
+            DataTable Dt = new DataTable();
+
+            string strSQL = @"";
+
+            //strSQL = @" select * from AdvUsers with (nolock) where Code=@pno ";
+            strSQL = @" select * from [vw_Users_CompanyShop] with (nolock) 
+                    Where 1=1 and [u_code]=@u_code ";
+            if(cs_code!="")
+                strSQL += " and code=@code ";
+            if (IsNow)
+            {
+                strSQL += " and isNow = 'Y' ";
+            }
+
+
+            string connString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AccountingConn"].ToString();
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand(strSQL);
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@u_code", u_code);
+                if(cs_code!="")
+                    cmd.Parameters.AddWithValue("@code", cs_code);
+
+                cmd.Connection = conn;
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                Dt.Load(dr);
+                conn.Close();
+            }
+
+            return Dt;
+        }
         #endregion
-        #region
+        #region==CompanyToday==
 
         public DataTable GetCompanyShopToday(string cs_code)
         {
@@ -590,8 +661,9 @@ namespace Accounting.App_Code
                                       ,[ic_100]=@ic_100
                                       ,[ic_50]=@ic_50
                                       ,[ic_10]=@ic_10
-                                      ,[ic_5])=@ic_5
+                                      ,[ic_5]=@ic_5
                                       ,[ic_sum]=(@ic_1000+@ic_100+@ic_50+@ic_10+@ic_5)
+                                      ,createusr=@UserNo
                                     Where ic_sqno=@ic_sqno
                                 End
                                 Else
@@ -603,9 +675,9 @@ namespace Accounting.App_Code
                                       ,[ic_50]
                                       ,[ic_10]
                                       ,[ic_5]
-                                      ,[ic_sum])
+                                      ,[ic_sum],createusr)
                                       values
-                                      (@cs_code,@ic_1000,@ic_100,@ic_50,@ic_10,@ic_5,(@ic_1000+@ic_100+@ic_50+@ic_10+@ic_5))
+                                      (@cs_code,@ic_1000,@ic_100,@ic_50,@ic_10,@ic_5,(@ic_1000+@ic_100+@ic_50+@ic_10+@ic_5),@UserNo)
                                 End
                             ";
                 comm.CommandText = strSQL;
@@ -616,6 +688,7 @@ namespace Accounting.App_Code
                 comm.Parameters.AddWithValue("@ic_50", input_50);
                 comm.Parameters.AddWithValue("@ic_10", input_10);
                 comm.Parameters.AddWithValue("@ic_5", input_5);
+                comm.Parameters.AddWithValue("@UserNo", HttpContext.Current.Session["UserNo"].ToString());
                 comm.ExecuteNonQuery();
                     
                 

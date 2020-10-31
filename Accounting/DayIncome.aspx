@@ -1,9 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="DayIncome.aspx.cs" Inherits="Accounting.DayIncome" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site2.Master" AutoEventWireup="true" CodeBehind="DayIncome.aspx.cs" Inherits="Accounting.DayIncome" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Dashboard</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
@@ -82,10 +81,11 @@
                         <button class="btn btn-outline-secondary" type="button" onclick="RunAjax('Save')" >送出</button>
                     </div>
                 </div>
-
-
             </main>
      <script>
+        $(document).ready(function() {
+            RunAjax("Read");
+        });
         function daily_sum()
         {
             var input_1000 = TryParseInt($("#input_1000").val());
@@ -143,6 +143,8 @@
                     if (jsonObj != "") {
                         if (jsonObj.length > 0) {
                             if (jsonObj[0].result == "OK") {
+                                if(Action!="Read")
+                                    alert(jsonObj[0].Msg);
                                 console.log("讀取成功");
                                 $("#input_1000").val(jsonObj[0].input_1000);
                                 $("#input_100").val(jsonObj[0].input_100);
@@ -150,6 +152,7 @@
                                 $("#input_10").val(jsonObj[0].input_10);
                                 $("#input_5").val(jsonObj[0].input_5);
                                 //location.href = jsonObj[0].url;
+                                daily_sum();
                             }
                             else {
                                 console.log(jsonObj[0].result);

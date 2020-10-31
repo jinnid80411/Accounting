@@ -24,7 +24,7 @@ namespace Accounting.App_Code
                 menuList.Columns.Add("IsMaster", System.Type.GetType("System.Boolean"));
                 menuList.Columns.Add("PageMasterID", System.Type.GetType("System.Int32"));
                 menuList.Rows.Add(1, "", "總覽", true, 0);
-                menuList.Rows.Add(2, "", "每日收入", false, 1);
+                menuList.Rows.Add(2, "DayIncome.aspx", "每日收入", false, 1);
                 menuList.Rows.Add(3, "", "每日支出", false, 1);
                 menuList.Rows.Add(4, "", "支出品項管理", false, 1);
                 menuList.Rows.Add(5, "", "統計", false, 1);

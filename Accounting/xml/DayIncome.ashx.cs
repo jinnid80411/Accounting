@@ -45,10 +45,10 @@ namespace Accounting.xml
                 {
                     Action = objInfo.Action;
                     Int32.TryParse(objInfo.input_1000, out input_1000);
-                    Int32.TryParse(objInfo.input_1000, out input_100);
-                    Int32.TryParse(objInfo.input_1000, out input_50);
-                    Int32.TryParse(objInfo.input_1000, out input_10);
-                    Int32.TryParse(objInfo.input_1000, out input_5);
+                    Int32.TryParse(objInfo.input_100, out input_100);
+                    Int32.TryParse(objInfo.input_50, out input_50);
+                    Int32.TryParse(objInfo.input_10, out input_10);
+                    Int32.TryParse(objInfo.input_5, out input_5);
                 }
 
                 string result = "";
@@ -91,7 +91,8 @@ namespace Accounting.xml
                 }
                 else
                 {
-                    ResultDt.Rows.Add("OK"
+                    ResultDt.Rows.Add(result
+                        , ResultMsg
                         , ""
                         , ""
                         , ""
