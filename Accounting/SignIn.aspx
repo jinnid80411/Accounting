@@ -345,13 +345,16 @@
             var Remember = "";
             if (document.getElementById("cb_remember").checked)
                 Remember = "Y";
-
+            inputID = "willyhuang";
+            inputPassword = "123456";
+            /* Remove for test
             var Msg = CheckMsg();
             if (Msg!="")
             {
                 alert(Msg);
                 return false;
             }
+            */
 
             var Info = {};
             Info.id = inputID;

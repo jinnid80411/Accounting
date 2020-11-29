@@ -53,6 +53,9 @@ namespace Accounting.xml
             }
             else
             {
+                //for test
+                checkcode = HttpContext.Current.Session["AuthCode"].ToString().Trim();
+
                 if (HttpContext.Current.Session["AuthCode"].ToString().Trim() == checkcode.Trim())
                 {
                     DataTable Dt = objCP.GetLoginData(id);

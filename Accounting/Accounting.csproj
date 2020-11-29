@@ -181,6 +181,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="TestHtmlList.aspx" />
     <Content Include="UsersList.aspx" />
     <Content Include="xml\CompanyGroupList.ashx" />
     <Content Include="xml\CompanyList.ashx" />
@@ -271,6 +272,13 @@
     </Compile>
     <Compile Include="Site2.master.designer.cs">
       <DependentUpon>Site2.master</DependentUpon>
+    </Compile>
+    <Compile Include="TestHtmlList.aspx.cs">
+      <DependentUpon>TestHtmlList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestHtmlList.aspx.designer.cs">
+      <DependentUpon>TestHtmlList.aspx</DependentUpon>
     </Compile>
     <Compile Include="UsersList.aspx.cs">
       <DependentUpon>UsersList.aspx</DependentUpon>

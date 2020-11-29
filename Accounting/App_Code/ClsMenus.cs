@@ -38,6 +38,7 @@ namespace Accounting.App_Code
                     menuList.Rows.Add(10, "", "帳號管理", true, 0);
                     menuList.Rows.Add(11, "CompanyGroupList.aspx", "群組管理", false, 10);
                     menuList.Rows.Add(12, "UsersList.aspx", "帳號管理", false, 10);
+                    menuList.Rows.Add(13, "TestHtmlList.aspx", "HTML頁面", false, 1);
                 }
             }
 
