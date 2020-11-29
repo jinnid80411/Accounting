@@ -136,86 +136,195 @@
                 </div>
             </nav>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div>>
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">當日總額</h1>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日現金收入</button>
+                            <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日現金支出</button>
+                            <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日補零</button>
+                        </div>
+                    </div>
 
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Dashboard</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="input-group" style="padding-top:5px">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日現金</label>
+                        </div>
 
+                        <input type="text" id="tol_output_sum" class="form-control" aria-label="Text input with segmented dropdown button">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">元</label>
+                        </div>
+                    </div>
+                    <div class="input-group" style="padding-top:5px">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日支出</label>
+                        </div>
+
+                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">元</label>
+                        </div>
+                    </div>
+                    <div class="input-group" style="padding-top:5px">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日補零</label>
+                        </div>
+
+                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">元</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="padding-top:5px">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日總計</label>
+                        </div>
+
+                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">元</label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">當日現金收入</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+
+                        </div>
+                     </div>
+
+                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                        <span data-feather="calendar"></span>
+                        This week
+                    </button>
+
+
+                    <div class="input-group" style="padding-top:5px">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$1000</label>
+                        </div>
+
+                        <input type="text" id="input_1000" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">元</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="padding-top:5px">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$100</label>
+                        </div>
+
+                        <input type="text" id="input_100" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">元</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="padding-top:5px">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$50</label>
+                        </div>
+
+                        <input type="text" id="input_50" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">元</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="padding-top:5px">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$10</label>
+                        </div>
+
+                        <input type="text" id="input_10" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">元</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="padding-top:5px">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$5</label>
+                        </div>
+
+                        <input type="text" id="input_5" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">元</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="padding-top:5px">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">總計</label>
+                        </div>
+
+                        <input type="text" id="output_sum" class="form-control" aria-label="Text input with segmented dropdown button">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">送出</button>
+                        </div>
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                    <span data-feather="calendar"></span>
-                    This week
-                </button>
-
-
-                <div class="input-group" style="padding-top:5px">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text"style="min-width:75px"  for="inputGroupSelect01">$1000</label>
+                <div>
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">當日支出</h1>
+                        
                     </div>
-
-                    <input type="text" id="input_1000" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">元</label>
+                    <div class="input-group">
+                        <label class="input-group-text" for="inputGroupSelect01">類別</label>
+                        <input type="text" id="category" class="form-control" aria-label="Text input with dropdown button">
                     </div>
-                </div>
+                    
 
-                <div class="input-group" style="padding-top:5px">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text"style="min-width:75px"  for="inputGroupSelect01">$100</label>
-                    </div>
+                        <div class="input-group">
+                            <label class="input-group-text" for="inputGroupSelect01">品項</label>
+                            <input type="text" id="items" class="form-control" aria-label="Text input with dropdown button">
+                        </div>
 
-                    <input type="text"  id="input_100" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">元</label>
-                    </div>
-                </div>
+                        <div class="input-group-append">
+                            <input type="text" class="form-control">
 
-                <div class="input-group" style="padding-top:5px">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$50</label>
-                    </div>
+                            <div class="input-group-prepend">
+                                <!--<button class="btn btn-outline-secondary" type="button" >新增</button>-->
+                                <INPUT class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('save')" value="新增">
+                            </div>
 
-                    <input type="text" id="input_50" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">元</label>
-                    </div>
-                </div>
+                        </div>
 
-                <div class="input-group" style="padding-top:5px">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" style="min-width:75px"  for="inputGroupSelect01">$10</label>
-                    </div>
+                        <table class="table table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">序號</th>
+                                    <th scope="col">項目</th>
+                                    <th scope="col">刪除</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" width="1">1</th>
+                                    <td scope="row" width="0.2">test</td>
+                                    <td scope="row" width="2">test</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                    <input type="text" id="input_10" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">元</label>
-                    </div>
-                </div>
 
-                <div class="input-group" style="padding-top:5px">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" style="min-width:75px"  for="inputGroupSelect01">$5</label>
-                    </div>
-
-                    <input type="text" id="input_5" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">元</label>
                     </div>
                 </div>
-
-                <div class="input-group" style="padding-top:5px">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" style="min-width:75px"  for="inputGroupSelect01">總計</label>
-                    </div>
-
-                    <input type="text" id="output_sum" class="form-control" aria-label="Text input with segmented dropdown button">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" onclick="RunAjax('Save')" >送出</button>
-                    </div>
-                </div>
-
 
             </main>
 
@@ -231,9 +340,11 @@
             var input_10 = TryParseInt($("#input_10").val());
             var input_5 = TryParseInt($("#input_5").val());
 
-            $("#output_sum").val((input_1000 + input_100 + input_10 + input_50 + input_5).toString());
+             $("#output_sum").val((input_1000 + input_100 + input_10 + input_50 + input_5).toString());
+             $("#tol_output_sum").val((input_1000 + input_100 + input_10 + input_50 + input_5).toString());
+           
         }
-        function RunAjax(Action) {
+        function RunAjax_income(Action) {
 
             
             var input_1000 = TryParseInt($("#input_1000").val()).toString();
@@ -287,6 +398,57 @@
                                 $("#input_10").val(jsonObj[0].input_10);
                                 $("#input_5").val(jsonObj[0].input_5);
                                 //location.href = jsonObj[0].url;
+                            }
+                            else {
+                                console.log(jsonObj[0].result);
+                                alert(jsonObj[0].Msg);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        function RunAjax_income(Action)
+        {
+            var category = $("#category").val().toString();
+            var items = $("#items").val().toString();
+
+            var Msg = CheckMsg();
+            if (Msg != "") {
+                alert(Msg);
+                return false;
+            }
+
+            var Info = {};
+            Info.category = category;
+            Info.items = items;
+            Info.Action = Action;
+
+
+            var jsonData = JSON.stringify(Info);
+            console.log(jsonData);
+            $.ajax({
+                url: "xml/SignIn.ashx",
+                data: jsonData,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    var jsonObj;
+                    var TotalPage;
+                    if (typeof (data) == 'undefined' || data == null) {
+                        jsonObj = "";
+                    }
+                    else {
+                        jsonObj = data;
+                    }
+                    console.log(jsonObj);
+                    if (jsonObj != "") {
+                        if (jsonObj.length > 0) {
+                            if (jsonObj[0].result == "OK") {
+                                console.log("讀取成功");
+                                $("#category").val(jsonObj[0].category).toString();
+                                $("#items").val(jsonObj[0].items).toString();
                             }
                             else {
                                 console.log(jsonObj[0].result);
