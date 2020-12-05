@@ -2,7 +2,60 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">當日總額</h1>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日現金收入</button>
+                        <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日現金支出</button>
+                        <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日補零</button>
+                    </div>
+                </div>
+
+                <div class="input-group" style="padding-top:5px">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日現金</label>
+                    </div>
+
+                    <input type="text" id="tol_output_sum" class="form-control" aria-label="Text input with segmented dropdown button">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">元</label>
+                    </div>
+                </div>
+                <div class="input-group" style="padding-top:5px">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日支出</label>
+                    </div>
+
+                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">元</label>
+                    </div>
+                </div>
+                <div class="input-group" style="padding-top:5px">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日補零</label>
+                    </div>
+
+                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">元</label>
+                    </div>
+                </div>
+
+                <div class="input-group" style="padding-top:5px">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日總計</label>
+                    </div>
+
+                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">元</label>
+                    </div>
+                </div>
+            </div>
+            <div>
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Dashboard</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
@@ -81,7 +134,8 @@
                         <button class="btn btn-outline-secondary" type="button" onclick="RunAjax('Save')" >送出</button>
                     </div>
                 </div>
-            </main>
+            </div>
+        </main>
      <script>
         $(document).ready(function() {
             RunAjax("Read");

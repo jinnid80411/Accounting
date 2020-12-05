@@ -710,8 +710,6 @@ namespace Accounting.App_Code
         }
 
         #endregion
-
-
     }
 
 

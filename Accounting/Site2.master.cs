@@ -16,7 +16,6 @@ namespace Accounting
         string cs_code = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-            UserNo = HttpUtility.HtmlEncode(Session["UserNo"].ToString().Trim());
 
             string retUrl = "";
             retUrl = Request.ServerVariables["Script_Name"].ToString();
@@ -37,6 +36,8 @@ namespace Accounting
                     Response.End();
                 }
             }
+
+            UserNo = HttpUtility.HtmlEncode(Session["UserNo"].ToString().Trim());
         }
     }
 }

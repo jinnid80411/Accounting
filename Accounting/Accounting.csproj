@@ -140,6 +140,7 @@
     <Content Include="CompanyList.aspx" />
     <Content Include="CompanyShopList.aspx" />
     <Content Include="CompanyShopSelect.aspx" />
+    <Content Include="CompanyShop_ItemsTypeList.aspx" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\dashboard.css" />
     <Content Include="css\signin.css" />
@@ -147,6 +148,7 @@
     <Content Include="DayIncome.aspx" />
     <Content Include="ExpendIemText.html" />
     <Content Include="GenerateAuthCode.aspx" />
+    <Content Include="ItemsList.aspx" />
     <Content Include="js\bootstrap.bundle.min.js" />
     <Content Include="js\feather.min.js" />
     <Content Include="js\Format.js" />
@@ -191,12 +193,14 @@
     <Content Include="xml\CompanyShopList.ashx" />
     <Content Include="xml\CompanyUsers.ashx" />
     <Content Include="xml\DayIncome.ashx" />
+    <Content Include="xml\CompanyShop_ItemsTypeList.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\ClsCompany.cs" />
+    <Compile Include="App_Code\ClsItems.cs" />
     <Compile Include="App_Code\ClsMenus.cs" />
     <Compile Include="App_Code\ClsTool.cs" />
     <Compile Include="App_Code\FileTrace.cs" />
@@ -228,6 +232,13 @@
     <Compile Include="CompanyShopSelect.aspx.designer.cs">
       <DependentUpon>CompanyShopSelect.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CompanyShop_ItemsTypeList.aspx.cs">
+      <DependentUpon>CompanyShop_ItemsTypeList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyShop_ItemsTypeList.aspx.designer.cs">
+      <DependentUpon>CompanyShop_ItemsTypeList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DayIncome.aspx.cs">
       <DependentUpon>DayIncome.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -251,6 +262,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ItemsList.aspx.cs">
+      <DependentUpon>ItemsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ItemsList.aspx.designer.cs">
+      <DependentUpon>ItemsList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignIn.aspx.cs">
@@ -296,6 +314,9 @@
     </Compile>
     <Compile Include="xml\CompanyShopList.ashx.cs">
       <DependentUpon>CompanyShopList.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="xml\CompanyShop_ItemsTypeList.ashx.cs">
+      <DependentUpon>CompanyShop_ItemsTypeList.ashx</DependentUpon>
     </Compile>
     <Compile Include="xml\CompanyUsers.ashx.cs">
       <DependentUpon>CompanyUsers.ashx</DependentUpon>
