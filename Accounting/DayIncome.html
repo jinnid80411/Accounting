@@ -276,13 +276,33 @@
                     </div>
                     <div class="input-group">
                         <label class="input-group-text" for="inputGroupSelect01">類別</label>
-                        <input type="text" id="category" class="form-control" aria-label="Text input with dropdown button">
+                        <select name="pets" id="category" class="form-control" aria-label="Text input with dropdown button">
+                            <option value="">請選擇你最愛的寵物</option>
+                            <option value="dog">Dog</option>
+                            <option value="cat" selected>Cat</option>
+                            <option value="hamster">Hamster</option>
+                            <option value="parrot">Parrot</option>
+                            <option value="spider" disabled>Spider</option>
+                            <option value="goldfish">Goldfish</option>
+                        </select>
+
+                        <!-- <input type="text" id="category" class="form-control" aria-label="Text input with dropdown button"> -->
                     </div>
                     
 
                         <div class="input-group">
                             <label class="input-group-text" for="inputGroupSelect01">品項</label>
-                            <input type="text" id="items" class="form-control" aria-label="Text input with dropdown button">
+                            <select name="pets" id="items" class="form-control" aria-label="Text input with dropdown button">
+                                <option value="">請選擇你最愛的寵物</option>
+                                <option value="dog">Dog</option>
+                                <option value="cat" selected>Cat</option>
+                                <option value="hamster">Hamster</option>
+                                <option value="parrot">Parrot</option>
+                                <option value="spider" disabled>Spider</option>
+                                <option value="goldfish">Goldfish</option>
+                            </select>
+                            <!-- <input type="text" id="items" class="form-control" aria-label="Text input with dropdown button"> -->
+                            
                         </div>
 
                         <div class="input-group-append">
@@ -290,7 +310,7 @@
 
                             <div class="input-group-prepend">
                                 <!--<button class="btn btn-outline-secondary" type="button" >新增</button>-->
-                                <INPUT class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('save')" value="新增">
+                                <INPUT class="btn btn-outline-secondary" type="button" onclick="RunAjax_outcome('save')" value="新增">
                             </div>
 
                         </div>
@@ -408,7 +428,7 @@
                 }
             });
         }
-        function RunAjax_income(Action)
+        function RunAjax_outcome(Action)
         {
             var category = $("#category").val().toString();
             var items = $("#items").val().toString();

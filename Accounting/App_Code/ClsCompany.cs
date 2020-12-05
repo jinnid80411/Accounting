@@ -609,7 +609,7 @@ namespace Accounting.App_Code
         #endregion
         #region==CompanyToday==
 
-        public DataTable GetCompanyShopToday(string cs_code)
+        public DataTable GetCompanyShopToday(string cs_code,string InputDate)
         {
             DataTable Dt = new DataTable();
 
@@ -617,7 +617,7 @@ namespace Accounting.App_Code
 
             //strSQL = @" select * from AdvUsers with (nolock) where Code=@pno ";
             strSQL = @" select * from [InCome] with (nolock)                    
-                    Where 1=1 and cs_code=@cs_code ";
+                    Where 1=1 and cs_code=@cs_code and DateDiff(dd,createdate,@InputDate) = 0 ";
 
             string connString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AccountingConn"].ToString();
 
@@ -626,6 +626,7 @@ namespace Accounting.App_Code
                 SqlCommand cmd = new SqlCommand(strSQL);
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@cs_code", cs_code);
+                cmd.Parameters.AddWithValue("@InputDate", InputDate);
 
                 cmd.Connection = conn;
                 conn.Open();

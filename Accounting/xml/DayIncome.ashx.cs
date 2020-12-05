@@ -77,7 +77,7 @@ namespace Accounting.xml
                         ResultMsg = "讀取成功!";
                         break;
                 }
-                DataTable Dt = objCP.GetCompanyShopToday(cs_code);
+                DataTable Dt = objCP.GetCompanyShopToday(cs_code,DateTime.Now.ToString("yyyy/MM/dd"));
 
                 if (Dt.Rows.Count > 0)
                 {

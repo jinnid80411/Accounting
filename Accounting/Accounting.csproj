@@ -144,6 +144,7 @@
     <Content Include="css\dashboard.css" />
     <Content Include="css\signin.css" />
     <Content Include="dashboard.html" />
+    <Content Include="DayExpend - 複製.html" />
     <Content Include="DayIncome.aspx" />
     <Content Include="GenerateAuthCode.aspx" />
     <Content Include="js\bootstrap.bundle.min.js" />

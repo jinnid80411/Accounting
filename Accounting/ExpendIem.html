@@ -2,25 +2,29 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="generator" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
     <title>記帳系統</title>
+
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/dashboard.css" rel="stylesheet" />
+    <!--other js-->
+    <script src="js/Format.js"></script>
+    <script src="js/Tools.js"></script>
 
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-    <link rel="icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-    <link rel="manifest" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/manifest.json">
-    <link rel="mask-icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
-    <link rel="icon" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/favicon.ico">
-    <meta name="msapplication-config" content="https://getbootstrap.com/docs/4.5/assets/img/favicons/browserconfig.xml">
-    <meta name="theme-color" content="#563d7c">
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/feather.min.js"></script>
+    <link href="bootstrapdatepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="bootstrapdatepicker/js/bootstrap-datepicker.js"></script>
+    <script src="bootstrapdatepicker/locales/bootstrap-datepicker.zh-TW.min.js"></script>
 
 
     <style>
@@ -39,21 +43,6 @@
             }
         }
     </style>
-    <!-- Custom styles for this template -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/dashboard.css" rel="stylesheet" />
-    <!--other js-->
-    <script src="js/Format.js"></script>
-    <script src="js/Tools.js"></script>
-
-    <script src="js/jquery-3.5.1.min.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/feather.min.js"></script>
-    <link href="bootstrapdatepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
-    <script src="bootstrapdatepicker/js/bootstrap-datepicker.js"></script>
-    <script src="bootstrapdatepicker/locales/bootstrap-datepicker.zh-TW.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -165,8 +154,7 @@
 
                     <div class="input-group-prepend">
                         <!--<button class="btn btn-outline-secondary" type="button" >新增</button>-->
-                        <INPUT class="btn btn-outline-secondary" type="button" onclick="RunAjax('save')" value="新增">
-                        4
+                        <input class="btn btn-outline-secondary" type="button" onclick=" RunAjax_Add('save')"  value="新增">
                     </div>
 
                 </div>
@@ -175,23 +163,27 @@
 
 
 
+            
 
-
-        </div> <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h3">支出品項列表</h1>
-            <div class="input-group-append rounded float-right">
-
-                <input type="text" class="form-control">
-                <div class="btn btn-outline-secondary">
-                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
-                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
-                    </svg>
-                    <!--<input class="btn btn-outline-secondary" type="button" value="搜尋">-->
-
+            <div> 
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">支出品項列表</h1>
+            </div>
+            <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> -->
+                <div class="input-group-append rounded float-right">
+                    
+                    <input type="text" id="serch_item" class="form-control">
+                        <!-- <div class="btn btn-outline-secondary" style="height: fit-content;">
+                            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                            </svg>
+                        </div> -->
+                        <input class="btn btn-outline-secondary" style="height: fit-content;" type="button" onclick=" RunAjax_Serch('save')" value="搜尋">
                 </div>
 
             </div>
+            
 
             <table class="table table-bordered">
                 <thead class="thead-light">
@@ -236,6 +228,113 @@
 
             alert(category);
             alert(items);
+        }
+        function RunAjax_Add(Action)
+        {
+            var category = $("#category").val().toString();
+            var items = $("#items").val().toString();
+
+            alert(category);
+            alert(items);
+
+            var Msg = CheckMsg();
+            if (Msg != "") {
+                alert(Msg);
+                return false;
+            }
+
+            var Info = {};
+            Info.category = category;
+            Info.items = items;
+            Info.Action = Action;
+
+
+            var jsonData = JSON.stringify(Info);
+            console.log(jsonData);
+            $.ajax({
+                url: "xml/SignIn.ashx",
+                data: jsonData,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    var jsonObj;
+                    var TotalPage;
+                    if (typeof (data) == 'undefined' || data == null) {
+                        jsonObj = "";
+                    }
+                    else {
+                        jsonObj = data;
+                    }
+                    console.log(jsonObj);
+                    if (jsonObj != "") {
+                        if (jsonObj.length > 0) {
+                            if (jsonObj[0].result == "OK") {
+                                console.log("讀取成功");
+                                $("#category").val(jsonObj[0].category).toString();
+                                $("#items").val(jsonObj[0].items).toString();
+                            }
+                            else {
+                                console.log(jsonObj[0].result);
+                                alert(jsonObj[0].Msg);
+                            }
+                        }
+                    }
+                }
+            });
+
+        }
+
+        function RunAjax_Serch(Action)
+        {
+            var serch_item = $("#serch_item").val().toString();
+            alert(serch_item);
+            var Msg = CheckMsg();
+            if (Msg != "") {
+                alert(Msg);
+                return false;
+            }
+
+            var Info = {};
+            Info.category = category;
+            Info.items = items;
+            Info.Action = Action;
+
+
+            var jsonData = JSON.stringify(Info);
+            console.log(jsonData);
+            $.ajax({
+                url: "xml/SignIn.ashx",
+                data: jsonData,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    var jsonObj;
+                    var TotalPage;
+                    if (typeof (data) == 'undefined' || data == null) {
+                        jsonObj = "";
+                    }
+                    else {
+                        jsonObj = data;
+                    }
+                    console.log(jsonObj);
+                    if (jsonObj != "") {
+                        if (jsonObj.length > 0) {
+                            if (jsonObj[0].result == "OK") {
+                                console.log("讀取成功");
+                                $("#serch_item").val().toString();
+                            }
+                            else {
+                                console.log(jsonObj[0].result);
+                                alert(jsonObj[0].Msg);
+                            }
+                        }
+                    }
+                }
+            });
+
+
         }
     </script>
 </body>
