@@ -154,7 +154,7 @@
 
                     <div class="input-group-prepend">
                         <!--<button class="btn btn-outline-secondary" type="button" >新增</button>-->
-                        <input class="btn btn-outline-secondary" type="button" onclick=" RunAjax_Add('save')" value="新增" />
+                        <input class="btn btn-outline-secondary" type="button" onclick="RunAjax_Add('save')" value="新增" />
                     </div>
 
                 </div>
@@ -215,9 +215,9 @@
           addcheck = 1;
           if (addcheck == 1) {
               tableData += "<tr>";
-              tableData += "<td></td>";
-              tableData += "<td>類別名稱</td>";
-              tableData += "</tr>";
+              tableData += "<td><td/>";
+              tableData += "<td>類別名稱<td/>";
+              tableData += "<tr/>";
           }
           creatTable(data);
       }
