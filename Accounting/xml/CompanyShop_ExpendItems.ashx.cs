@@ -14,6 +14,7 @@ namespace Accounting.xml
     {
         FileTrace ft = new FileTrace();
         ClsItems objIT = new ClsItems();
+        int i = 0;
         public void ProcessRequest(HttpContext context)
         {
             string strJson = new StreamReader(context.Request.InputStream).ReadToEnd();
@@ -23,17 +24,22 @@ namespace Accounting.xml
             {
                 Action = objInfo.Action;
             }
+
             DataTable ResultDt = new DataTable();
             ResultDt.Columns.Add("result");
             ResultDt.Columns.Add("Msg");
             DataTable Dt = new DataTable();
             string[] ColumnsControl = { "it_code", "it_name"};
+
             switch (Action)
             {
                 case "GetAll":
+
                     Dt = objIT.GetItemsType_CompanyShopData(objInfo.cs_code, "", "");
+
                     if (Dt.Rows.Count > 0)
                     {
+                        ResultDt.Columns.Add("No");
                         for (int i2 = 0; i2 < ColumnsControl.Length; i2++)
                         {
                             ResultDt.Columns.Add(ColumnsControl[i2]);
@@ -46,6 +52,7 @@ namespace Accounting.xml
                             DataRow row = ResultDt.NewRow();
                             row["result"] = "OK";
                             row["Msg"] = "";
+                            row["No"] = (i + 1).ToString();
                             for (int i2 = 0; i2 < ColumnsControl.Length; i2++)
                             {
                                 row[ColumnsControl[i2].ToString().Trim()] = Dt.Rows[i][ColumnsControl[i2].ToString().Trim()].ToString();
@@ -53,7 +60,6 @@ namespace Accounting.xml
                             row["Items"] = StrGUID;
                             ResultDt.Rows.Add(row);                            
                         }
-                        
 
                     }
                     else
@@ -71,8 +77,12 @@ namespace Accounting.xml
                     for (int i = 0; i < ResultDt.Rows.Count; i++)
                     {
                         DataTable Dt_Items = objIT.Get_vw_Items_CompanyShopData(objInfo.cs_code, ResultDt.Rows[i]["it_code"].ToString(), "","");
+
                         string ajson_items = JsonConvert.SerializeObject(Dt_Items, Formatting.Indented);
-                        ajson = ajson.Replace(ResultDt.Rows[i]["Items"].ToString(), ajson_items);
+                        if(Dt_Items.Rows.Count>0)
+                            ajson = ajson.Replace(ResultDt.Rows[i]["Items"].ToString(), ajson_items);
+                        else
+                            ajson = ajson.Replace(ResultDt.Rows[i]["Items"].ToString(), "");
                     }
 
 

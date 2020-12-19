@@ -18,46 +18,63 @@
                                 <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
                             </svg>
                         </div> -->
-                        <input class="btn btn-outline-secondary" style="height: fit-content;" type="button" onclick=" RunAjax_Serch('save')" value="搜尋" />
+                        <input class="btn btn-outline-secondary" style="height: fit-content;" type="button" onclick=" RunAjax_Serch()" value="搜尋" />
                     </div>
 
                 </div>
 
                 <table class="table table-bordered">
                     <thead class="thead-light">
-                        <tr>
-                            <th scope="col" style="width:10%">序號</th>
-                            <th style="width:60%" scope="col" >類別</th>
-                            <th style="width:20%"> 
-                                <input type="button" class="btn btn-outline-secondary" onclick=" RunAjax_Add('add')" value="新增類別" />
-                            </th>
+                        <tr id="thead_list">
+                            <th scope="col" width="5%">序號</th>
+                            <th colspan="2" scope="col" width="95%">類別</th>
+                            <th> <input type="button" class="btn btn-outline-secondary" onclick="RunAjax_Add()" value="新增類別" /></th>
+                        </tr>
+                        <tr id="thead_add" style="display:none;">
+                            <td></td>
+                            <td style = "border-right: none";> 新增類別</td>
+                            <td style="border-right: none";>
+                                <input class = "form-control" type="text" value="類別"/>
+                            </td>
+                            <td align="right" style="border-left: none"; >
+                                <input type="button" class="btn btn-outline-secondary" value="新增"/>
+                                <input type="button" class="btn btn-outline-secondary" onclick="RunAjax_Add()" value="取消"/>
+                            </td>
                         </tr>
                     </thead>
-                    <tbody id="tbody1">
-                    </tbody>
+                    <tbody id="tbody1"></tbody>
 
                 </table>
-
+                
+                <input type="hidden" id="hid_cs_code" value="<%=cs_code %>" />
+                <input type="hidden" id="hid_user" value="<%=UserNo %>" />
             </main>
     
     <script type="text/javascript">
-      var data = Array();
-      var dataRow1 = { No: "1", Type: "豬肉", Contentlist: [{ content: "絞肉", merchant: "朱老闆", merchant_id: "123456" }, { content: "肉片", merchant: "朱老闆", merchant_id: "123456" }] };
+        
+      /*var dataRow1 = { No: "1", Type: "豬肉", Contentlist: [{ content: "絞肉", merchant: "朱老闆", merchant_id: "123456" }, { content: "肉片", merchant: "朱老闆", merchant_id: "123456" }] };
       var dataRow2 = { No: "2", Type: "菜", Contentlist: [{ content: "高麗菜", merchant: "菜阿姨", merchant_id: "135790" }, { content: "韭菜", merchant: "菜阿姨", merchant_id: "135790" }] };
       data.push(dataRow1);
       data.push(dataRow2);
+      */
+      var ItemsTypeList = new Array();
       var tableData = "";
       var serchcheck = "";
       var addcheck = 0;
+      $(function() {
+          RunAjax_Serch();
+      });
 
-      function RunAjax_Serch(Action)
+      function RunAjax_Add()
       {
-          var jsonData = JSON.stringify(data);
-          var ObjectData = JSON.parse(jsonData);
-        tableData = "";
-        serchcheck = "";
+          $("#thead_add").toggle();
+          //$("#thead_list").toggle();
+      }
 
-        creatTable(data);
+      function RunAjax_Serch()
+      {
+          RunAjax_GetAll();
+        //
 
       }
 
@@ -67,50 +84,89 @@
         {
 
             tableData += "<tr>";
-            tableData += "<td>" + data[i].No + "</td>";
-            tableData += "<td colspan=\"2\" style = \"border-right: none\"; >" + data[i].Type + "</td>";
-            tableData += "<td align=\"right\" style=\"border-left: none\"; >" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"修改類別\"/>" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"查看\" onclick=\"Serchlist(" + i.toString() + ")\" />" + "</td>";
+            tableData += "<td>" + data[i].it_code + "</td>";
+            tableData += "<td colspan=\"2\" style = \"border-right: none\"; >" + data[i].it_name + "</td>";
+            tableData += "<td align=\"right\" style=\"border-left: none\"; >" + "<input type=\"button\" class=\"btn btn-outline-secondary\" onclick=\"\" value=\"修改類別\"/>" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"查看\" onclick=\"ItemsControl('"+data[i].it_code+"')\" />" + "</td>";
             //alert(serchcheck);
             //對應Serchlist() 顯示品項內容
-            if(serchcheck==data[i].No)
-            {
-              if (data[i].Contentlist != null)
-              {
-                    tableData += "<tr style=\"background-color: lightslategray;\">";
-                    tableData += "<td> </td>";
-                    tableData += "<td width=\"30%\">" + "品項" + "</td>";
-                    tableData += "<td width=\"40%\"colspan=\"2\">" + "廠商" + "</td> </tr>";
-                    for (var j = 0 ; j < data[i].Contentlist.length ; j++) {
-                        tableData += "<tr> <td> </td>" + "<td>" + data[i].Contentlist[j].content + "</td>" + "<td style = \"border-right: none\";>" + data[i].Contentlist[j].merchant + "</td>";
-                        tableData += "<td style = \"border-left: none\"; align=\"right\"><input type=\"button\" class=\"btn btn-outline-secondary\" value=\"修改品項\"/>" + "</td> </tr>";
-                    }
-                    tableData += "<tr>";
-                    tableData += "<td colspan=\"4\" align=\"right\">" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"新增品項\"/>" + "</td>";
-                    tableData += "</tr>";
-                    tableData += "</tr>";
-                    //alert(tableData);
+            console.log(data[i].Items.length);
+            if (data[i].Items.length>0) {
+                tableData += "<tr class=\"tr_" + data[i].it_code + "\" style=\"display:none;background-color: lightslategray;\">";
+                tableData += "<td> </td>";
+                tableData += "<td width=\"30%\">" + "品項" + "</td>";
+                tableData += "<td width=\"40%\" colspan=\"2\">" + "廠商" + "</td> </tr>";
+                for (var j = 0; j < data[i].Items.length; j++) {
+                    tableData += "<tr class=\"tr_" + data[i].it_code + "\"  style=\"display:none;\" > <td> </td>" + "<td>" + data[i].Items[j].i_name + "</td>" + "<td style = \"border-right: none\";>" + data[i].Items[j].vendor_name + "</td>";
+                    tableData += "<td style = \"border-left: none\"; align=\"right\"><input type=\"button\" class=\"btn btn-outline-secondary\" value=\"修改品項\"/>" + "</td> </tr>";
                 }
-              }
+                //alert(tableData);
+            } else {
+                tableData += "<tr class=\"tr_" + data[i].it_code + "\" style=\"display:none;background-color: lightslategray;\">";
+                tableData += "<td> </td>";
+                tableData += "<td width=\"30%\">" + "品項" + "</td>";
+                tableData += "<td width=\"40%\" colspan=\"2\">" + "廠商" + "</td> </tr>";
+                tableData += "<tr class=\"tr_" + data[i].it_code + "\" style=\"display:none;\">";
+                tableData += "<td colspan=\"4\">暫無資料 </td>";
+                tableData += "</tr>";
+            }
+              
+                tableData += "<tr class=\"tr_" + data[i].it_code + "\" style=\"display:none;\">";
+                tableData += "<td colspan=\"4\" align=\"right\">" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"新增品項\"/>" + "</td>";
+                tableData += "</tr>";
+                tableData += "</tr>";
 
 
               tableData += "</tr>";
         }
 
 
+        
 
         $("#tbody1").html(tableData)
-        }
+    }
+          function ItemsControl(it_code)
+          {
+              $(".tr_" + it_code).toggle();
+          }
 
         //依選擇的No顯示下拉式table
         function Serchlist(i)
         {
             //alert(data[i].Contentlist[0].content);
-            serchcheck = data[i].No;
+            serchcheck = data[i].it_code;
             //alert(serchcheck);
             tableData="";
             creatTable(data);
         }
 
+        function RunAjax_GetAll()
+        {
+            var Info = {};
+            Info.Action = "GetAll";
+            Info.cs_code = $("#hid_cs_code").val();
+            Info.createuser = $("#hid_user").val();          
+            Info.it_code = "";
+            Info.CRUD = "";
+            Info.it_name = "";
+
+            var jsonData = JSON.stringify(Info);
+            //console.log(jsonData);
+             $.ajax({
+                url: "xml/CompanyShop_ExpendItems.ashx",
+                data: jsonData,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                 success: function (data) {
+                     
+                     //console.log(data);
+                     ItemsTypeList = data;
+                     creatTable(ItemsTypeList)
+                 }
+                 
+                 });
+
+        }
     </script>
 
 </asp:Content>
