@@ -111,6 +111,47 @@ namespace Accounting.App_Code
         }
         #endregion
         #region==Items==
+
+
+        public DataTable Get_vw_Items_CompanyShopData(string cs_code, string it_code, string it_name, string i_code)
+        {
+            DataTable Dt = new DataTable();
+
+            string strSQL = @"";
+
+            //strSQL = @" select * from AdvUsers with (nolock) where Code=@pno ";
+            strSQL = @" select * from [vw_Items_CompanyShop] c with (nolock)   
+                    Where 1=1 and c.cs_code=@cs_code";
+            if (it_code != "")
+                strSQL += " and c.it_code = @it_code";
+            if (i_code != "")
+                strSQL += " and c.i_code = @i_code";
+            if (it_name != "")
+                strSQL += " and c.it_name = @it_name";
+            string connString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AccountingConn"].ToString();
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand(strSQL);
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@cs_code", cs_code);
+                if (it_code != "")
+                    cmd.Parameters.AddWithValue("@it_code", it_code);
+                if (i_code != "")
+                    cmd.Parameters.AddWithValue("@i_code", i_code);
+                if (it_name != "")
+                    cmd.Parameters.AddWithValue("@it_name", it_name);
+
+                cmd.Connection = conn;
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                Dt.Load(dr);
+                conn.Close();
+            }
+
+            return Dt;
+        }
+
         public DataTable GetItems_CompanyShopData(string cs_code, string it_code, string it_name,string i_code)
         {
             DataTable Dt = new DataTable();
