@@ -135,7 +135,7 @@
             </nav>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                
+
                 <div>
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <h1 class="h2">支出品項列表</h1>
@@ -157,9 +157,11 @@
 
                 <table class="table table-bordered">
                     <thead class="thead-light">
-                    <th scope="col" width="5%">序號</th>
-                    <th colspan="2" scope="col" width="95%">類別</th>
-                    <th> <input type="button" class="btn btn-outline-secondary" onclick=" RunAjax_Add('add')" value="新增類別" /></th>
+                        <tr>
+                            <th scope="col" width="5%">序號</th>
+                            <th colspan="2" scope="col" width="95%">類別</th>
+                            <th> <input type="button" class="btn btn-outline-secondary" onclick="RunAjax_Add('add')" value="新增類別" /></th>
+                        </tr>
                     </thead>
                     <tbody id="tbody1"></tbody>
 
@@ -169,14 +171,37 @@
         </div>
     </div>
     <script type="text/javascript">
-      var data = Array();
-      var dataRow1 = { No: "1", Type: "豬肉", Contentlist: [{ content: "絞肉", merchant: "朱老闆", merchant_id: "123456" }, { content: "肉片", merchant: "朱老闆", merchant_id: "123456" }] };
-      var dataRow2 = { No: "2", Type: "菜", Contentlist: [{ content: "高麗菜", merchant: "菜阿姨", merchant_id: "135790" }, { content: "韭菜", merchant: "菜阿姨", merchant_id: "135790" }] };
-      data.push(dataRow1);
-      data.push(dataRow2);
-      var tableData = "";
-      var serchcheck = "";
-      var addcheck = 0;
+        var data = Array();
+        var dataRow1 = { it_code: "1", it_name: "豬肉", Items: [{ i_name: "絞肉", vendor_name: "朱老闆", i_code: "123456" }, { i_name: "肉片", vendor_name: "朱老闆", i_code: "123456" }] };
+        var dataRow2 = { it_code: "2", it_name: "菜", Items: [{ i_name: "高麗菜", vendor_name: "菜阿姨", i_code: "135790" }, { i_name: "韭菜", vendor_name: "菜阿姨", i_code: "135790" }] };
+        data.push(dataRow1);
+        data.push(dataRow2);
+        var tableData = "";
+        var serchcheck = "";
+        var addcheck = 0;
+        $(function () {
+          RunAjax_Serch('save');
+
+      });
+
+      function RunAjax_Add(Action)
+      {
+          tableData = "";
+          serchcheck = "";
+          addcheck = 1;
+          if (addcheck == 1) {
+              tableData += "<tr>"
+              tableData += "<td></td>";
+              tableData += "<td style = \"border-right: none\";> 新增類別</td>";
+              tableData += "<td style=\"border-right: none\";>" + "<input class = \"form-control\" type=\"text\" value=\"類別\"/>"
+              tableData += "<td align=\"right\" style=\"border-left: none\"; >" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"新增\"/>"
+              tableData += "</td>";
+              tableData += "</tr>";
+
+          }
+          creatTable(data);
+      }
+
 
       function RunAjax_Serch(Action)
       {
@@ -194,21 +219,21 @@
         {
 
             tableData += "<tr>";
-            tableData += "<td>" + data[i].No + "</td>";
-            tableData += "<td colspan=\"2\" style = \"border-right: none\"; >" + data[i].Type + "</td>";
+            tableData += "<td>" + data[i].it_code + "</td>";
+            tableData += "<td colspan=\"2\" style = \"border-right: none\"; >" + data[i].it_name + "</td>";
             tableData += "<td align=\"right\" style=\"border-left: none\"; >" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"修改類別\"/>" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"查看\" onclick=\"Serchlist(" + i.toString() + ")\" />" + "</td>";
             //alert(serchcheck);
             //對應Serchlist() 顯示品項內容
-            if(serchcheck==data[i].No)
+            if (serchcheck == data[i].it_code)
             {
-              if (data[i].Contentlist != null)
+              if (data[i].Items != null)
               {
                     tableData += "<tr style=\"background-color: lightslategray;\">";
                     tableData += "<td> </td>";
                     tableData += "<td width=\"30%\">" + "品項" + "</td>";
-                    tableData += "<td width=\"40%\"colspan=\"2\">" + "廠商" + "</td> </tr>";
-                    for (var j = 0 ; j < data[i].Contentlist.length ; j++) {
-                        tableData += "<tr> <td> </td>" + "<td>" + data[i].Contentlist[j].content + "</td>" + "<td style = \"border-right: none\";>" + data[i].Contentlist[j].merchant + "</td>";
+                    tableData += "<td width=\"40%\" colspan=\"2\">" + "廠商" + "</td> </tr>";
+                    for (var j = 0 ; j < data[i].Items.length ; j++) {
+                        tableData += "<tr> <td> </td>" + "<td>" + data[i].Items[j].i_name + "</td>" + "<td style = \"border-right: none\";>" + data[i].Items[j].vendor_name + "</td>";
                         tableData += "<td style = \"border-left: none\"; align=\"right\"><input type=\"button\" class=\"btn btn-outline-secondary\" value=\"修改品項\"/>" + "</td> </tr>";
                     }
                     tableData += "<tr>";
@@ -231,8 +256,8 @@
         //依選擇的No顯示下拉式table
         function Serchlist(i)
         {
-            //alert(data[i].Contentlist[0].content);
-            serchcheck = data[i].No;
+            //alert(data[i].Items[0].i_name);
+            serchcheck = data[i].it_code;
             //alert(serchcheck);
             tableData="";
             creatTable(data);
