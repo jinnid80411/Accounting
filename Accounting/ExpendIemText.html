@@ -186,14 +186,13 @@
 
                 <table class="table table-bordered">
                     <thead class="thead-light">
-                    <th scope="col" width="5%">序號</th>
-                    <th colspan="2" scope="col" width="95%">類別</th>
-                    <th> <input type="button" value="新增類別" /> </th>
-
+                        <th scope="col" width="5%">序號</th>
+                        <th colspan="2" scope="col" width="95%">類別</th>
+                        <th> <input type="button" class="btn btn-outline-secondary" onclick=" RunAjax_Add('add')" value="新增類別" /></th>
                     </thead>
-                    <tbody>
-                    <tbody id="tbody1"></tbody>
+                    <tbody id="tbody1">
                     </tbody>
+                    
                 </table>
 
             </main>
@@ -207,11 +206,29 @@
       data.push(dataRow2);
       var tableData = "";
       var serchcheck = "";
+      var addcheck = 0;
+
+      function RunAjax_Add(Action)
+      {
+          tableData = "";
+          serchcheck = "";
+          addcheck = 1;
+          if (addcheck == 1) {
+              tableData += "<tr>";
+              tableData += "<td></td>";
+              tableData += "<td>類別名稱</td>";
+              tableData += "</tr>";
+          }
+          creatTable(data);
+      }
+
 
       function RunAjax_Serch(Action)
       {
         //var jsonData = JSON.stringify(data);
         tableData = "";
+        serchcheck = "";
+
         creatTable(data);
 
       }
@@ -224,10 +241,8 @@
             tableData += "<tr>";
             tableData += "<td>" + data[i].No + "</td>";
             tableData += "<td colspan=\"2\" style = \"border-right: none\"; >" + data[i].Type + "</td>";
-            tableData += "<td align=\"right\" style=\"border-left: none\"; >" + "<input type=\"button\" value=\"修改類別\"/>" + "<input type=\"button\" value=\"查看\" onclick=\"Serchlist(" + i.toString() + ")\" />" + "</td>";
+            tableData += "<td align=\"right\" style=\"border-left: none\"; >" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"修改類別\"/>" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"查看\" onclick=\"Serchlist(" + i.toString() + ")\" />" + "</td>";
             //alert(serchcheck);
-
-
             //對應Serchlist() 顯示品項內容
             if(serchcheck==data[i].No)
             {
@@ -239,10 +254,10 @@
                     tableData += "<td width=\"40%\"colspan=\"2\">" + "廠商" + "</td> </tr>";
                     for (var j = 0 ; j < data[i].Contentlist.length ; j++) {
                         tableData += "<tr> <td> </td>" + "<td>" + data[i].Contentlist[j].content + "</td>" + "<td style = \"border-right: none\";>" + data[i].Contentlist[j].merchant + "</td>";
-                        tableData += "<td style = \"border-left: none\"; align=\"right\"><input type=\"button\" value=\"修改品項\"/>" + "</td> </tr>";
+                        tableData += "<td style = \"border-left: none\"; align=\"right\"><input type=\"button\" class=\"btn btn-outline-secondary\" value=\"修改品項\"/>" + "</td> </tr>";
                     }
                     tableData += "<tr>";
-                    tableData += "<td colspan=\"4\" align=\"right\">" + "<input type=\"button\" value=\"新增品項\"/>" + "</td>";
+                    tableData += "<td colspan=\"4\" align=\"right\">" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"新增品項\"/>" + "</td>";
                     tableData += "</tr>";
                     tableData += "</tr>";
                     //alert(tableData);
@@ -263,7 +278,7 @@
         {
             //alert(data[i].Contentlist[0].content);
             serchcheck = data[i].No;
-            alert(serchcheck);
+            //alert(serchcheck);
             tableData="";
             creatTable(data);
         }

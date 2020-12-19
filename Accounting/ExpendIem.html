@@ -1,15 +1,14 @@
-﻿
-<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.1.1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+    <meta name="generator" content="Jekyll v4.1.1" />
     <title>記帳系統</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/" />
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -43,12 +42,13 @@
             }
         }
     </style>
+
 </head>
 <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">記帳系統</a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span> 			
+            <span class="navbar-toggler-icon"></span>
         </button>
         <!--
         <ul class="form-control-dark w-100" type="text">
@@ -105,7 +105,7 @@
                     <div style="
                          padding-left 10px;
                          padding-right 10px;
-                         "><hr></div>
+                         "><hr /></div>
                     <ul class="nav flex-column mb-2">
                         <li class="nav-item">
                             <a class="nav-link" href="#" style="font-weight: bold;font-size: 16px;">
@@ -141,20 +141,20 @@
                 <div class="input-group">
 
                     <label class="input-group-text" for="inputGroupSelect01">類別</label>
-                    <input type="text" id="category" class="form-control" aria-label="Text input with dropdown button">
+                    <input type="text" id="category" class="form-control" aria-label="Text input with dropdown button" />
                 </div>
 
                 <div class="input-group">
                     <label class="input-group-text" for="inputGroupSelect01">品項</label>
-                    <input type="text" id="items" class="form-control" aria-label="Text input with dropdown button">
+                    <input type="text" id="items" class="form-control" aria-label="Text input with dropdown button" />
                 </div>
 
                 <div class="input-group-append">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" />
 
                     <div class="input-group-prepend">
                         <!--<button class="btn btn-outline-secondary" type="button" >新增</button>-->
-                        <input class="btn btn-outline-secondary" type="button" onclick=" RunAjax_Add('save')"  value="新增">
+                        <input class="btn btn-outline-secondary" type="button" onclick=" RunAjax_Add('save')" value="新增" />
                     </div>
 
                 </div>
@@ -163,179 +163,128 @@
 
 
 
-            
 
-            <div> 
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">支出品項列表</h1>
-            </div>
-            <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> -->
-                <div class="input-group-append rounded float-right">
-                    
-                    <input type="text" id="serch_item" class="form-control">
+
+                <div>
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">支出品項列表</h1>
+                    </div>
+                    <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> -->
+                    <div class="input-group-append rounded float-right">
+
+                        <input type="text" id="serch_item" class="form-control" />
                         <!-- <div class="btn btn-outline-secondary" style="height: fit-content;">
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
                                 <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
                             </svg>
                         </div> -->
-                        <input class="btn btn-outline-secondary" style="height: fit-content;" type="button" onclick=" RunAjax_Serch('save')" value="搜尋">
+                        <input class="btn btn-outline-secondary" style="height: fit-content;" type="button" onclick=" RunAjax_Serch('save')" value="搜尋" />
+                    </div>
+
                 </div>
 
-            </div>
-            
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                    <th scope="col" width="5%">序號</th>
+                    <th colspan="2" scope="col" width="95%">類別</th>
+                    <th> <input type="button" class="btn btn-outline-secondary" onclick=" RunAjax_Add('add')" value="新增類別" /></th>
+                    </thead>
+                    <tbody id="tbody1"></tbody>
 
-            <table class="table table-bordered">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col">序號</th>
-                        <th scope="col">項目</th>
-                        <th scope="col">修改</th>
-                        <th scope="col">刪除</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row" width="1">1</th>
-                        <td scope="row" width="0.2">test</td>
-                        <td scope="row" width="2">test</td>
-                        <td scope="row" width="2">test</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
+                </table>
 
             </main>
         </div>
     </div>
+    <script type="text/javascript">
+      var data = Array();
+      var dataRow1 = { No: "1", Type: "豬肉", Contentlist: [{ content: "絞肉", merchant: "朱老闆", merchant_id: "123456" }, { content: "肉片", merchant: "朱老闆", merchant_id: "123456" }] };
+      var dataRow2 = { No: "2", Type: "菜", Contentlist: [{ content: "高麗菜", merchant: "菜阿姨", merchant_id: "135790" }, { content: "韭菜", merchant: "菜阿姨", merchant_id: "135790" }] };
+      data.push(dataRow1);
+      data.push(dataRow2);
+      var tableData = "";
+      var serchcheck = "";
+      var addcheck = 0;
 
-    <script>
-        function RunAjax(Action) {
-            var category = $("#category").val().toString();
-            var items = $("#items").val().toString();
+      function RunAjax_Add(Action)
+      {
+          tableData = "";
+          serchcheck = "";
+          addcheck = 1;
+          if (addcheck == 1) {
+              tableData += "<tr>";
+              tableData += "<td></td>";
+              tableData += "<td>類別名稱</td>";
+              tableData += "</tr>";
+          }
+          creatTable(data);
+      }
 
-            alert(category);
-            alert(items);
-        }
-        function RunAjax_Add(Action)
+
+      function RunAjax_Serch(Action)
+      {
+        //var jsonData = JSON.stringify(data);
+        tableData = "";
+        serchcheck = "";
+
+        creatTable(data);
+
+      }
+
+      function creatTable(data)
+      {
+        for (var i = 0; i < data.length; i++)
         {
-            var category = $("#category").val().toString();
-            var items = $("#items").val().toString();
 
-            alert(category);
-            alert(items);
-
-            var Msg = CheckMsg();
-            if (Msg != "") {
-                alert(Msg);
-                return false;
-            }
-
-            var Info = {};
-            Info.category = category;
-            Info.items = items;
-            Info.Action = Action;
-
-
-            var jsonData = JSON.stringify(Info);
-            console.log(jsonData);
-            $.ajax({
-                url: "xml/SignIn.ashx",
-                data: jsonData,
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function (data) {
-                    var jsonObj;
-                    var TotalPage;
-                    if (typeof (data) == 'undefined' || data == null) {
-                        jsonObj = "";
+            tableData += "<tr>";
+            tableData += "<td>" + data[i].No + "</td>";
+            tableData += "<td colspan=\"2\" style = \"border-right: none\"; >" + data[i].Type + "</td>";
+            tableData += "<td align=\"right\" style=\"border-left: none\"; >" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"修改類別\"/>" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"查看\" onclick=\"Serchlist(" + i.toString() + ")\" />" + "</td>";
+            //alert(serchcheck);
+            //對應Serchlist() 顯示品項內容
+            if(serchcheck==data[i].No)
+            {
+              if (data[i].Contentlist != null)
+              {
+                    tableData += "<tr style=\"background-color: lightslategray;\">";
+                    tableData += "<td> </td>";
+                    tableData += "<td width=\"30%\">" + "品項" + "</td>";
+                    tableData += "<td width=\"40%\"colspan=\"2\">" + "廠商" + "</td> </tr>";
+                    for (var j = 0 ; j < data[i].Contentlist.length ; j++) {
+                        tableData += "<tr> <td> </td>" + "<td>" + data[i].Contentlist[j].content + "</td>" + "<td style = \"border-right: none\";>" + data[i].Contentlist[j].merchant + "</td>";
+                        tableData += "<td style = \"border-left: none\"; align=\"right\"><input type=\"button\" class=\"btn btn-outline-secondary\" value=\"修改品項\"/>" + "</td> </tr>";
                     }
-                    else {
-                        jsonObj = data;
-                    }
-                    console.log(jsonObj);
-                    if (jsonObj != "") {
-                        if (jsonObj.length > 0) {
-                            if (jsonObj[0].result == "OK") {
-                                console.log("讀取成功");
-                                $("#category").val(jsonObj[0].category).toString();
-                                $("#items").val(jsonObj[0].items).toString();
-                            }
-                            else {
-                                console.log(jsonObj[0].result);
-                                alert(jsonObj[0].Msg);
-                            }
-                        }
-                    }
+                    tableData += "<tr>";
+                    tableData += "<td colspan=\"4\" align=\"right\">" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"新增品項\"/>" + "</td>";
+                    tableData += "</tr>";
+                    tableData += "</tr>";
+                    //alert(tableData);
                 }
-            });
+              }
 
+
+              tableData += "</tr>";
         }
 
-        function RunAjax_Serch(Action)
+
+
+        $("#tbody1").html(tableData)
+        }
+
+        //依選擇的No顯示下拉式table
+        function Serchlist(i)
         {
-            var serch_item = $("#serch_item").val().toString();
-            alert(serch_item);
-            var Msg = CheckMsg();
-            if (Msg != "") {
-                alert(Msg);
-                return false;
-            }
-
-            var Info = {};
-            Info.category = category;
-            Info.items = items;
-            Info.Action = Action;
-
-
-            var jsonData = JSON.stringify(Info);
-            console.log(jsonData);
-            $.ajax({
-                url: "xml/SignIn.ashx",
-                data: jsonData,
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function (data) {
-                    var jsonObj;
-                    var TotalPage;
-                    if (typeof (data) == 'undefined' || data == null) {
-                        jsonObj = "";
-                    }
-                    else {
-                        jsonObj = data;
-                    }
-                    console.log(jsonObj);
-                    if (jsonObj != "") {
-                        if (jsonObj.length > 0) {
-                            if (jsonObj[0].result == "OK") {
-                                console.log("讀取成功");
-                                $("#serch_item").val().toString();
-                            }
-                            else {
-                                console.log(jsonObj[0].result);
-                                alert(jsonObj[0].Msg);
-                            }
-                        }
-                    }
-                }
-            });
-
-
+            //alert(data[i].Contentlist[0].content);
+            serchcheck = data[i].No;
+            //alert(serchcheck);
+            tableData="";
+            creatTable(data);
         }
+
     </script>
+
 </body>
 </html>
+
+
