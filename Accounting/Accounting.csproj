@@ -146,8 +146,8 @@
     <Content Include="css\signin.css" />
     <Content Include="dashboard.html" />
     <Content Include="DayIncome.aspx" />
-    <Content Include="ExpendIemText.html" />
     <Content Include="GenerateAuthCode.aspx" />
+    <Content Include="ExpendIemText.html" />
     <Content Include="ItemsList.aspx" />
     <Content Include="js\bootstrap.bundle.min.js" />
     <Content Include="js\feather.min.js" />
