@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="CompanyShop_ItemsTypeList.aspx.cs" Inherits="Accounting.CompanyShop_ItemsTypeList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="CompanyShop_ItemsList.aspx.cs" Inherits="Accounting.CompanyShop_ItemsList" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -23,7 +23,8 @@
         <table class="table table-bordered">
             <thead class="thead-light">
                 <tr class="normal_tr">                    
-                    <th class="normal_th" scope="col" style="width:80%">類別名稱</th>                    
+                    <th class="normal_th" scope="col" style="width:40%">類別名稱</th>
+                    <th class="normal_th" scope="col" style="width:40%">廠商</th>
                     <th class="normal_th" scope="col" style="width:20%"><a href="javascript:void(0)" onclick="AddShow()">新增</a></th>
                 </tr>
             </thead>
@@ -44,7 +45,7 @@
         var btn_cancel_format = "<a href=\"javascript:void(0)\" onclick=\"RunAjax('GetData','{0}','')\">取消</a>";
         var btn_edit_format = "<a href=\"javascript:void(0)\" onclick=\"RunAjax('ShowEdit','{0}','')\">編輯</a>";
         var btn_delete_format = "<a href=\"javascript:void(0)\" onclick=\"RunAjax('SendEdit','{0}','D')\">刪除</a>";
-        var btn_company_format = "<a href=\"javascript:void(0)\" onclick=\"location.href='CompanyShop_ItemsList.aspx?it_code={0}'\">品項</a>";
+        var btn_company_format = "<a href=\"javascript:void(0)\" onclick=\"location.href='CompanyList.aspx?it_code={0}'\">品項</a>";
 
         var hidden_format = "<input type=\"hidden\" id=\"{0}\" value=\"{1}\">";
         var textbox_format = "<input type=\"input\" class=\"form-control\" id=\"txb_{1}\" value=\"{0}\" ></input>";
@@ -120,6 +121,7 @@
 
         function GetAll(jsonObj)
         {
+            var it_code = getUrlParameter("it_code");
             var ListCount = 0;
             if (jsonObj[0].result == "NoData") {
                $("#ListCount").html(ListCount.toString());

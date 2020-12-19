@@ -110,6 +110,111 @@ namespace Accounting.App_Code
             }
         }
         #endregion
+        #region==Items==
+        public DataTable GetItems_CompanyShopData(string cs_code, string it_code, string it_name,string i_code)
+        {
+            DataTable Dt = new DataTable();
+
+            string strSQL = @"";
+
+            //strSQL = @" select * from AdvUsers with (nolock) where Code=@pno ";
+            strSQL = @" select * from [Items_CompanyShop] c with (nolock)   
+                        left outer join Items i on  i.i_code = c.i_code
+                    Where 1=1 and c.cs_code=@cs_code";
+            if (it_code != "")
+                strSQL += " and c.it_code = @it_code";
+            if (i_code != "")
+                strSQL += " and c.i_code = @i_code";
+            if (it_name != "")
+                strSQL += " and i.it_name = @it_name";
+            string connString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AccountingConn"].ToString();
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand(strSQL);
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@cs_code", cs_code);
+                if (it_code != "")
+                    cmd.Parameters.AddWithValue("@it_code", it_code);
+                if (i_code != "")
+                    cmd.Parameters.AddWithValue("@i_code", i_code);
+                if (it_name != "")
+                    cmd.Parameters.AddWithValue("@it_name", it_name);
+
+                cmd.Connection = conn;
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                Dt.Load(dr);
+                conn.Close();
+            }
+
+            return Dt;
+        }
+
+        public bool Items_CompanyShopCRUD(string CRUD, string cs_code, string i_name, string it_code,string vd_code, string createuser,string i_code)
+        {
+            SqlConnection conn = new SqlConnection(System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AccountingConn"].ToString());
+            conn.Open();
+            SqlTransaction tran = conn.BeginTransaction();
+            SqlCommand comm = new SqlCommand("", conn);
+            comm.Transaction = tran;
+            try
+            {
+
+                string strSQL = @"";
+                switch (CRUD)
+                {
+                    case "C":
+                        strSQL += @" EXEC [dbo].[Run_Items_CompanyShop] @cs_code,@it_code,@i_name,@vd_code,@createuser ";
+                        comm.CommandText = strSQL;
+                        comm.Parameters.Clear();
+                        comm.Parameters.AddWithValue("@cs_code", cs_code);
+                        comm.Parameters.AddWithValue("@it_code", cs_code);
+                        comm.Parameters.AddWithValue("@i_name", i_name.Trim());
+                        comm.Parameters.AddWithValue("@vd_code", vd_code);
+                        comm.Parameters.AddWithValue("@createuser", createuser);
+                        comm.ExecuteNonQuery();
+                        break;
+                    case "U":
+                        strSQL += @" 
+                                    EXEC [dbo].[Run_Items_CompanyShop_Delete] @cs_code,@i_code,@createuser
+                                    EXEC [dbo].[Run_Items_CompanyShop] @cs_code,@it_code,@i_name,@vd_code,@createuser ";
+                        comm.CommandText = strSQL;
+                        comm.Parameters.Clear();
+                        comm.Parameters.AddWithValue("@cs_code", cs_code);
+                        comm.Parameters.AddWithValue("@i_name", i_name.Trim());
+                        comm.Parameters.AddWithValue("@it_code", it_code.Trim());
+                        comm.Parameters.AddWithValue("@vd_code", vd_code.Trim());
+                        comm.Parameters.AddWithValue("@createuser", createuser);
+                        comm.ExecuteNonQuery();
+                        break;
+                    case "D":
+                        strSQL += @" EXEC [dbo].[Run_Items_CompanyShop_Delete] @cs_code,@i_code,@createuser ";
+                        comm.CommandText = strSQL;
+                        comm.Parameters.Clear();
+                        comm.Parameters.AddWithValue("@cs_code", cs_code);
+                        comm.Parameters.AddWithValue("@i_code", i_code.Trim());
+                        comm.Parameters.AddWithValue("@createuser", createuser.Trim());
+                        comm.ExecuteNonQuery();
+                        break;
+                }
+
+                tran.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                ft.ftrace(ex.ToString());
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+                comm.Dispose();
+            }
+        }
+        #endregion
 
 
         #endregion

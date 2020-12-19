@@ -140,6 +140,7 @@
     <Content Include="CompanyList.aspx" />
     <Content Include="CompanyShopList.aspx" />
     <Content Include="CompanyShopSelect.aspx" />
+    <Content Include="CompanyShop_ItemsList.aspx" />
     <Content Include="CompanyShop_ItemsTypeList.aspx" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\dashboard.css" />
@@ -193,6 +194,7 @@
     <Content Include="xml\CompanyUsers.ashx" />
     <Content Include="xml\DayIncome.ashx" />
     <Content Include="xml\CompanyShop_ItemsTypeList.ashx" />
+    <Content Include="xml\CompanyShop_ItemsList.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
@@ -230,6 +232,13 @@
     </Compile>
     <Compile Include="CompanyShopSelect.aspx.designer.cs">
       <DependentUpon>CompanyShopSelect.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyShop_ItemsList.aspx.cs">
+      <DependentUpon>CompanyShop_ItemsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyShop_ItemsList.aspx.designer.cs">
+      <DependentUpon>CompanyShop_ItemsList.aspx</DependentUpon>
     </Compile>
     <Compile Include="CompanyShop_ItemsTypeList.aspx.cs">
       <DependentUpon>CompanyShop_ItemsTypeList.aspx</DependentUpon>
@@ -313,6 +322,9 @@
     </Compile>
     <Compile Include="xml\CompanyShopList.ashx.cs">
       <DependentUpon>CompanyShopList.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="xml\CompanyShop_ItemsList.ashx.cs">
+      <DependentUpon>CompanyShop_ItemsList.ashx</DependentUpon>
     </Compile>
     <Compile Include="xml\CompanyShop_ItemsTypeList.ashx.cs">
       <DependentUpon>CompanyShop_ItemsTypeList.ashx</DependentUpon>
