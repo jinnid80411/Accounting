@@ -151,7 +151,7 @@
                             <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日現金</label>
                         </div>
 
-                        <input type="text" id="tol_output_sum" class="form-control" aria-label="Text input with segmented dropdown button">
+                        <input type="text" id="tol_output_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupSelect01">元</label>
                         </div>
@@ -161,7 +161,7 @@
                             <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日支出</label>
                         </div>
 
-                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                        <input type="text" id="tol_expend_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupSelect01">元</label>
                         </div>
@@ -171,7 +171,7 @@
                             <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日補零</label>
                         </div>
 
-                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                        <input type="text" id="tol_patch_change" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupSelect01">元</label>
                         </div>
@@ -182,7 +182,7 @@
                             <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日總計</label>
                         </div>
 
-                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                        <input type="text" id="tol_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupSelect01">元</label>
                         </div>
@@ -286,7 +286,7 @@
                             <option value="goldfish">Goldfish</option>
                         </select>
                         <label class="input-group-text" for="inputGroupSelect01">品項</label>
-                        <select name="pets" id="items" class="form-control" aria-label="Text input with dropdown button">
+                        <select name="pets" id="cat_items" class="form-control" aria-label="Text input with dropdown button">
                             <option value="">請選擇你最愛的寵物</option>
                             <option value="dog">Dog</option>
                             <option value="cat" selected>Cat</option>
@@ -306,46 +306,42 @@
                         <button type="button" class="btn btn-warning" style="margin-right:5px">肉類-雞肉</button>
                         <button type="button" class="btn btn-warning" style="margin-right:5px">肉類-羊肉</button>
                         <button type="button" class="btn btn-warning" style="margin-right:5px">肉類-羊肉</button>
-                        <input type="text" class="form-control" />
-
-                        <label class="input-group-text" for="inputGroupSelect01">元</label>
+                                                
                         <div class="input-group-prepend">
-                            <!--<button class="btn btn-outline-secondary" type="button" >新增</button>-->
-                            <input class="btn btn-outline-secondary" type="button" onclick="RunAjax_outcome('save')" value="新增">
-
+                            <input type="text" id="cat_ExpendAmt" class="form-control" "/>
+                            <input class="btn btn-outline-secondary" type="button" onclick="Add_Expend()" value="新增">
                         </div>
-
-                    </div>
-
-                    <div class="input-group" style="padding-top:10px">
                         <table class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col" style="width:7%">序號</th>
-                                    <th scope="col" style="width:85%">項目</th>
-                                    <th scope="col" style="width:8%">刪除</th>
+                                    <th scope="col" width="5%">序號</th>
+                                    <th colspan="1" scope="col" width="25%">類別</th>
+                                    <th colspan="1" scope="col" width="25%">品項</th>
+                                    <th colspan="1" scope="col" width="25%">金額</th>
+                                    <th colspan="1" scope="col" width="25%">修改</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tbody1"></tbody>
+                            <tfoot>
                                 <tr>
-                                    <th scope="row" >1</th>
-                                    <td scope="row" >test</td>
-                                    <td scope="row" >test</td>
+                                    <th colspan="1" scope="col" width="25%">總數</th>
+                                    <th colspan="1" scope="col" width="25%">
+                                        <input type="text" id="Expend_count" class="form-control" aria-label="Text input with segmented dropdown button" >
+                                    </th>
+                                    <th colspan="1" scope="col" width="25%">總計</th>
+                                    <th colspan="1" scope="col" width="25%">
+                                        <input type="text" id="Total_Expend_Amt" class="form-control" aria-label="Text input with segmented dropdown button">
+                                    </th>
+                                    <th colspan="2" scope="col" width="25%">
+                                        <input class="btn btn-outline-secondary" type="button" onclick="Send_Expend()" value="送出">
+                                    </th>
                                 </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
+                            </tfoot>
+
                         </table>
 
                     </div>
+
 
                 </div>
 
@@ -355,6 +351,38 @@
         </div>
     </div>
     <script>
+        var tableData;
+        var i = 0;
+        var tot_Expend_amt = 0;
+        $("#tol_output_sum").val(0).toString();
+        $("#tol_expend_sum").val(0).toString();
+        $("#tol_patch_change").val(13500).toString();
+        
+        function Add_Expend()
+        {
+            var Expend_amt = TryParseInt($("#cat_ExpendAmt").val());
+            i++;
+            tableData += "<tr>"
+            tableData += "<td>" + i + "</td>";
+            tableData += "<td>" + $("#category").val() + "</td>";
+            tableData += "<td>" + $("#cat_items").val() + "</td>";
+            tableData += "<td>" + Expend_amt + "</td>";
+            tableData += "<td> <input class=\"btn btn - outline - secondary\" type=\"button\" onclick=\"Send_Expend()\" value=\"送出\"> </td>";
+            tableData += "</tr>";
+            $("#tbody1").html(tableData)
+            tot_Expend_amt += Expend_amt;
+
+            $("#Expend_count").val(i).toString();
+            $("#Total_Expend_Amt").val(tot_Expend_amt).toString();
+            daily_sum();
+            
+        }
+        function Send_Expend()
+        {
+            var tot_daily_expend = TryParseInt($("#Total_Expend_Amt").val());
+            $("#tol_expend_sum").val((tot_daily_expend).toString());
+            daily_sum()
+        }
         function daily_sum()
         {
             var input_1000 = TryParseInt($("#input_1000").val());
@@ -363,8 +391,19 @@
             var input_10 = TryParseInt($("#input_10").val());
             var input_5 = TryParseInt($("#input_5").val());
 
-             $("#output_sum").val((input_1000 + input_100 + input_10 + input_50 + input_5).toString());
-             $("#tol_output_sum").val((input_1000 + input_100 + input_10 + input_50 + input_5).toString());
+            var tot_daily_expend = TryParseInt($("#Total_Expend_Amt").val());
+            var tot_dailty_patch = TryParseInt($("#tol_patch_change").val());
+
+            var output_sum = input_1000 + input_100 + input_10 + input_50 + input_5;
+            var tol_sum = output_sum - tot_dailty_patch + tot_daily_expend;
+
+
+            $("#output_sum").val(output_sum.toString());
+            $("#tol_output_sum").val(output_sum.toString());
+            $("#tol_expend_sum").val((tot_daily_expend).toString());
+            $("#tol_sum").val(tol_sum.toString());
+
+            
            
         }
         function RunAjax_income(Action) {
