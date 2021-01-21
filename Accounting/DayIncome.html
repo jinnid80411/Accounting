@@ -151,7 +151,7 @@
                             <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日現金</label>
                         </div>
 
-                        <input type="text" id="tol_output_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
+                        <input type="text" id="Daily_output_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupSelect01">元</label>
                         </div>
@@ -161,7 +161,7 @@
                             <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日支出</label>
                         </div>
 
-                        <input type="text" id="tol_expend_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
+                        <input type="text" id="Daily_expend_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupSelect01">元</label>
                         </div>
@@ -171,7 +171,7 @@
                             <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日補零</label>
                         </div>
 
-                        <input type="text" id="tol_patch_change" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
+                        <input type="text" id="Daily_patch_change" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupSelect01">元</label>
                         </div>
@@ -182,7 +182,7 @@
                             <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日總計</label>
                         </div>
 
-                        <input type="text" id="tol_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
+                        <input type="text" id="Daily_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupSelect01">元</label>
                         </div>
@@ -354,16 +354,58 @@
         var tableData;
         var i = 0;
         var tot_Expend_amt = 0;
-        $("#tol_output_sum").val(0).toString();
-        $("#tol_expend_sum").val(0).toString();
-        $("#tol_patch_change").val(13500).toString();
+        Load();
+        //$("#Daily_output_sum").val(0).toString();
+        //$("#Daily_expend_sum").val(0).toString();
+        //$("#Daily_patch_change").val(13500).toString();
+
+        
+
+
+        function Load() //1.載入頁面顯示的資料
+        {
+            var data = Array();
+            var dataRow1 =
+            {
+                tot_output_sum: "20000", tot_daily_expend: "3000", tot_patch_change: "13500", tot_sum: "9500",
+                input_1000: "10000", input_100: "5000", input_50: "3000", input_10: "1000", input_5: "1000", 
+                Expend_Items: [{ Expend_seq: "1", Expend_cateqory: "高麗菜", Expend_cat_items: "菜阿姨", Expend_amt: "2000" }, { Expend_seq: "1", Expend_cateqory: "高麗菜", Expend_cat_items: "菜阿姨", Expend_amt: "1000" }]
+            };
+            data.push(dataRow1);
+            //當日總額
+            var tot_output_sum = data.tot_output_sum;
+            var tot_daily_expend = data.tot_daily_expend;
+            var tot_patch_change = data.tot_patch_change;
+            var tot_sum = data.tot_sum;
+            //當日現金收入
+            var input_1000 = data.input_1000;
+            var input_100 = data.input_100;
+            var input_50 = data.input_50;
+            var input_10 = data.input_10;
+            var input_5 = data.input_5;
+            //當日支出
+
+            
+            $("#Daily_output_sum").val(tot_output_sum.toString());
+            $("#Daily_expend_sum").val((tot_daily_expend).toString());
+            $("#Daily_patch_change").val(tot_patch_change).toString();
+            $("#Daily_sum").val(tot_sum).toString();
+
+            $("#input_1000").val(input_1000.toString());
+            $("#input_100").val(input_100.toString());
+            $("#input_50").val(input_50.toString());
+            $("#input_10").val(input_10.toString());
+            $("#input_5").val(input_5.toString());  
+
+            
+        }
         
         function Add_Expend()
         {
             var Expend_amt = TryParseInt($("#cat_ExpendAmt").val());
-            i++;
+            Expend_seq++;
             tableData += "<tr>"
-            tableData += "<td>" + i + "</td>";
+            tableData += "<td>" + Expend_seq + "</td>";
             tableData += "<td>" + $("#category").val() + "</td>";
             tableData += "<td>" + $("#cat_items").val() + "</td>";
             tableData += "<td>" + Expend_amt + "</td>";
@@ -372,7 +414,7 @@
             $("#tbody1").html(tableData)
             tot_Expend_amt += Expend_amt;
 
-            $("#Expend_count").val(i).toString();
+            $("#Expend_count").val(Expend_seq).toString();
             $("#Total_Expend_Amt").val(tot_Expend_amt).toString();
             daily_sum();
             
@@ -380,7 +422,7 @@
         function Send_Expend()
         {
             var tot_daily_expend = TryParseInt($("#Total_Expend_Amt").val());
-            $("#tol_expend_sum").val((tot_daily_expend).toString());
+            $("#Daily_expend_sum").val((tot_daily_expend).toString());
             daily_sum()
         }
         function daily_sum()
@@ -392,16 +434,16 @@
             var input_5 = TryParseInt($("#input_5").val());
 
             var tot_daily_expend = TryParseInt($("#Total_Expend_Amt").val());
-            var tot_dailty_patch = TryParseInt($("#tol_patch_change").val());
+            var tot_dailty_patch = TryParseInt($("#Daily_patch_change").val());
 
             var output_sum = input_1000 + input_100 + input_10 + input_50 + input_5;
-            var tol_sum = output_sum - tot_dailty_patch + tot_daily_expend;
+            var Daily_sum = output_sum - tot_dailty_patch + tot_daily_expend;
 
 
             $("#output_sum").val(output_sum.toString());
-            $("#tol_output_sum").val(output_sum.toString());
-            $("#tol_expend_sum").val((tot_daily_expend).toString());
-            $("#tol_sum").val(tol_sum.toString());
+            $("#Daily_output_sum").val(output_sum.toString());
+            $("#Daily_expend_sum").val((tot_daily_expend).toString());
+            $("#Daily_sum").val(Daily_sum.toString());
 
             
            
@@ -521,6 +563,8 @@
                 }
             });
         }
+
+
         function CheckMsg()
         {
             var Msg = "";
