@@ -358,8 +358,22 @@
         //$("#Daily_output_sum").val(0).toString();
         //$("#Daily_expend_sum").val(0).toString();
         //$("#Daily_patch_change").val(13500).toString();
-
         
+        /*
+         類別 -> 品項 -> 廠商
+                      -> 單位
+         */ 
+
+        var ItemsTypeData = [{ it_code: "4D06B36E", it_name: "肉類" }, { it_code: "F132B551", it_name: "蔬菜" }];
+        //1類別選單 it_code 
+        var ItemsData = [{ it_code: "4D06B36E", i_code: "A61FE23C", i_name: "豬肉" }, { it_code: "F132B551", i_code: "32CF2DEC", i_name: "高麗菜" }];
+        //2品項選單 i_code
+        var ItemsVenderData = [{ i_code: "A61FE23C", vd_code: "F579C526", vd_name: "菜市場" }];
+        //3廠商選單 vd_code
+        var ItemsUnitData = [{ i_code: "A61FE23C", ut_type: "重量", ut_code: "0ED3A663", ut_name: "台斤" }];
+        //3單位選單 it_code
+
+
         function Load()
         {
 
@@ -396,10 +410,10 @@
             };
             //data.push(dataRow1);
             //當日總額
-            var tot_output_sum = data.tot_output_sum;
-            var tot_daily_expend = data.tot_daily_expend;
-            var tot_patch_change = data.tot_patch_change;
-            var tot_sum = data.tot_sum;
+            var tot_output_sum = data.tot_output_sum; //當日現金
+            var tot_daily_expend = data.tot_daily_expend; //當日支出
+            var tot_patch_change = data.tot_patch_change; //當日補零
+            var tot_sum = data.tot_sum; //當日總計
             //當日現金收入
             var input_1000 = data.input_1000;
             var input_100 = data.input_100;
