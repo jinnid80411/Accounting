@@ -348,80 +348,63 @@
                 
         </div>
     </div>
-	
-	<script>
-		var data_Expend = 
-		[
-			{
-				Expend_seq: "1",
-				Expend_cateqory: "高麗菜", Expend_cat_items: "菜阿姨", Expend_amt: "2000"
-			},
-			{
-				Expend_seq: "2",
-				Expend_cateqory: "高麗菜", Expend_cat_items: "王阿姨", Expend_amt: "5000"
-			}
-		];
-		Load();
-		//data.push(data_Expend);
-		
-		function Load()
-		{	
-			var Data_Expend_length = data_Expend.length;
-			Load_InCome();
-			Load_OutCome(Data_Expend_length);
-		}
-		function Load_OutCome(data_Expend_seq)
-		{
-			/*
-			 支出讀取寫在這
-			 */
-			var Expend_seq=0;
-			var tableData="";
-			var tot_Expend_amt=0;
-			for(Expend_seq=0;Expend_seq<data_Expend_seq;Expend_seq++)
-			{
-				tableData += "<tr>"
-				tableData += "<td>" + data_Expend[Expend_seq].Expend_seq + "</td>";
-				tableData += "<td>" + data_Expend[Expend_seq].Expend_cateqory + "</td>";
-				tableData += "<td>" + data_Expend[Expend_seq].Expend_cat_items + "</td>";
-				tableData += "<td>" + data_Expend[Expend_seq].Expend_amt + "</td>";
-				tableData += "<td> <input class=\"btn btn - outline - secondary\" type=\"button\" onclick=\"Send_Expend()\" value=\"送出\" /> </td>";
-				tableData += "</tr>";
-				tot_Expend_amt += TryParseInt(data_Expend[Expend_seq].Expend_amt);
-			}
-			var Expend_amt = TryParseInt($("#cat_ExpendAmt").val());
-			
-			
-			$("#tbody1").html(tableData);
-			
+    <script>
+        var tableData;
+        var i = 0;
+        var tot_Expend_amt = 0;
+        Load();
+        //$("#Daily_output_sum").val(0).toString();
+        //$("#Daily_expend_sum").val(0).toString();
+        //$("#Daily_patch_change").val(13500).toString();
 
-			$("#Expend_count").val(Expend_seq).toString();
-			$("#Total_Expend_Amt").val(tot_Expend_amt).toString();
-			daily_sum();
+        
+        function Load()
+        {
 
-		}
-		function Load_InCome() //1.載入頁面顯示的資料
-		{
-			
-			var data =
-			{
-				tot_output_sum: "20000", tot_daily_expend: "3000", tot_patch_change: "13500", tot_sum: "9500",
-				input_1000: "10000", input_100: "5000", input_50: "3000", input_10: "1000", input_5: "1000"
-				
-			};
-			//data.push(dataRow1);
-			//當日總額
-			var tot_output_sum = data.tot_output_sum;
-			var tot_daily_expend = data.tot_daily_expend;
-			var tot_patch_change = data.tot_patch_change;
-			var tot_sum = data.tot_sum;
-			//當日現金收入
-			var input_1000 = data.input_1000;
-			var input_100 = data.input_100;
-			var input_50 = data.input_50;
-			var input_10 = data.input_10;
-			var input_5 = data.input_5;
-			//當日支出
+        }
+        function Load_OutCome()
+        {
+            var data = Array();
+            var data1 =
+            {
+                Expend_seq: "1",
+                Expend_cateqory: "高麗菜", Expend_cat_items: "菜阿姨", Expend_amt: "2000"
+            };
+            var data2 = 
+            {
+                Expend_seq: "1",
+                Expend_cateqory: "高麗菜",
+                Expend_cat_items: "菜阿姨", Expend_amt: "1000"
+            }
+            data.push(data1);
+            data.push(data2);
+            /*
+             支出讀取寫在這
+             */
+            
+        }
+        function Load_InCome() //1.載入頁面顯示的資料
+        {
+            //var data = Array();
+            var data =
+            {
+                tot_output_sum: "20000", tot_daily_expend: "3000", tot_patch_change: "13500", tot_sum: "9500",
+                input_1000: "10000", input_100: "5000", input_50: "3000", input_10: "1000", input_5: "1000"
+                
+            };
+            //data.push(dataRow1);
+            //當日總額
+            var tot_output_sum = data.tot_output_sum;
+            var tot_daily_expend = data.tot_daily_expend;
+            var tot_patch_change = data.tot_patch_change;
+            var tot_sum = data.tot_sum;
+            //當日現金收入
+            var input_1000 = data.input_1000;
+            var input_100 = data.input_100;
+            var input_50 = data.input_50;
+            var input_10 = data.input_10;
+            var input_5 = data.input_5;
+            //當日支出
 
 			
 			$("#Daily_output_sum").val(tot_output_sum.toString());
