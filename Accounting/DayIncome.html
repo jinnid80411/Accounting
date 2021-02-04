@@ -1,5 +1,5 @@
 ﻿
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -144,6 +144,7 @@
                             <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日現金支出</button>
                             <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日補零</button>
                         </div>
+						
                     </div>
 
                     <div class="input-group" style="padding-top:5px">
@@ -187,6 +188,9 @@
                             <label class="input-group-text" for="inputGroupSelect01">元</label>
                         </div>
                     </div>
+					<div>
+						<input class="btn btn-outline-secondary" style="min-width:100%" type="button" onclick="Update_Daily_Account()" value="送出"/>
+					</div>
                 </div>
                 <div>
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -276,17 +280,11 @@
                     </div>
                     <div class="input-group">
                         <label class="input-group-text" for="inputGroupSelect01">類別</label>
-                        <select name="pets" id="category" class="form-control" aria-label="Text input with dropdown button">
-                            <option value="">請選擇你最愛的寵物</option>
-                            <option value="dog">Dog</option>
-                            <option value="cat" selected="selected">Cat</option>
-                            <option value="hamster">Hamster</option>
-                            <option value="parrot">Parrot</option>
-                            <option value="spider" disabled="disabled">Spider</option>
-                            <option value="goldfish">Goldfish</option>
+                        <select name="pets" id="category" class="form-control" aria-label="Text input with dropdown button" onclick = "List_Expend_Category()">
+							<option value="">請選擇你最愛的寵物</option>                          
                         </select>
                         <label class="input-group-text" for="inputGroupSelect01">品項</label>
-                        <select name="pets" id="cat_items" class="form-control" aria-label="Text input with dropdown button">
+                        <select name="pets" id="cat_items" class="form-control" aria-label="Text input with dropdown button" onclick="List_Expend_Item()">
                             <option value="">請選擇你最愛的寵物</option>
                             <option value="dog">Dog</option>
                             <option value="cat" selected="selected">Cat</option>
@@ -350,268 +348,302 @@
                 
         </div>
     </div>
-    <script>
-        var tableData;
-        var i = 0;
-        var tot_Expend_amt = 0;
-        Load();
-        //$("#Daily_output_sum").val(0).toString();
-        //$("#Daily_expend_sum").val(0).toString();
-        //$("#Daily_patch_change").val(13500).toString();
+	
+	<script>
+		var data_Expend = 
+		[
+			{
+				Expend_seq: "1",
+				Expend_cateqory: "高麗菜", Expend_cat_items: "菜阿姨", Expend_amt: "2000"
+			},
+			{
+				Expend_seq: "2",
+				Expend_cateqory: "高麗菜", Expend_cat_items: "王阿姨", Expend_amt: "5000"
+			}
+		];
+		Load();
+		//data.push(data_Expend);
+		
+		function Load()
+		{	
+			var Data_Expend_length = data_Expend.length;
+			Load_InCome();
+			Load_OutCome(Data_Expend_length);
+		}
+		function Load_OutCome(data_Expend_seq)
+		{
+			/*
+			 支出讀取寫在這
+			 */
+			var Expend_seq=0;
+			var tableData="";
+			var tot_Expend_amt=0;
+			for(Expend_seq=0;Expend_seq<data_Expend_seq;Expend_seq++)
+			{
+				tableData += "<tr>"
+				tableData += "<td>" + data_Expend[Expend_seq].Expend_seq + "</td>";
+				tableData += "<td>" + data_Expend[Expend_seq].Expend_cateqory + "</td>";
+				tableData += "<td>" + data_Expend[Expend_seq].Expend_cat_items + "</td>";
+				tableData += "<td>" + data_Expend[Expend_seq].Expend_amt + "</td>";
+				tableData += "<td> <input class=\"btn btn - outline - secondary\" type=\"button\" onclick=\"Send_Expend()\" value=\"送出\" /> </td>";
+				tableData += "</tr>";
+				tot_Expend_amt += TryParseInt(data_Expend[Expend_seq].Expend_amt);
+			}
+			var Expend_amt = TryParseInt($("#cat_ExpendAmt").val());
+			
+			
+			$("#tbody1").html(tableData);
+			
 
-        
-        function Load()
-        {
+			$("#Expend_count").val(Expend_seq).toString();
+			$("#Total_Expend_Amt").val(tot_Expend_amt).toString();
+			daily_sum();
 
-        }
-        function Load_OutCome()
-        {
-            var data = Array();
-            var data1 =
-            {
-                Expend_seq: "1",
-                Expend_cateqory: "高麗菜", Expend_cat_items: "菜阿姨", Expend_amt: "2000"
-            };
-            var data2 = 
-            {
-                Expend_seq: "1",
-                Expend_cateqory: "高麗菜",
-                Expend_cat_items: "菜阿姨", Expend_amt: "1000"
-            }
-            data.push(data1);
-            data.push(data2);
-            /*
-             支出讀取寫在這
-             */
-            
-        }
-        function Load_InCome() //1.載入頁面顯示的資料
-        {
-            //var data = Array();
-            var data =
-            {
-                tot_output_sum: "20000", tot_daily_expend: "3000", tot_patch_change: "13500", tot_sum: "9500",
-                input_1000: "10000", input_100: "5000", input_50: "3000", input_10: "1000", input_5: "1000"
-                
-            };
-            //data.push(dataRow1);
-            //當日總額
-            var tot_output_sum = data.tot_output_sum;
-            var tot_daily_expend = data.tot_daily_expend;
-            var tot_patch_change = data.tot_patch_change;
-            var tot_sum = data.tot_sum;
-            //當日現金收入
-            var input_1000 = data.input_1000;
-            var input_100 = data.input_100;
-            var input_50 = data.input_50;
-            var input_10 = data.input_10;
-            var input_5 = data.input_5;
-            //當日支出
+		}
+		function Load_InCome() //1.載入頁面顯示的資料
+		{
+			
+			var data =
+			{
+				tot_output_sum: "20000", tot_daily_expend: "3000", tot_patch_change: "13500", tot_sum: "9500",
+				input_1000: "10000", input_100: "5000", input_50: "3000", input_10: "1000", input_5: "1000"
+				
+			};
+			//data.push(dataRow1);
+			//當日總額
+			var tot_output_sum = data.tot_output_sum;
+			var tot_daily_expend = data.tot_daily_expend;
+			var tot_patch_change = data.tot_patch_change;
+			var tot_sum = data.tot_sum;
+			//當日現金收入
+			var input_1000 = data.input_1000;
+			var input_100 = data.input_100;
+			var input_50 = data.input_50;
+			var input_10 = data.input_10;
+			var input_5 = data.input_5;
+			//當日支出
 
-            
-            $("#Daily_output_sum").val(tot_output_sum.toString());
-            $("#Daily_expend_sum").val((tot_daily_expend).toString());
-            $("#Daily_patch_change").val(tot_patch_change).toString();
-            $("#Daily_sum").val(tot_sum).toString();
+			
+			$("#Daily_output_sum").val(tot_output_sum.toString());
+			$("#Daily_expend_sum").val((tot_daily_expend).toString());
+			$("#Daily_patch_change").val(tot_patch_change).toString();
+			$("#Daily_sum").val(tot_sum).toString();
 
-            $("#input_1000").val(input_1000.toString());
-            $("#input_100").val(input_100.toString());
-            $("#input_50").val(input_50.toString());
-            $("#input_10").val(input_10.toString());
-            $("#input_5").val(input_5.toString());  
+			$("#input_1000").val(input_1000.toString());
+			$("#input_100").val(input_100.toString());
+			$("#input_50").val(input_50.toString());
+			$("#input_10").val(input_10.toString());
+			$("#input_5").val(input_5.toString());  
 
-            
-        }
-        
-        function Add_Expend()
-        {
-            var Expend_amt = TryParseInt($("#cat_ExpendAmt").val());
-            Expend_seq++;
-            tableData += "<tr>"
-            tableData += "<td>" + Expend_seq + "</td>";
-            tableData += "<td>" + $("#category").val() + "</td>";
-            tableData += "<td>" + $("#cat_items").val() + "</td>";
-            tableData += "<td>" + Expend_amt + "</td>";
-            tableData += "<td> <input class=\"btn btn - outline - secondary\" type=\"button\" onclick=\"Send_Expend()\" value=\"送出\" /> </td>";
-            tableData += "</tr>";
-            $("#tbody1").html(tableData)
-            tot_Expend_amt += Expend_amt;
+			
+		}
+		function Update_Daily_Account()
+		{
+			//每日總額更新
+			alert("Update_Daily_Account");
+			
+		}
+		function List_Expend_Category()
+		{
+			//取得類別列表
+			alert("Load_Expend_Category");
+			var Cat_tableData="";
+			
+			Cat_tableData+="<option value=\"\">請選擇你最愛的寵物</option>";
+			Cat_tableData+="<option value=\"dog\">Dog</option>";
+			Cat_tableData+="<option value=\"cat\" selected=\"selected\">Cat</option>";
+			alert(Cat_tableData);
+			$("#category_List").html(Cat_tableData);
+		}
+		function List_Expend_Item()
+		{
+			//取得類別列表
+			alert("List_Expend_Item");
+		}
+		
+		function Add_Expend()
+		{
+			
+			var data_Expend_length = data_Expend.length ;
+			var data_Expend_seq = data_Expend_length + 1 ;
+			
+			var dataRow = {
+				Expend_seq: data_Expend_seq,
+				Expend_cateqory: $("#category").val(), Expend_cat_items: $("#cat_items").val(), Expend_amt: $("#cat_ExpendAmt").val()
+			}
+			
+			data_Expend.push(dataRow);
+			//var jsonData = JSON.stringify(data_Expend);
+			//alert(jsonData);	
+			Load_OutCome(data_Expend_seq);       
+		}
+		function Send_Expend()
+		{
+			var tot_daily_expend = TryParseInt($("#Total_Expend_Amt").val());
+			$("#Daily_expend_sum").val((tot_daily_expend).toString());
+			daily_sum()
+		}
+		function daily_sum()
+		{
+			var input_1000 = TryParseInt($("#input_1000").val());
+			var input_100 = TryParseInt($("#input_100").val());
+			var input_50 = TryParseInt($("#input_50").val());
+			var input_10 = TryParseInt($("#input_10").val());
+			var input_5 = TryParseInt($("#input_5").val());
 
-            $("#Expend_count").val(Expend_seq).toString();
-            $("#Total_Expend_Amt").val(tot_Expend_amt).toString();
-            daily_sum();
-            
-        }
-        function Send_Expend()
-        {
-            var tot_daily_expend = TryParseInt($("#Total_Expend_Amt").val());
-            $("#Daily_expend_sum").val((tot_daily_expend).toString());
-            daily_sum()
-        }
-        function daily_sum()
-        {
-            var input_1000 = TryParseInt($("#input_1000").val());
-            var input_100 = TryParseInt($("#input_100").val());
-            var input_50 = TryParseInt($("#input_50").val());
-            var input_10 = TryParseInt($("#input_10").val());
-            var input_5 = TryParseInt($("#input_5").val());
+			var tot_daily_expend = TryParseInt($("#Total_Expend_Amt").val());
+			var tot_dailty_patch = TryParseInt($("#Daily_patch_change").val());
 
-            var tot_daily_expend = TryParseInt($("#Total_Expend_Amt").val());
-            var tot_dailty_patch = TryParseInt($("#Daily_patch_change").val());
-
-            var output_sum = input_1000 + input_100 + input_10 + input_50 + input_5;
-            var Daily_sum = output_sum - tot_dailty_patch + tot_daily_expend;
-
-
-            $("#output_sum").val(output_sum.toString());
-            $("#Daily_output_sum").val(output_sum.toString());
-            $("#Daily_expend_sum").val((tot_daily_expend).toString());
-            $("#Daily_sum").val(Daily_sum.toString());
-
-            
-           
-        }
-        function RunAjax_income(Action) {
-
-            
-            var input_1000 = TryParseInt($("#input_1000").val()).toString();
-            var input_100 = TryParseInt($("#input_100").val()).toString();
-            var input_50 = TryParseInt($("#input_50").val()).toString();
-            var input_10 = TryParseInt($("#input_10").val()).toString();
-            var input_5 = TryParseInt($("#input_5").val()).toString();
-
-            
-            var Msg = CheckMsg();
-            if (Msg != "") {
-                alert(Msg);
-                return false;
-            }
-
-            var Info = {};
-            Info.input_1000 = input_1000;
-            Info.input_100 = input_100;
-            Info.input_50 = input_50;
-            Info.input_10 = input_10;
-            Info.input_5 = input_5;
-            Info.Action = Action;
-            
-
-
-            var jsonData = JSON.stringify(Info);
-            console.log(jsonData);
-            $.ajax({
-                url: "xml/SignIn.ashx",
-                data: jsonData,
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function (data) {
-                    var jsonObj;
-                    var TotalPage;
-                    if (typeof (data) == 'undefined' || data == null) {
-                        jsonObj = "";
-                    }
-                    else {
-                        jsonObj = data;
-                    }
-                    console.log(jsonObj);
-                    if (jsonObj != "") {
-                        if (jsonObj.length > 0) {
-                            if (jsonObj[0].result == "OK") {
-                                console.log("讀取成功");
-                                $("#input_1000").val(jsonObj[0].input_1000);
-                                $("#input_100").val(jsonObj[0].input_100);
-                                $("#input_50").val(jsonObj[0].input_50);
-                                $("#input_10").val(jsonObj[0].input_10);
-                                $("#input_5").val(jsonObj[0].input_5);
-                                //location.href = jsonObj[0].url;
-                            }
-                            else {
-                                console.log(jsonObj[0].result);
-                                alert(jsonObj[0].Msg);
-                            }
-                        }
-                    }
-                }
-            });
-        }
-        function RunAjax_outcome(Action)
-        {
-            var category = $("#category").val().toString();
-            var items = $("#items").val().toString();
-
-            var Msg = CheckMsg();
-            if (Msg != "") {
-                alert(Msg);
-                return false;
-            }
-
-            var Info = {};
-            Info.category = category;
-            Info.items = items;
-            Info.Action = Action;
+			var output_sum = input_1000 + input_100 + input_10 + input_50 + input_5;
+			var Daily_sum = output_sum - tot_dailty_patch + tot_daily_expend;
 
 
-            var jsonData = JSON.stringify(Info);
-            console.log(jsonData);
-            $.ajax({
-                url: "xml/SignIn.ashx",
-                data: jsonData,
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function (data) {
-                    var jsonObj;
-                    var TotalPage;
-                    if (typeof (data) == 'undefined' || data == null) {
-                        jsonObj = "";
-                    }
-                    else {
-                        jsonObj = data;
-                    }
-                    console.log(jsonObj);
-                    if (jsonObj != "") {
-                        if (jsonObj.length > 0) {
-                            if (jsonObj[0].result == "OK") {
-                                console.log("讀取成功");
-                                $("#category").val(jsonObj[0].category).toString();
-                                $("#items").val(jsonObj[0].items).toString();
-                            }
-                            else {
-                                console.log(jsonObj[0].result);
-                                alert(jsonObj[0].Msg);
-                            }
-                        }
-                    }
-                }
-            });
-        }
+			$("#output_sum").val(output_sum.toString());
+			$("#Daily_output_sum").val(output_sum.toString());
+			$("#Daily_expend_sum").val((tot_daily_expend).toString());
+			$("#Daily_sum").val(Daily_sum.toString());
+		   
+		}
+		function RunAjax_income(Action) {
+
+			
+			var input_1000 = TryParseInt($("#input_1000").val()).toString();
+			var input_100 = TryParseInt($("#input_100").val()).toString();
+			var input_50 = TryParseInt($("#input_50").val()).toString();
+			var input_10 = TryParseInt($("#input_10").val()).toString();
+			var input_5 = TryParseInt($("#input_5").val()).toString();
+
+			
+			var Msg = CheckMsg();
+			if (Msg != "") {
+				alert(Msg);
+				return false;
+			}
+
+			var Info = {};
+			Info.input_1000 = input_1000;
+			Info.input_100 = input_100;
+			Info.input_50 = input_50;
+			Info.input_10 = input_10;
+			Info.input_5 = input_5;
+			Info.Action = Action;
+			
 
 
-        function CheckMsg()
-        {
-            var Msg = "";
-            var remainder_input_1000 = TryParseInt($("#input_1000").val()) % 1000;
-            var remainder_input_100 = TryParseInt($("#input_100").val()) % 100;
-            var remainder_input_50 = TryParseInt($("#input_50").val()) % 50;
-            var remainder_input_10 = TryParseInt($("#input_10").val()) % 10;
-            var remainder_input_5 = TryParseInt($("#input_5").val()) % 5;
+			var jsonData = JSON.stringify(Info);
+			console.log(jsonData);
+			$.ajax({
+				url: "xml/SignIn.ashx",
+				data: jsonData,
+				type: 'POST',
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				success: function (data) {
+					var jsonObj;
+					var TotalPage;
+					if (typeof (data) == 'undefined' || data == null) {
+						jsonObj = "";
+					}
+					else {
+						jsonObj = data;
+					}
+					console.log(jsonObj);
+					if (jsonObj != "") {
+						if (jsonObj.length > 0) {
+							if (jsonObj[0].result == "OK") {
+								console.log("讀取成功");
+								$("#input_1000").val(jsonObj[0].input_1000);
+								$("#input_100").val(jsonObj[0].input_100);
+								$("#input_50").val(jsonObj[0].input_50);
+								$("#input_10").val(jsonObj[0].input_10);
+								$("#input_5").val(jsonObj[0].input_5);
+								//location.href = jsonObj[0].url;
+							}
+							else {
+								console.log(jsonObj[0].result);
+								alert(jsonObj[0].Msg);
+							}
+						}
+					}
+				}
+			});
+		}
+		function RunAjax_outcome(Action)
+		{
+			var category = $("#category").val().toString();
+			var items = $("#items").val().toString();
 
-            if (remainder_input_1000 != 0) { Msg += "1000元輸入有誤\n"; }
-            if (remainder_input_100 != 0) { Msg += "100元輸入有誤\n"; }
-            if (remainder_input_50 != 0) { Msg += "50元輸入有誤\n"; }
-            if (remainder_input_10 != 0) { Msg += "10元輸入有誤\n"; }
-            if (remainder_input_5 != 0) { Msg += "5元輸入有誤\n"; }
-            
-            return Msg;
-        }
-    </script>
+			var Msg = CheckMsg();
+			if (Msg != "") {
+				alert(Msg);
+				return false;
+			}
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.5/assets/js/vendor/jquery.slim.min.js"></script>')</script>
-    <script src="https://getbootstrap.com/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-    <script src="js/dashboard.js"></script>
-</body>
+			var Info = {};
+			Info.category = category;
+			Info.items = items;
+			Info.Action = Action;
+
+
+			var jsonData = JSON.stringify(Info);
+			console.log(jsonData);
+			$.ajax({
+				url: "xml/SignIn.ashx",
+				data: jsonData,
+				type: 'POST',
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				success: function (data) {
+					var jsonObj;
+					var TotalPage;
+					if (typeof (data) == 'undefined' || data == null) {
+						jsonObj = "";
+					}
+					else {
+						jsonObj = data;
+					}
+					console.log(jsonObj);
+					if (jsonObj != "") {
+						if (jsonObj.length > 0) {
+							if (jsonObj[0].result == "OK") {
+								console.log("讀取成功");
+								$("#category").val(jsonObj[0].category).toString();
+								$("#items").val(jsonObj[0].items).toString();
+							}
+							else {
+								console.log(jsonObj[0].result);
+								alert(jsonObj[0].Msg);
+							}
+						}
+					}
+				}
+			});
+		}
+
+
+		function CheckMsg()
+		{
+			var Msg = "";
+			var remainder_input_1000 = TryParseInt($("#input_1000").val()) % 1000;
+			var remainder_input_100 = TryParseInt($("#input_100").val()) % 100;
+			var remainder_input_50 = TryParseInt($("#input_50").val()) % 50;
+			var remainder_input_10 = TryParseInt($("#input_10").val()) % 10;
+			var remainder_input_5 = TryParseInt($("#input_5").val()) % 5;
+
+			if (remainder_input_1000 != 0) { Msg += "1000元輸入有誤\n"; }
+			if (remainder_input_100 != 0) { Msg += "100元輸入有誤\n"; }
+			if (remainder_input_50 != 0) { Msg += "50元輸入有誤\n"; }
+			if (remainder_input_10 != 0) { Msg += "10元輸入有誤\n"; }
+			if (remainder_input_5 != 0) { Msg += "5元輸入有誤\n"; }
+			
+			
+			
+			return Msg;
+		}
+	</script>	
+	
+	
+	</body>
 </html>
+
+
