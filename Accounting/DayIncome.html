@@ -140,9 +140,9 @@
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <h1 class="h2">當日總額</h1>
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日現金收入</button>
-                            <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日現金支出</button>
-                            <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日補零</button>
+                            <button class="btn btn-outline-secondary" type="button" href="#當日現金收入">當日現金收入</button>
+                            <button class="btn btn-outline-secondary" type="button" href="#當日支出">當日支出</button>
+                            <button class="btn btn-outline-secondary" type="button" href="#當日補零">當日補零</button>
                         </div>
                     </div>
 
@@ -158,7 +158,7 @@
                     </div>
                     <div class="input-group" style="padding-top:5px">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日支出</label>
+                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01" id="當日支出">當日支出</label>
                         </div>
 
                         <input type="text" id="Daily_expend_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()"/>
@@ -190,7 +190,7 @@
                 </div>
                 <div>
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2">當日現金收入</h1>
+                        <h1 class="h2" id="當日現金收入">當日現金收入</h1>
                         <div class="btn-toolbar mb-2 mb-md-0">
 
                         </div>

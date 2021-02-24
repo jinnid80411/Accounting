@@ -39,12 +39,12 @@ namespace Accounting.xml
             switch (Action)
             {
                 case "SendEdit":
-                    if (objIT.ItemsType_CompanyShopCRUD(objInfo.CRUD, objInfo.cs_code, objInfo.it_name, objInfo.it_code, objInfo.createuser))
+                    if (objIT.Items_CompanyShopCRUD(objInfo.CRUD, objInfo.cs_code, objInfo.i_name, objInfo.it_code,objInfo.vd_code, objInfo.createuser,objInfo.i_code))
                     {
 
                         if (objInfo.CRUD == "U")
                         {
-                            Dt = objIT.GetItemsType_CompanyShopData(objInfo.cs_code, "", objInfo.it_name);
+                            Dt = objIT.GetItems_CompanyShopData(objInfo.cs_code, "", objInfo.i_name,objInfo.i_code);
                             for (int i2 = 0; i2 < ColumnsControl.Length; i2++)
                             {
                                 ResultDt.Columns.Add(ColumnsControl[i2]);
@@ -63,7 +63,7 @@ namespace Accounting.xml
                         }
                         else
                         {
-                            Dt = objIT.GetItemsType_CompanyShopData(objInfo.cs_code, "", objInfo.it_name);
+                            Dt = objIT.GetItems_CompanyShopData(objInfo.cs_code, "", objInfo.i_name,objInfo.i_code);
                             if (objInfo.CRUD == "D" && Dt.Rows.Count == 0)
                             {
                                 ResultDt.Rows.Add("NoData", "");
@@ -96,7 +96,7 @@ namespace Accounting.xml
                     }
                     break;
                 case "GetData":
-                    Dt = objIT.GetItemsType_CompanyShopData(objInfo.cs_code, objInfo.it_code, "");
+                    Dt = objIT.GetItems_CompanyShopData(objInfo.cs_code, objInfo.it_code, "",objInfo.i_code);
                     if (Dt.Rows.Count > 0)
                     {
                         for (int i2 = 0; i2 < ColumnsControl.Length; i2++)
@@ -121,7 +121,7 @@ namespace Accounting.xml
                     }
                     break;
                 case "ShowEdit":
-                    Dt = objIT.GetItemsType_CompanyShopData(objInfo.cs_code, objInfo.it_code, "");
+                    //Dt = objIT.GetItems_CompanyShopData(objInfo.cs_code, objInfo.it_code, "");
                     if (Dt.Rows.Count > 0)
                     {
                         for (int i2 = 0; i2 < ColumnsControl.Length; i2++)
@@ -146,7 +146,7 @@ namespace Accounting.xml
                     }
                     break;
                 case "GetAll":
-                    Dt = objIT.GetItemsType_CompanyShopData(objInfo.cs_code, "", "");
+                    //Dt = objIT.GetItems_CompanyShopData(objInfo.cs_code, "", "");
                     if (Dt.Rows.Count > 0)
                     {
                         for (int i2 = 0; i2 < ColumnsControl.Length; i2++)
@@ -191,7 +191,9 @@ namespace Accounting.xml
             public string Action { set; get; }
             public string cs_code { set; get; }
             public string CRUD { set; get; }
-            public string it_name { set; get; }
+            public string i_name { set; get; }
+            public string i_code { set; get; }
+            public string vd_code { set; get; }
             public string createuser { set; get; }
             public string it_code { set; get; }
         }

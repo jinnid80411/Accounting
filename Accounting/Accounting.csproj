@@ -198,6 +198,7 @@
     <Content Include="xml\CompanyShop_ItemsTypeList.ashx" />
     <Content Include="xml\CompanyShop_ItemsList.ashx" />
     <Content Include="xml\CompanyShop_ExpendItems.ashx" />
+    <Content Include="xml\DayIncome_Load.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
@@ -347,6 +348,9 @@
     </Compile>
     <Compile Include="xml\DayIncome.ashx.cs">
       <DependentUpon>DayIncome.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="xml\DayIncome_Load.ashx.cs">
+      <DependentUpon>DayIncome_Load.ashx</DependentUpon>
     </Compile>
     <Compile Include="xml\SignIn.ashx.cs">
       <DependentUpon>SignIn.ashx</DependentUpon>

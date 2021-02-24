@@ -709,8 +709,38 @@ namespace Accounting.App_Code
             }
         }
 
+
+        public DataTable GetCompanyShopTodayCome(string cs_code, string InputDate)
+        {
+            DataTable Dt = new DataTable();
+
+            string strSQL = @"";
+
+            //strSQL = @" select * from AdvUsers with (nolock) where Code=@pno ";
+            strSQL = @" select * from [CompanyShopDayCome] dd with (nolock)                    
+                    Where 1=1 and cs_code=@cs_code and DateDiff(dd,createdate,@InputDate) = 0 ";
+
+            string connString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AccountingConn"].ToString();
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand(strSQL);
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@cs_code", cs_code);
+                cmd.Parameters.AddWithValue("@InputDate", InputDate);
+
+                cmd.Connection = conn;
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                Dt.Load(dr);
+                conn.Close();
+            }
+
+            return Dt;
+        }
+
+
         #endregion
     }
-
 
 }
