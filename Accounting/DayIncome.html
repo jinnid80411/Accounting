@@ -280,7 +280,7 @@
                     </div>
                     <div class="input-group">
                         <label class="input-group-text" for="inputGroupSelect01">類別</label>
-                        <select name="pets" id="category" class="form-control" aria-label="Text input with dropdown button" onclick = "List_Expend_Category()">
+                        <select name="pets" id="category_List" class="form-control" aria-label="Text input with dropdown button" onchange="List_Expend_Item()">
 							<option value="">請選擇你最愛的寵物</option>                          
                         </select>
                         <label class="input-group-text" for="inputGroupSelect01">品項</label>
@@ -307,7 +307,7 @@
                                                 
                         <div class="input-group-prepend">
                             <input type="text" id="cat_ExpendAmt" class="form-control" />
-                            <input class="btn btn-outline-secondary" type="button" onclick="Add_Expend()" value="新增"/>
+                            <input class="btn btn-outline-secondary" type="button" onclick="Add_Expend();" value="新增"/>
                         </div>
                         <table class="table table-bordered">
                             <thead class="thead-light">
@@ -352,6 +352,11 @@
         var tableData;
         var i = 0;
         var tot_Expend_amt = 0;
+        var Expend_seq = 0;
+        var cat_value = [{ code: "A", text: "商學院" }, { code: "B", text: "工學院" }];
+        var item_value = [{ cat_code: "A", items_code: "1", items_text: "金融系" }, { cat_code: "A", items_code: "2", items_text: "商品系" },
+        { cat_code: "B", items_code: "3", items_text: "資訊系" }, { cat_code: "B", items_code: "4", items_text: "電子系" }];
+
         Load();
         //$("#Daily_output_sum").val(0).toString();
         //$("#Daily_expend_sum").val(0).toString();
@@ -360,8 +365,10 @@
         
         function Load()
         {
-
+            List_Expend_Category();
         }
+
+        
         function Load_OutCome()
         {
             var data = Array();
@@ -425,25 +432,45 @@
 			//每日總額更新
 			alert("Update_Daily_Account");
 			
-		}
+        }
+        
 		function List_Expend_Category()
-		{
-			//取得類別列表
-			alert("Load_Expend_Category");
-			var Cat_tableData="";
-			
-			Cat_tableData+="<option value=\"\">請選擇你最愛的寵物</option>";
-			Cat_tableData+="<option value=\"dog\">Dog</option>";
-			Cat_tableData+="<option value=\"cat\" selected=\"selected\">Cat</option>";
-			alert(Cat_tableData);
-			$("#category_List").html(Cat_tableData);
+        {
+            
+            console.log(cat_value);
+            var collegeSelect = document.getElementById("category_List");
+            //取得類別列表
+            var Cat_tableData = "";
+            for (var i = 0; i < cat_value.length; i++) {
+                //inner第一行就會像是 <option value=0>商學院</option>
+                Cat_tableData = Cat_tableData + '<option value=' + cat_value[i].code + '>' + cat_value[i].text +' </option>';
+            }
+
+            collegeSelect.innerHTML = Cat_tableData;
+
+
+            List_Expend_Item();
+           
 		}
 		function List_Expend_Item()
 		{
 			//取得類別列表
-			alert("List_Expend_Item");
+            var collegeSelect = document.getElementById("category_List").value;
+            //取得類別列表
+            var itemsSelect = document.getElementById("cat_items");
+
+            var Cat_tableData = "";
+            for (var i = 0; i < item_value.length; i++)
+            {
+                //inner第一行就會像是 <option value=0>商學院</option>
+                if (item_value[i].cat_code == collegeSelect)
+                    Cat_tableData = Cat_tableData + '<option value=' + item_value[i].items_code + '>' + item_value[i].items_text + ' </option>';
+            }
+
+            itemsSelect.innerHTML = Cat_tableData;
+
 		}
-		
+		/*
 		function Add_Expend()
 		{
 			
@@ -459,7 +486,28 @@
 			//var jsonData = JSON.stringify(data_Expend);
 			//alert(jsonData);	
 			Load_OutCome(data_Expend_seq);       
-		}
+		}*/
+
+        function Add_Expend()
+        {
+            var Expend_amt = TryParseInt($("#cat_ExpendAmt").val());
+
+            Expend_seq++;
+            tableData += "<tr>"
+            tableData += "<td>" + Expend_seq + "</td>";
+            tableData += "<td>" + $("#category").val() + "</td>";
+            tableData += "<td>" + $("#cat_items").val() + "</td>";
+            tableData += "<td>" + Expend_amt + "</td>";
+            tableData += "<td> <input class=\"btn btn - outline - secondary\" type=\"button\" onclick=\"Send_Expend()\" value=\"送出\" /> </td>";
+            tableData += "</tr>";
+            $("#tbody1").html(tableData)
+            tot_Expend_amt += Expend_amt;
+
+            $("#Expend_count").val(Expend_seq).toString();
+            $("#Total_Expend_Amt").val(tot_Expend_amt).toString();
+            daily_sum();
+
+        }
 		function Send_Expend()
 		{
 			var tot_daily_expend = TryParseInt($("#Total_Expend_Amt").val());
