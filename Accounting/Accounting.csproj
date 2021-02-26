@@ -147,6 +147,7 @@
     <Content Include="css\dashboard.css" />
     <Content Include="css\signin.css" />
     <Content Include="dashboard.html" />
+    <Content Include="menu.html" />
     <Content Include="DayIncome.aspx" />
     <Content Include="GenerateAuthCode.aspx" />
     <Content Include="ExpendIemText.html" />

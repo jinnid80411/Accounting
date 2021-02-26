@@ -52,344 +52,287 @@
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+       
         <!--
-        <ul class="form-control-dark w-100" type="text">
-            <li class="nav-item text-nowrap ">
-                <span style="font-size:18px;color:white;font-weight:bold;position:absolute;">支出品項管理</span>
-            </li>
-        </ul>
-        -->
-        <span style="font-size:18px;color:white;font-weight:bold;">當日支出</span>
-
+    <ul class="form-control-dark w-100" type="text">
+        <li class="nav-item text-nowrap ">
+            <span style="font-size:18px;color:white;font-weight:bold;position:absolute;">支出品項管理</span>
+        </li>
+    </ul>
+    -->
+        <!--<span style="font-size:18px;color:white;font-weight:bold;">當日支出</span>-->
         <!--<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">-->
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
                 <a class="nav-link" href="#">Sign in</a>
             </li>
         </ul>
+
     </nav>
 
     <div class="container-fluid">
         <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                <div class="sidebar-sticky pt-3">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" style="font-weight: bold;font-size: 16px;">
-                                總覽
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#" onclick="javascript:location.href='http://localhost:14958/DayIncome.html'">
-                                <span data-feather="file"></span>
-                                當日收入
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="javascript:location.href='http://localhost:14958/DayExpend.html'">
-                                <span data-feather="shopping-cart"></span>
-                                當日支出
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="javascript:location.href='http://localhost:14958/ExpendIem.html'">
-                                <span data-feather="users"></span>
-                                支出品項管理
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="bar-chart-2"></span>
-                                統計
-                            </a>
-                        </li>
-                    </ul>
-                    <div style="
-						padding-left: 10px;
-						padding-right: 10px;
-					"><hr/></div>
-                    <ul class="nav flex-column mb-2">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" style="font-weight: bold;font-size: 16px;">
-                                薪資項目
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                員工打卡
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                員工出勤紀錄
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                薪資計算設定
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <!-- Header -->
+            <div id="header"></div>
+            
+
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                <div>
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <section id="home">
+                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" onclick="location.href = '#DAYSummation'">當日總額</button>
+                                <button class="btn btn-outline-secondary" type="button" onclick="location.href = '#DAYIncome'">當日現金收入</button>
+                                <button class="btn btn-outline-secondary" type="button" onclick="location.href = '#DAYOutcome'">當日支出</button>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- 當日總額 -->
+                    <section id="DAYSummation">
                         <h1 class="h2">當日總額</h1>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" href="#當日現金收入">當日現金收入</button>
-                            <button class="btn btn-outline-secondary" type="button" href="#當日支出">當日支出</button>
-                            <button class="btn btn-outline-secondary" type="button" href="#當日補零">當日補零</button>
-                        </div>
-						
-                    </div>
+                        <div class="input-group" style="padding-top:5px">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日現金</label>
+                            </div>
 
-                    <div class="input-group" style="padding-top:5px">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日現金</label>
+                            <input type="text" id="Daily_output_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()" />
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">元</label>
+                            </div>
                         </div>
+                        <div class="input-group" style="padding-top:5px">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01" id="當日支出">當日支出</label>
+                            </div>
 
-                        <input type="text" id="Daily_output_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()"/>
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">元</label>
+                            <input type="text" id="Daily_expend_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()" />
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">元</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-group" style="padding-top:5px">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01" id="當日支出">當日支出</label>
+                        <div class="input-group" style="padding-top:5px">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日補零</label>
+                            </div>
+
+                            <input type="text" id="Daily_patch_change" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()" />
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">元</label>
+                            </div>
                         </div>
+                        <div class="input-group" style="padding-top:5px">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日總計</label>
+                            </div>
 
-                        <input type="text" id="Daily_expend_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()"/>
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">元</label>
+                            <input type="text" id="Daily_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()" />
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">元</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-group" style="padding-top:5px">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日補零</label>
-                        </div>
-
-                        <input type="text" id="Daily_patch_change" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()"/>
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">元</label>
-                        </div>
-                    </div>
-
-                    <div class="input-group" style="padding-top:5px">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">當日總計</label>
-                        </div>
-
-                        <input type="text" id="Daily_sum" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()"/>
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">元</label>
-                        </div>
-                    </div>
-					<div>
-						<input class="btn btn-outline-secondary" style="min-width:100%" type="button" onclick="Update_Daily_Account()" value="送出"/>
-					</div>
-                </div>
-                <div>
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2" id="當日現金收入">當日現金收入</h1>
-                        <div class="btn-toolbar mb-2 mb-md-0">
-
-                        </div>
-                     </div>
-
-                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <span data-feather="calendar"></span>
-                        This week
-                    </button>
-
-
-                    <div class="input-group" style="padding-top:5px">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$1000</label>
+                        <br>
+                        <div>
+                            <input class="btn btn-outline-secondary" style="min-width:100%" type="button" onclick="Update_Daily_Account()" value="確認完成" />
                         </div>
 
-                        <input type="text" id="input_1000" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()"/>
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">元</label>
+                    </section>
+                    <br>
+                    <br>
+                    <br>
+                    <!-- 當日現金收入 -->
+                    <section id="DAYIncome">
+                        <div>
+                            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                                <h1 class="h2" id="當日現金收入">當日現金收入</h1>
+                                <div class="btn-toolbar mb-2 mb-md-0">
+                                </div>
+                            </div>
+
+
+                            <div class="input-group" style="padding-top:5px">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$1000</label>
+                                </div>
+
+                                <input type="text" id="input_1000" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()" />
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">元</label>
+                                </div>
+                            </div>
+
+                            <div class="input-group" style="padding-top:5px">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$100</label>
+                                </div>
+
+                                <input type="text" id="input_100" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()" />
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">元</label>
+                                </div>
+                            </div>
+
+                            <div class="input-group" style="padding-top:5px">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$50</label>
+                                </div>
+
+                                <input type="text" id="input_50" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()" />
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">元</label>
+                                </div>
+                            </div>
+
+                            <div class="input-group" style="padding-top:5px">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$10</label>
+                                </div>
+
+                                <input type="text" id="input_10" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()" />
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">元</label>
+                                </div>
+                            </div>
+
+                            <div class="input-group" style="padding-top:5px">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$5</label>
+                                </div>
+
+                                <input type="text" id="input_5" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()" />
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">元</label>
+                                </div>
+                            </div>
+
+                            <div class="input-group" style="padding-top:5px">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">總計</label>
+                                </div>
+
+                                <input type="text" id="output_sum" class="form-control" aria-label="Text input with segmented dropdown button" />
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save'); location.href = '#home';">送出</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </section>
+                    <br>
+                    <br>
+                    <br>
+                    <section id="DAYOutcome">
+                        <div>
+                            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                                <h1 class="h2">當日支出</h1>
 
-                    <div class="input-group" style="padding-top:5px">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$100</label>
+                            </div>
+                            <div class="input-group">
+                                <label class="input-group-text" for="inputGroupSelect01">類別</label>
+                                <select name="pets" id="category_List" class="form-control" aria-label="Text input with dropdown button" onchange="List_Expend_Item()"></select>
+                                <label class="input-group-text" for="inputGroupSelect01">品項</label>
+                                <select name="pets" id="cat_items" class="form-control" aria-label="Text input with dropdown button"></select>
+                                <!-- <input type="text" id="category" class="form-control" aria-label="Text input with dropdown button"> -->
+                            </div>
+                            <div class="input-group-prepend">
+                                <input type="text" id="cat_ExpendAmt" class="form-control" />
+                                <input class="btn btn-outline-secondary" type="button" onclick="Add_Expend();" value="新增" />
+                            </div>
+
+                            <div id="SHORTCut">
+
+                            </div>
+
+                            <div class="input-group" style="padding-top:10px">
+
+
+
+                                <table class="table table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col" width="5%">序號</th>
+                                            <th colspan="1" scope="col" width="25%">類別</th>
+                                            <th colspan="1" scope="col" width="25%">品項</th>
+                                            <th colspan="1" scope="col" width="25%">金額</th>
+                                            <th colspan="1" scope="col" width="25%">修改</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody1"></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="1" scope="col" width="25%">總數</th>
+                                            <th colspan="1" scope="col" width="25%">
+                                                <input type="text" id="Expend_count" class="form-control" aria-label="Text input with segmented dropdown button" />
+                                            </th>
+                                            <th colspan="1" scope="col" width="25%">總計</th>
+                                            <th colspan="1" scope="col" width="25%">
+                                                <input type="text" id="Total_Expend_Amt" class="form-control" aria-label="Text input with segmented dropdown button" />
+                                            </th>
+                                            <th colspan="2" scope="col" width="25%">
+                                                <input class="btn btn-outline-secondary" type="button" onclick="location.href = '#home';Send_Expend();" value="送出" />
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+
+                                </table>
+
+                            </div>
+
+
                         </div>
-
-                        <input type="text" id="input_100" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()"/>
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">元</label>
-                        </div>
-                    </div>
-
-                    <div class="input-group" style="padding-top:5px">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$50</label>
-                        </div>
-
-                        <input type="text" id="input_50" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()"/>
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">元</label>
-                        </div>
-                    </div>
-
-                    <div class="input-group" style="padding-top:5px">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$10</label>
-                        </div>
-
-                        <input type="text" id="input_10" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()"/>
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">元</label>
-                        </div>
-                    </div>
-
-                    <div class="input-group" style="padding-top:5px">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">$5</label>
-                        </div>
-
-                        <input type="text" id="input_5" class="form-control" aria-label="Text input with segmented dropdown button" onchange="daily_sum()"/>
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">元</label>
-                        </div>
-                    </div>
-
-                    <div class="input-group" style="padding-top:5px">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" style="min-width:75px" for="inputGroupSelect01">總計</label>
-                        </div>
-
-                        <input type="text" id="output_sum" class="form-control" aria-label="Text input with segmented dropdown button"/>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">送出</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2">當日支出</h1>
-
-                    </div>
-                    <div class="input-group">
-                        <label class="input-group-text" for="inputGroupSelect01">類別</label>
-                        <select name="pets" id="category_List" class="form-control" aria-label="Text input with dropdown button" onchange="List_Expend_Item()">
-							<option value="">請選擇你最愛的寵物</option>                          
-                        </select>
-                        <label class="input-group-text" for="inputGroupSelect01">品項</label>
-                        <select name="pets" id="cat_items" class="form-control" aria-label="Text input with dropdown button" onclick="List_Expend_Item()">
-                            <option value="">請選擇你最愛的寵物</option>
-                            <option value="dog">Dog</option>
-                            <option value="cat" selected="selected">Cat</option>
-                            <option value="hamster">Hamster</option>
-                            <option value="parrot">Parrot</option>
-                            <option value="spider" disabled="disabled">Spider</option>
-                            <option value="goldfish">Goldfish</option>
-                        </select>
-                        <!-- <input type="text" id="category" class="form-control" aria-label="Text input with dropdown button"> -->
-                    </div>
-
-                    <div class="input-group" style="padding-top:10px">
-                        <button type="button" class="btn btn-warning" style="margin-right:5px">肉類-豬肉</button>
-                        <button type="button" class="btn btn-warning" style="margin-right:5px">肉類-牛肉</button>
-                        <button type="button" class="btn btn-warning" style="margin-right:5px">肉類-雞肉</button>
-                        <button type="button" class="btn btn-warning" style="margin-right:5px">肉類-羊肉</button>
-                        <button type="button" class="btn btn-warning" style="margin-right:5px">肉類-雞肉</button>
-                        <button type="button" class="btn btn-warning" style="margin-right:5px">肉類-羊肉</button>
-                        <button type="button" class="btn btn-warning" style="margin-right:5px">肉類-羊肉</button>
-                                                
-                        <div class="input-group-prepend">
-                            <input type="text" id="cat_ExpendAmt" class="form-control" />
-                            <input class="btn btn-outline-secondary" type="button" onclick="Add_Expend();" value="新增"/>
-                        </div>
-                        <table class="table table-bordered">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col" width="5%">序號</th>
-                                    <th colspan="1" scope="col" width="25%">類別</th>
-                                    <th colspan="1" scope="col" width="25%">品項</th>
-                                    <th colspan="1" scope="col" width="25%">金額</th>
-                                    <th colspan="1" scope="col" width="25%">修改</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody1"></tbody>
-                            <tfoot>
-                                <tr>
-                                    <th colspan="1" scope="col" width="25%">總數</th>
-                                    <th colspan="1" scope="col" width="25%">
-                                        <input type="text" id="Expend_count" class="form-control" aria-label="Text input with segmented dropdown button" />
-                                    </th>
-                                    <th colspan="1" scope="col" width="25%">總計</th>
-                                    <th colspan="1" scope="col" width="25%">
-                                        <input type="text" id="Total_Expend_Amt" class="form-control" aria-label="Text input with segmented dropdown button"/>
-                                    </th>
-                                    <th colspan="2" scope="col" width="25%">
-                                        <input class="btn btn-outline-secondary" type="button" onclick="Send_Expend()" value="送出"/>
-                                    </th>
-                                </tr>
-                            </tfoot>
-
-                        </table>
-
-                    </div>
+                    </section>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
 
 
-                </div>
 
-            </main>
 
-                
+
+
+</main>
+
+
         </div>
     </div>
     <script>
-        var tableData;
+
         var i = 0;
         var tot_Expend_amt = 0;
         var Expend_seq = 0;
         var cat_value = [{ code: "A", text: "商學院" }, { code: "B", text: "工學院" }];
         var item_value = [{ cat_code: "A", items_code: "1", items_text: "金融系" }, { cat_code: "A", items_code: "2", items_text: "商品系" },
-        { cat_code: "B", items_code: "3", items_text: "資訊系" }, { cat_code: "B", items_code: "4", items_text: "電子系" }];
+            { cat_code: "B", items_code: "3", items_text: "資訊系" }, { cat_code: "B", items_code: "4", items_text: "電子系" }];
+        var shortcut_value = [{ cat_code: "A", items_code: "2", cat_value: "商學院", item_value: "商品系" }, { cat_code: "B", items_code: "1", cat_value: "工學院", item_value: "金融系" }];
 
+        $("#header").load("menu.html");
         Load();
-        //$("#Daily_output_sum").val(0).toString();
-        //$("#Daily_expend_sum").val(0).toString();
-        //$("#Daily_patch_change").val(13500).toString();
+       
 
         
         function Load()
         {
+            
+            Load_InCome()
             List_Expend_Category();
+            Load_ShortCut();
+            
         }
 
         
-        function Load_OutCome()
-        {
-            var data = Array();
-            var data1 =
-            {
-                Expend_seq: "1",
-                Expend_cateqory: "高麗菜", Expend_cat_items: "菜阿姨", Expend_amt: "2000"
-            };
-            var data2 = 
-            {
-                Expend_seq: "1",
-                Expend_cateqory: "高麗菜",
-                Expend_cat_items: "菜阿姨", Expend_amt: "1000"
-            }
-            data.push(data1);
-            data.push(data2);
-            /*
-             支出讀取寫在這
-             */
-            
-        }
         function Load_InCome() //1.載入頁面顯示的資料
         {
             //var data = Array();
@@ -399,33 +342,42 @@
                 input_1000: "10000", input_100: "5000", input_50: "3000", input_10: "1000", input_5: "1000"
                 
             };
+            if (tot_output_sum == 0 && tot_daily_expend == 0 && tot_sum == 0) {
+                $("#Daily_output_sum").val(0).toString();
+                $("#Daily_expend_sum").val(0).toString();
+                $("#Daily_patch_change").val(13500).toString();
+                $("#Daily_sum").val(0).toString();
+                $('#output_sum').val(0).toString();
+            }
+            else
+            {
+                //當日總額
+                var tot_output_sum = data.tot_output_sum;
+                var tot_daily_expend = data.tot_daily_expend;
+                var tot_patch_change = data.tot_patch_change;
+                var tot_sum = data.tot_sum;
+                //當日現金收入
+                var input_1000 = data.input_1000;
+                var input_100 = data.input_100;
+                var input_50 = data.input_50;
+                var input_10 = data.input_10;
+                var input_5 = data.input_5;
+                //當日支出
+
+
+                $("#Daily_output_sum").val(tot_output_sum.toString());
+                $("#Daily_expend_sum").val((tot_daily_expend).toString());
+                $("#Daily_patch_change").val(tot_patch_change).toString();
+                $("#Daily_sum").val(tot_sum).toString();
+
+                $("#input_1000").val(input_1000.toString());
+                $("#input_100").val(input_100.toString());
+                $("#input_50").val(input_50.toString());
+                $("#input_10").val(input_10.toString());
+                $("#input_5").val(input_5.toString());  
+                $("#output_sum").val(tot_output_sum.toString());
+            }
             //data.push(dataRow1);
-            //當日總額
-            var tot_output_sum = data.tot_output_sum;
-            var tot_daily_expend = data.tot_daily_expend;
-            var tot_patch_change = data.tot_patch_change;
-            var tot_sum = data.tot_sum;
-            //當日現金收入
-            var input_1000 = data.input_1000;
-            var input_100 = data.input_100;
-            var input_50 = data.input_50;
-            var input_10 = data.input_10;
-            var input_5 = data.input_5;
-            //當日支出
-
-			
-			$("#Daily_output_sum").val(tot_output_sum.toString());
-			$("#Daily_expend_sum").val((tot_daily_expend).toString());
-			$("#Daily_patch_change").val(tot_patch_change).toString();
-			$("#Daily_sum").val(tot_sum).toString();
-
-			$("#input_1000").val(input_1000.toString());
-			$("#input_100").val(input_100.toString());
-			$("#input_50").val(input_50.toString());
-			$("#input_10").val(input_10.toString());
-			$("#input_5").val(input_5.toString());  
-
-			
 		}
 		function Update_Daily_Account()
 		{
@@ -433,7 +385,7 @@
 			alert("Update_Daily_Account");
 			
         }
-        
+        //列出所有支出類別
 		function List_Expend_Category()
         {
             
@@ -441,17 +393,21 @@
             var collegeSelect = document.getElementById("category_List");
             //取得類別列表
             var Cat_tableData = "";
+ 
             for (var i = 0; i < cat_value.length; i++) {
                 //inner第一行就會像是 <option value=0>商學院</option>
-                Cat_tableData = Cat_tableData + '<option value=' + cat_value[i].code + '>' + cat_value[i].text +' </option>';
+                Cat_tableData = Cat_tableData + '<option value=' + cat_value[i].code + '>' + cat_value[i].text + ' </option>';
+                
             }
 
             collegeSelect.innerHTML = Cat_tableData;
 
-
             List_Expend_Item();
+
+            
            
-		}
+        }
+         //列出所有支出品項
 		function List_Expend_Item()
 		{
 			//取得類別列表
@@ -469,40 +425,79 @@
 
             itemsSelect.innerHTML = Cat_tableData;
 
-		}
-		/*
-		function Add_Expend()
-		{
-			
-			var data_Expend_length = data_Expend.length ;
-			var data_Expend_seq = data_Expend_length + 1 ;
-			
-			var dataRow = {
-				Expend_seq: data_Expend_seq,
-				Expend_cateqory: $("#category").val(), Expend_cat_items: $("#cat_items").val(), Expend_amt: $("#cat_ExpendAmt").val()
-			}
-			
-			data_Expend.push(dataRow);
-			//var jsonData = JSON.stringify(data_Expend);
-			//alert(jsonData);	
-			Load_OutCome(data_Expend_seq);       
-		}*/
+        }
+        
+        function Load_ShortCut()
+        {
+            var ShortCutSelect = document.getElementById("SHORTCut");
+            var ShortCut_tableData = "";
+            for (var i = 0; i < shortcut_value.length; i++) {
+                //inner第一行就會像是 <option value=0>商學院</option>
+                //if (shortcut_value[i].cat_value == ShortCutSelect)
+                ShortCut_tableData = ShortCut_tableData + '<button type=\"button\" class=\"btn btn-warning\" style=\"margin-right:5px\" onclick=\"Update_Add_Expand(\'' + shortcut_value[i].cat_code + '\' ,\'' + shortcut_value[i].items_code + '\' )\">' + shortcut_value[i].cat_value + '-' + shortcut_value[i].item_value + '</button>';
+            }
+
+            ShortCutSelect.innerHTML = ShortCut_tableData;
+            
+        }
+        function Update_Add_Expand(catValue, itemVale)
+        {
+            $("#category_List").val(catValue);
+            $("#cat_items").val(itemVale);
+
+        }
+        //var cat_value = [{ code: "A", text: "商學院" }, { code: "B", text: "工學院" }];
+        // var item_value = [{ cat_code: "A", items_code: "1", items_text: "金融系" }, { cat_code: "A", items_code: "2", items_text: "商品系" },
+        //{ cat_code: "B", items_code: "3", items_text: "資訊系" }, { cat_code: "B", items_code: "4", items_text: "電子系" }];
 
         function Add_Expend()
         {
+            var catText, itemText;
+            $.each(cat_value, function (catIndex,catItem) {
+                if (catItem.code == $("#category_List").val()) {
+                    catText = catItem.text;
+                }
+            });
+            $.each(item_value, function (itemIndex, itemItem) {
+                if (itemItem.items_code == $("#cat_items").val())
+                {
+                    itemText = itemItem.items_text;
+                    console.log("same");
+                }
+                    
+            });
             var Expend_amt = TryParseInt($("#cat_ExpendAmt").val());
-
+            
+            var tableData = "";
             Expend_seq++;
             tableData += "<tr>"
             tableData += "<td>" + Expend_seq + "</td>";
-            tableData += "<td>" + $("#category").val() + "</td>";
-            tableData += "<td>" + $("#cat_items").val() + "</td>";
+            tableData += "<td>" + catText + "</td>";
+            tableData += "<td>" + itemText + "</td>";
             tableData += "<td>" + Expend_amt + "</td>";
-            tableData += "<td> <input class=\"btn btn - outline - secondary\" type=\"button\" onclick=\"Send_Expend()\" value=\"送出\" /> </td>";
+            tableData += "<td> <input class=\"btn btn - outline - secondary\" type=\"button\" onclick=\"Delete_Expend(this," + Expend_amt+")\" value=\"刪除\" /> </td>";
             tableData += "</tr>";
-            $("#tbody1").html(tableData)
+
+            $("#tbody1").after(tableData);
+            //$("#tbody1").html(tableData)
             tot_Expend_amt += Expend_amt;
 
+            $("#Expend_count").val(Expend_seq).toString();
+            $("#Total_Expend_Amt").val(tot_Expend_amt).toString();
+            daily_sum();
+            
+
+        }
+        function Delete_Expend(obj,delete_amt)
+        {
+            var isDelete = confirm("真的要刪除嗎？");
+            if (isDelete) {
+                var tr = obj.parentNode.parentNode;
+                var tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            }
+            Expend_seq -= 1;
+            tot_Expend_amt -= delete_amt;
             $("#Expend_count").val(Expend_seq).toString();
             $("#Total_Expend_Amt").val(tot_Expend_amt).toString();
             daily_sum();
