@@ -211,7 +211,7 @@
 
                                 <input type="text" id="output_sum" class="form-control" aria-label="Text input with segmented dropdown button" />
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save'); location.href = '#home';">送出</button>
+                                    <!--<button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save'); location.href = '#home';">送出</button>-->
                                 </div>
                             </div>
                         </div>
@@ -260,11 +260,11 @@
                                         <tr>
                                             <th colspan="1" scope="col" width="25%">總數</th>
                                             <th colspan="1" scope="col" width="25%">
-                                                <input type="text" id="Expend_count" class="form-control" aria-label="Text input with segmented dropdown button" />
+                                                <div id="Expend_count"></div>
                                             </th>
                                             <th colspan="1" scope="col" width="25%">總計</th>
                                             <th colspan="1" scope="col" width="25%">
-                                                <input type="text" id="Total_Expend_Amt" class="form-control" aria-label="Text input with segmented dropdown button" />
+                                                <div id="Total_Expend_Amt"></div>
                                             </th>
                                             <th colspan="2" scope="col" width="25%">
                                                 <input class="btn btn-outline-secondary" type="button" onclick="location.href = '#home';Send_Expend();" value="送出" />
@@ -313,10 +313,9 @@
         var i = 0;
         var tot_Expend_amt = 0;
         var Expend_seq = 0;
-        var cat_value = [{ code: "A", text: "商學院" }, { code: "B", text: "工學院" }];
-        var item_value = [{ cat_code: "A", items_code: "1", items_text: "金融系" }, { cat_code: "A", items_code: "2", items_text: "商品系" },
-            { cat_code: "B", items_code: "3", items_text: "資訊系" }, { cat_code: "B", items_code: "4", items_text: "電子系" }];
-        var shortcut_value = [{ cat_code: "A", items_code: "2", cat_value: "商學院", item_value: "商品系" }, { cat_code: "B", items_code: "1", cat_value: "工學院", item_value: "金融系" }];
+        var cat_value;
+        var item_value;
+        var shortcut_value;
 
         $("#header").load("menu.html");
         Load();
@@ -326,7 +325,8 @@
         function Load()
         {
             
-            Load_InCome()
+            Load_InCome();
+            Load_Category();
             List_Expend_Category();
             Load_ShortCut();
             
@@ -378,7 +378,16 @@
                 $("#output_sum").val(tot_output_sum.toString());
             }
             //data.push(dataRow1);
-		}
+        }
+        function Load_Category()
+        {
+            cat_value = [{ code: "A", text: "商學院" }, { code: "B", text: "工學院" }];
+            item_value = [{ cat_code: "A", items_code: "1", items_text: "金融系" }, { cat_code: "A", items_code: "2", items_text: "商品系" },
+            { cat_code: "B", items_code: "3", items_text: "資訊系" }, { cat_code: "B", items_code: "4", items_text: "電子系" }];
+            shortcut_value = [{ cat_code: "A", items_code: "2", cat_value: "商學院", item_value: "商品系" }, { cat_code: "B", items_code: "1", cat_value: "工學院", item_value: "金融系" }];
+
+        }
+
 		function Update_Daily_Account()
 		{
 			//每日總額更新
@@ -482,8 +491,8 @@
             //$("#tbody1").html(tableData)
             tot_Expend_amt += Expend_amt;
 
-            $("#Expend_count").val(Expend_seq).toString();
-            $("#Total_Expend_Amt").val(tot_Expend_amt).toString();
+            $("#Expend_count").html(Expend_seq.toString());
+            $("#Total_Expend_Amt").html(tot_Expend_amt.toString());
             daily_sum();
             
 
@@ -498,8 +507,8 @@
             }
             Expend_seq -= 1;
             tot_Expend_amt -= delete_amt;
-            $("#Expend_count").val(Expend_seq).toString();
-            $("#Total_Expend_Amt").val(tot_Expend_amt).toString();
+            $("#Expend_count").html(Expend_seq.toString());
+            $("#Total_Expend_Amt").html(tot_Expend_amt.toString());
             daily_sum();
 
         }

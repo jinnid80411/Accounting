@@ -15,7 +15,7 @@ namespace Accounting.App_Code
         #region==CompanyShop==
         #region==ItemsType==
         public DataTable GetItemsType_CompanyShopData(string cs_code,string it_code,string it_name)
-        {
+        {            
             DataTable Dt = new DataTable();
 
             string strSQL = @"";
@@ -25,7 +25,7 @@ namespace Accounting.App_Code
                         left outer join ItemsType i on  i.it_code = c.it_code
                     Where 1=1 and c.cs_code=@cs_code";
             if (it_code != "")
-                strSQL += " and c.it_code = @it_code";
+                strSQL += " and c.it_code in (Select [word] From udf_Split(@it_code,','))";
             if (it_name != "")
                 strSQL += " and i.it_name = @it_name";
             string connString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AccountingConn"].ToString();
@@ -123,7 +123,7 @@ namespace Accounting.App_Code
             strSQL = @" select * from [vw_Items_CompanyShop] c with (nolock)   
                     Where 1=1 and c.cs_code=@cs_code";
             if (it_code != "")
-                strSQL += " and c.it_code = @it_code";
+                strSQL += " and c.it_code in (Select [word] From udf_Split(@it_code,',')) ";
             if (i_code != "")
                 strSQL += " and c.i_code = @i_code";
             if (it_name != "")
