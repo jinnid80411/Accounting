@@ -19,7 +19,7 @@
     <script src="js/Tools.js"></script>
     
     <script src="js/jquery-3.5.1.min.js"></script>
-   <script src="js/jquery.min.js"></script>
+   <!-- <script src="js/jquery.min.js"></script> -->
    <script src="js/jquery.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/feather.min.js"></script>    
@@ -73,7 +73,9 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Header -->
-            <div id="header"></div>
+            <div id="header">
+                
+            </div>
             
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
@@ -298,16 +300,15 @@
                     <br>
                     <br>
 
-
-
-
-
-
-</main>
-
-
+                </main>
+                
+            </div>
         </div>
-    </div>
+    </body>
+
+
+
+
     <script>
 
         var i = 0;
@@ -320,7 +321,7 @@
 
         $("#header").load("menu.html");
         Load();
-       
+        
 
         
         function Load()
@@ -378,22 +379,22 @@
                 $("#output_sum").val(tot_output_sum.toString());
             }
             //data.push(dataRow1);
-		}
-		function Update_Daily_Account()
-		{
-			//每日總額更新
-			alert("Update_Daily_Account");
-			
+        }
+        function Update_Daily_Account()
+        {
+            //每日總額更新
+            alert("Update_Daily_Account");
+            
         }
         //列出所有支出類別
-		function List_Expend_Category()
+        function List_Expend_Category()
         {
             
             console.log(cat_value);
             var collegeSelect = document.getElementById("category_List");
             //取得類別列表
             var Cat_tableData = "";
- 
+
             for (var i = 0; i < cat_value.length; i++) {
                 //inner第一行就會像是 <option value=0>商學院</option>
                 Cat_tableData = Cat_tableData + '<option value=' + cat_value[i].code + '>' + cat_value[i].text + ' </option>';
@@ -405,12 +406,12 @@
             List_Expend_Item();
 
             
-           
+            
         }
-         //列出所有支出品項
-		function List_Expend_Item()
-		{
-			//取得類別列表
+            //列出所有支出品項
+        function List_Expend_Item()
+        {
+            //取得類別列表
             var collegeSelect = document.getElementById("category_List").value;
             //取得類別列表
             var itemsSelect = document.getElementById("cat_items");
@@ -503,173 +504,173 @@
             daily_sum();
 
         }
-		function Send_Expend()
-		{
-			var tot_daily_expend = TryParseInt($("#Total_Expend_Amt").val());
-			$("#Daily_expend_sum").val((tot_daily_expend).toString());
-			daily_sum()
-		}
-		function daily_sum()
-		{
-			var input_1000 = TryParseInt($("#input_1000").val());
-			var input_100 = TryParseInt($("#input_100").val());
-			var input_50 = TryParseInt($("#input_50").val());
-			var input_10 = TryParseInt($("#input_10").val());
-			var input_5 = TryParseInt($("#input_5").val());
+        function Send_Expend()
+        {
+            var tot_daily_expend = TryParseInt($("#Total_Expend_Amt").val());
+            $("#Daily_expend_sum").val((tot_daily_expend).toString());
+            daily_sum()
+        }
+        function daily_sum()
+        {
+            var input_1000 = TryParseInt($("#input_1000").val());
+            var input_100 = TryParseInt($("#input_100").val());
+            var input_50 = TryParseInt($("#input_50").val());
+            var input_10 = TryParseInt($("#input_10").val());
+            var input_5 = TryParseInt($("#input_5").val());
 
-			var tot_daily_expend = TryParseInt($("#Total_Expend_Amt").val());
-			var tot_dailty_patch = TryParseInt($("#Daily_patch_change").val());
+            var tot_daily_expend = TryParseInt($("#Total_Expend_Amt").val());
+            var tot_dailty_patch = TryParseInt($("#Daily_patch_change").val());
 
-			var output_sum = input_1000 + input_100 + input_10 + input_50 + input_5;
-			var Daily_sum = output_sum - tot_dailty_patch + tot_daily_expend;
-
-
-			$("#output_sum").val(output_sum.toString());
-			$("#Daily_output_sum").val(output_sum.toString());
-			$("#Daily_expend_sum").val((tot_daily_expend).toString());
-			$("#Daily_sum").val(Daily_sum.toString());
-		   
-		}
-		function RunAjax_income(Action) {
-
-			
-			var input_1000 = TryParseInt($("#input_1000").val()).toString();
-			var input_100 = TryParseInt($("#input_100").val()).toString();
-			var input_50 = TryParseInt($("#input_50").val()).toString();
-			var input_10 = TryParseInt($("#input_10").val()).toString();
-			var input_5 = TryParseInt($("#input_5").val()).toString();
-
-			
-			var Msg = CheckMsg();
-			if (Msg != "") {
-				alert(Msg);
-				return false;
-			}
-
-			var Info = {};
-			Info.input_1000 = input_1000;
-			Info.input_100 = input_100;
-			Info.input_50 = input_50;
-			Info.input_10 = input_10;
-			Info.input_5 = input_5;
-			Info.Action = Action;
-			
+            var output_sum = input_1000 + input_100 + input_10 + input_50 + input_5;
+            var Daily_sum = output_sum - tot_dailty_patch + tot_daily_expend;
 
 
-			var jsonData = JSON.stringify(Info);
-			console.log(jsonData);
-			$.ajax({
-				url: "xml/SignIn.ashx",
-				data: jsonData,
-				type: 'POST',
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				success: function (data) {
-					var jsonObj;
-					var TotalPage;
-					if (typeof (data) == 'undefined' || data == null) {
-						jsonObj = "";
-					}
-					else {
-						jsonObj = data;
-					}
-					console.log(jsonObj);
-					if (jsonObj != "") {
-						if (jsonObj.length > 0) {
-							if (jsonObj[0].result == "OK") {
-								console.log("讀取成功");
-								$("#input_1000").val(jsonObj[0].input_1000);
-								$("#input_100").val(jsonObj[0].input_100);
-								$("#input_50").val(jsonObj[0].input_50);
-								$("#input_10").val(jsonObj[0].input_10);
-								$("#input_5").val(jsonObj[0].input_5);
-								//location.href = jsonObj[0].url;
-							}
-							else {
-								console.log(jsonObj[0].result);
-								alert(jsonObj[0].Msg);
-							}
-						}
-					}
-				}
-			});
-		}
-		function RunAjax_outcome(Action)
-		{
-			var category = $("#category").val().toString();
-			var items = $("#items").val().toString();
+            $("#output_sum").val(output_sum.toString());
+            $("#Daily_output_sum").val(output_sum.toString());
+            $("#Daily_expend_sum").val((tot_daily_expend).toString());
+            $("#Daily_sum").val(Daily_sum.toString());
+            
+        }
+        function RunAjax_income(Action) {
 
-			var Msg = CheckMsg();
-			if (Msg != "") {
-				alert(Msg);
-				return false;
-			}
+            
+            var input_1000 = TryParseInt($("#input_1000").val()).toString();
+            var input_100 = TryParseInt($("#input_100").val()).toString();
+            var input_50 = TryParseInt($("#input_50").val()).toString();
+            var input_10 = TryParseInt($("#input_10").val()).toString();
+            var input_5 = TryParseInt($("#input_5").val()).toString();
 
-			var Info = {};
-			Info.category = category;
-			Info.items = items;
-			Info.Action = Action;
+            
+            var Msg = CheckMsg();
+            if (Msg != "") {
+                alert(Msg);
+                return false;
+            }
+
+            var Info = {};
+            Info.input_1000 = input_1000;
+            Info.input_100 = input_100;
+            Info.input_50 = input_50;
+            Info.input_10 = input_10;
+            Info.input_5 = input_5;
+            Info.Action = Action;
+            
 
 
-			var jsonData = JSON.stringify(Info);
-			console.log(jsonData);
-			$.ajax({
-				url: "xml/SignIn.ashx",
-				data: jsonData,
-				type: 'POST',
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				success: function (data) {
-					var jsonObj;
-					var TotalPage;
-					if (typeof (data) == 'undefined' || data == null) {
-						jsonObj = "";
-					}
-					else {
-						jsonObj = data;
-					}
-					console.log(jsonObj);
-					if (jsonObj != "") {
-						if (jsonObj.length > 0) {
-							if (jsonObj[0].result == "OK") {
-								console.log("讀取成功");
-								$("#category").val(jsonObj[0].category).toString();
-								$("#items").val(jsonObj[0].items).toString();
-							}
-							else {
-								console.log(jsonObj[0].result);
-								alert(jsonObj[0].Msg);
-							}
-						}
-					}
-				}
-			});
-		}
+            var jsonData = JSON.stringify(Info);
+            console.log(jsonData);
+            $.ajax({
+                url: "xml/SignIn.ashx",
+                data: jsonData,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    var jsonObj;
+                    var TotalPage;
+                    if (typeof (data) == 'undefined' || data == null) {
+                        jsonObj = "";
+                    }
+                    else {
+                        jsonObj = data;
+                    }
+                    console.log(jsonObj);
+                    if (jsonObj != "") {
+                        if (jsonObj.length > 0) {
+                            if (jsonObj[0].result == "OK") {
+                                console.log("讀取成功");
+                                $("#input_1000").val(jsonObj[0].input_1000);
+                                $("#input_100").val(jsonObj[0].input_100);
+                                $("#input_50").val(jsonObj[0].input_50);
+                                $("#input_10").val(jsonObj[0].input_10);
+                                $("#input_5").val(jsonObj[0].input_5);
+                                //location.href = jsonObj[0].url;
+                            }
+                            else {
+                                console.log(jsonObj[0].result);
+                                alert(jsonObj[0].Msg);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        function RunAjax_outcome(Action)
+        {
+            var category = $("#category").val().toString();
+            var items = $("#items").val().toString();
+
+            var Msg = CheckMsg();
+            if (Msg != "") {
+                alert(Msg);
+                return false;
+            }
+
+            var Info = {};
+            Info.category = category;
+            Info.items = items;
+            Info.Action = Action;
 
 
-		function CheckMsg()
-		{
-			var Msg = "";
-			var remainder_input_1000 = TryParseInt($("#input_1000").val()) % 1000;
-			var remainder_input_100 = TryParseInt($("#input_100").val()) % 100;
-			var remainder_input_50 = TryParseInt($("#input_50").val()) % 50;
-			var remainder_input_10 = TryParseInt($("#input_10").val()) % 10;
-			var remainder_input_5 = TryParseInt($("#input_5").val()) % 5;
+            var jsonData = JSON.stringify(Info);
+            console.log(jsonData);
+            $.ajax({
+                url: "xml/SignIn.ashx",
+                data: jsonData,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    var jsonObj;
+                    var TotalPage;
+                    if (typeof (data) == 'undefined' || data == null) {
+                        jsonObj = "";
+                    }
+                    else {
+                        jsonObj = data;
+                    }
+                    console.log(jsonObj);
+                    if (jsonObj != "") {
+                        if (jsonObj.length > 0) {
+                            if (jsonObj[0].result == "OK") {
+                                console.log("讀取成功");
+                                $("#category").val(jsonObj[0].category).toString();
+                                $("#items").val(jsonObj[0].items).toString();
+                            }
+                            else {
+                                console.log(jsonObj[0].result);
+                                alert(jsonObj[0].Msg);
+                            }
+                        }
+                    }
+                }
+            });
+        }
 
-			if (remainder_input_1000 != 0) { Msg += "1000元輸入有誤\n"; }
-			if (remainder_input_100 != 0) { Msg += "100元輸入有誤\n"; }
-			if (remainder_input_50 != 0) { Msg += "50元輸入有誤\n"; }
-			if (remainder_input_10 != 0) { Msg += "10元輸入有誤\n"; }
-			if (remainder_input_5 != 0) { Msg += "5元輸入有誤\n"; }
-			
-			
-			
-			return Msg;
-		}
-	</script>	
+
+        function CheckMsg()
+        {
+            var Msg = "";
+            var remainder_input_1000 = TryParseInt($("#input_1000").val()) % 1000;
+            var remainder_input_100 = TryParseInt($("#input_100").val()) % 100;
+            var remainder_input_50 = TryParseInt($("#input_50").val()) % 50;
+            var remainder_input_10 = TryParseInt($("#input_10").val()) % 10;
+            var remainder_input_5 = TryParseInt($("#input_5").val()) % 5;
+
+            if (remainder_input_1000 != 0) { Msg += "1000元輸入有誤\n"; }
+            if (remainder_input_100 != 0) { Msg += "100元輸入有誤\n"; }
+            if (remainder_input_50 != 0) { Msg += "50元輸入有誤\n"; }
+            if (remainder_input_10 != 0) { Msg += "10元輸入有誤\n"; }
+            if (remainder_input_5 != 0) { Msg += "5元輸入有誤\n"; }
+            
+            
+            
+            return Msg;
+        }
+    </script>	
 	
 	
-	</body>
+
 </html>
 
 
