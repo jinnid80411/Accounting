@@ -67,6 +67,9 @@ namespace Accounting.xml
                         }
 
                         break;
+                    case "Category":
+
+                        break;
                 }
                 
                 /*

@@ -28,17 +28,17 @@
                         <tr id="thead_list">
                             <th scope="col" width="5%">序號</th>
                             <th colspan="2" scope="col" width="95%">類別</th>
-                            <th> <input type="button" class="btn btn-outline-secondary" onclick="RunAjax_Add()" value="新增類別" /></th>
+                            <th> <input type="button" class="btn btn-outline-secondary" onclick="Show_Add()" value="新增類別" /></th>
                         </tr>
                         <tr id="thead_add" style="display:none;">
                             <td></td>
-                            <td style = "border-right: none";> 新增類別</td>
+                            <td style="border-right: none";>新增類別</td>
                             <td style="border-right: none";>
-                                <input class = "form-control" type="text" value="類別"/>
+                                <input id="input_add" class="form-control" type="text"/>
                             </td>
                             <td align="right" style="border-left: none"; >
-                                <input type="button" class="btn btn-outline-secondary" value="新增"/>
-                                <input type="button" class="btn btn-outline-secondary" onclick="RunAjax_Add()" value="取消"/>
+                                <input type="button" class="btn btn-outline-secondary" onclick="Run_Add()" value="新增"/>
+                                <input type="button" class="btn btn-outline-secondary" value="取消"/>
                             </td>
                         </tr>
                     </thead>
@@ -57,60 +57,116 @@
       data.push(dataRow1);
       data.push(dataRow2);
       */
-      var ItemsTypeList = new Array();
+      var NewCode = 0;
+      //新增用"Add_"+NewCode來判定增加新增 ex:Add_1
+      var ItemsTypeList;
+      var ItemsList;
       var tableData = "";
       var serchcheck = "";
       var addcheck = 0;
+      var open_it_code = "";
+      var Add_it_code = new Array();
+      var Delete_it_code = new Array();
+      var Update_it_code = new Array();
+      var Add_i_code = new Array();
+      var Delete_i_code = new Array();
+      var Update_i_code = new Array();
+
+
       $(function() {
           RunAjax_Serch();
       });
 
-      function RunAjax_Add()
+      function RunAjax_GetAll()
+      {
+            var Info = {};
+            Info.Action = "GetAll";
+            Info.cs_code = $("#hid_cs_code").val();
+            Info.createuser = $("#hid_user").val();          
+            Info.it_code = "";
+            Info.CRUD = "";
+            Info.it_name = "";
+                          
+            var jsonData = JSON.stringify(Info);
+            console.log(jsonData);
+            //console.log(jsonData);
+             $.ajax({
+                url: "xml/CompanyShop_ExpendItems.ashx",
+                data: jsonData,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                 success: function (data) {                     
+                     console.log(data);
+                     if (data[0].result == "OK")
+                     {
+                         ItemsTypeList = data[0].ItemsType;
+                         ItemsList = data[0].Items;
+                         creatTable();
+                     }
+                 },
+                 error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("error");
+                    
+                 }
+            });
+      }
+
+
+      function Show_Add()
       {
           $("#thead_add").toggle();
+          //$("#thead_list").toggle();
+      }
+      
+      function Run_Add()
+      {
+          var value = $("#input_add").val();
+          NewCode++;
+          var code = "Add_" + NewCode;
+          ItemsTypeList.push({ it_code: code, it_name: value });
+          console.log(ItemsTypeList);
+          //$("#thead_add").toggle();
           //$("#thead_list").toggle();
       }
 
       function RunAjax_Serch()
       {
           RunAjax_GetAll();
-        //
-
       }
 
-      function creatTable(data)
+      function creatTable()
       {
-        for (var i = 0; i < data.length; i++)
+        for (var i = 0; i < ItemsTypeList.length; i++)
         {
-
             tableData += "<tr>";
-            tableData += "<td>" + data[i].it_code + "</td>";
-            tableData += "<td colspan=\"2\" style = \"border-right: none\"; >" + data[i].it_name + "</td>";
-            tableData += "<td align=\"right\" style=\"border-left: none\"; >" + "<input type=\"button\" class=\"btn btn-outline-secondary\" onclick=\"\" value=\"修改類別\"/>" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"查看\" onclick=\"ItemsControl('"+data[i].it_code+"')\" />" + "</td>";
+            tableData += "<td>" + ItemsTypeList[i].it_code + "</td>";
+            tableData += "<td colspan=\"2\" style = \"border-right: none\"; >" + ItemsTypeList[i].it_name + "</td>";
+            tableData += "<td align=\"right\" style=\"border-left: none\"; >" + "<input type=\"button\" class=\"btn btn-outline-secondary\" onclick=\"\" value=\"修改類別\"/>" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"查看\" onclick=\"ItemsControl('"+ItemsTypeList[i].it_code+"')\" />" + "</td>";
             //alert(serchcheck);
             //對應Serchlist() 顯示品項內容
-            console.log(data[i].Items.length);
-            if (data[i].Items.length>0) {
-                tableData += "<tr class=\"tr_" + data[i].it_code + "\" style=\"display:none;background-color: lightslategray;\">";
+            var ItemsArray = ItemsList.filter(element => element.it_code == ItemsTypeList[i].it_code);
+            if (ItemsArray.length>0) {
+                tableData += "<tr class=\"tr_" + ItemsArray.it_code + "\" style=\"display:none;background-color: lightslategray;\">";
                 tableData += "<td> </td>";
                 tableData += "<td width=\"30%\">" + "品項" + "</td>";
                 tableData += "<td width=\"40%\" colspan=\"2\">" + "廠商" + "</td> </tr>";
-                for (var j = 0; j < data[i].Items.length; j++) {
-                    tableData += "<tr class=\"tr_" + data[i].it_code + "\"  style=\"display:none;\" > <td> </td>" + "<td>" + data[i].Items[j].i_name + "</td>" + "<td style = \"border-right: none\";>" + data[i].Items[j].vendor_name + "</td>";
+                for (var j = 0; j < ItemsArray.length; j++) {
+                    tableData += "<tr class=\"tr_" + ItemsTypeList[i].it_code + "\"  style=\"display:none;\" > <td> </td>" + "<td>" + ItemsArray[j].i_name + "</td>" + "<td style = \"border-right: none\";>" + ItemsArray[j].vendor_name + "</td>";
                     tableData += "<td style = \"border-left: none\"; align=\"right\"><input type=\"button\" class=\"btn btn-outline-secondary\" value=\"修改品項\"/>" + "</td> </tr>";
                 }
                 //alert(tableData);
             } else {
-                tableData += "<tr class=\"tr_" + data[i].it_code + "\" style=\"display:none;background-color: lightslategray;\">";
+                tableData += "<tr class=\"tr_" +  ItemsTypeList[i].it_code + "\" style=\"display:none;background-color: lightslategray;\">";
                 tableData += "<td> </td>";
                 tableData += "<td width=\"30%\">" + "品項" + "</td>";
                 tableData += "<td width=\"40%\" colspan=\"2\">" + "廠商" + "</td> </tr>";
-                tableData += "<tr class=\"tr_" + data[i].it_code + "\" style=\"display:none;\">";
+                tableData += "<tr class=\"tr_" +  ItemsTypeList[i].it_code + "\" style=\"display:none;\">";
                 tableData += "<td colspan=\"4\">暫無資料 </td>";
                 tableData += "</tr>";
             }
               
-                tableData += "<tr class=\"tr_" + data[i].it_code + "\" style=\"display:none;\">";
+                tableData += "<tr class=\"tr_" +  ItemsTypeList[i].it_code + "\" style=\"display:none;\">";
                 tableData += "<td colspan=\"4\" align=\"right\">" + "<input type=\"button\" class=\"btn btn-outline-secondary\" value=\"新增品項\"/>" + "</td>";
                 tableData += "</tr>";
                 tableData += "</tr>";
@@ -122,12 +178,19 @@
 
         
 
-        $("#tbody1").html(tableData)
-    }
-          function ItemsControl(it_code)
-          {
-              $(".tr_" + it_code).toggle();
-          }
+          $("#tbody1").html(tableData);
+
+          if (open_it_code != "")
+              ItemsControl(open_it_code);
+      }
+        function ItemsControl(it_code)
+        {
+            if (open_it_code != it_code)
+                open_it_code = it_code;
+            else
+                open_it_code = "";
+            $(".tr_" + it_code).toggle();
+        }
 
         //依選擇的No顯示下拉式table
         function Serchlist(i)
@@ -136,37 +199,10 @@
             serchcheck = data[i].it_code;
             //alert(serchcheck);
             tableData="";
-            creatTable(data);
+            //creatTable(data);
         }
 
-        function RunAjax_GetAll()
-        {
-            var Info = {};
-            Info.Action = "GetAll";
-            Info.cs_code = $("#hid_cs_code").val();
-            Info.createuser = $("#hid_user").val();          
-            Info.it_code = "";
-            Info.CRUD = "";
-            Info.it_name = "";
-
-            var jsonData = JSON.stringify(Info);
-            //console.log(jsonData);
-             $.ajax({
-                url: "xml/CompanyShop_ExpendItems.ashx",
-                data: jsonData,
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                 success: function (data) {
-                     
-                     //console.log(data);
-                     ItemsTypeList = data;
-                     creatTable(ItemsTypeList)
-                 }
-                 
-                 });
-
-        }
+        
     </script>
 
 </asp:Content>
