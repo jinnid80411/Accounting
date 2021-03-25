@@ -90,10 +90,19 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <div class="input-group">
+                    <!-- <div class="input-group">
                         <label class="input-group-text" for="inputGroupSelect01">店家</label>
                         <select name="pets" id="category_List" class="form-control" aria-label="Text input with dropdown button" onchange="List_Expend_Item()"></select>
                     </div>
+                    <p></p> -->
+                    
+                    <!-- Color System -->
+                    <h1 class="h3 mb-0 text-gray-800">分店選擇
+                    </h1>
+                    <p></p>
+                    <div class="row" id = "chooseBranch"></div>
+
+
                     <p></p>
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -103,7 +112,7 @@
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row">
+                    <div class="row" id = "BranchInfo">
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
@@ -312,73 +321,6 @@
                                 </div>
                             </div>
 
-                            <!-- Color System -->
-                            <div class="row">
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-primary text-white shadow">
-                                        <div class="card-body">
-                                            Primary
-                                            <div class="text-white-50 small">#4e73df</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-success text-white shadow">
-                                        <div class="card-body">
-                                            Success
-                                            <div class="text-white-50 small">#1cc88a</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-info text-white shadow">
-                                        <div class="card-body">
-                                            Info
-                                            <div class="text-white-50 small">#36b9cc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-warning text-white shadow">
-                                        <div class="card-body">
-                                            Warning
-                                            <div class="text-white-50 small">#f6c23e</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-danger text-white shadow">
-                                        <div class="card-body">
-                                            Danger
-                                            <div class="text-white-50 small">#e74a3b</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-secondary text-white shadow">
-                                        <div class="card-body">
-                                            Secondary
-                                            <div class="text-white-50 small">#858796</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-light text-black shadow">
-                                        <div class="card-body">
-                                            Light
-                                            <div class="text-black-50 small">#f8f9fc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-dark text-white shadow">
-                                        <div class="card-body">
-                                            Dark
-                                            <div class="text-white-50 small">#5a5c69</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                         </div>
 
@@ -487,9 +429,106 @@
 </body>
 
 <script>
+    /*const words = [{A:'spray', B:'limit'}, {A:'spray', B:'exuberant'}, {A:'destruction', B:'present'}];
 
+const result = words.filter(word => word.A == 'spray');
 
+console.log(result);
+// expected output: Array ["exuberant", "destruction", "present"]
+*/
+    var company_data=[{cs_name:"山子頂",cs_code:"AAA"},{cs_name:"中正店",cs_code:"BBB"}];
+    //選擇分店
+    var item_value = [{ cs_name: "山子頂",cs_code:"AAA", InCome: "10000", OutCome: "5000", date: "2020-01-01" }
+    , { cs_name: "山子頂",cs_code:"AAA", InCome: "2000", OutCome: "300", date: "2020-01-02" }
+    , { cs_name: "山子頂",cs_code:"AAA", InCome: "3000", OutCome: "100", date: "2020-01-03" }];
+    GetBranchName();
 
+    function GetBranchName()
+    {
+        // console.log(item_value.length);
+        
+        var chooseBranch = document.getElementById('chooseBranch');
+        var items = "";
+        $.each(item_value, function (index, item) 
+        {
+            console.log(item);
+            items += '<div class="col-lg-3 mb-4" >';
+            items += '<div type = \"button\" id =\"Branch'+item.BranchName+'\" class=\"card text-white shadow\" style=\"background-color: cadetblue\" onclick = \"chooseBranch(\''+item.BranchName+'\');\">';
+            items += '<div class="card-body">'+item.BranchName;
+            // items += '<div class="text-white-50 small"></div>';
+            items += '</div>';
+            items += '</div>';
+            items += '</div>';
+
+        });
+        chooseBranch.innerHTML = items;
+        //
+    }
+    function chooseBranch(BranchName)
+    {
+        var BranchID = 'Branch'+BranchName;
+        console.log(BranchID);
+        console.log(BranchName);
+        var chooseBranch = document.getElementById(BranchID);
+        chooseBranch.style.backgroundColor = "darkgoldenrod";
+        var BranchInfo = document.getElementById('BranchInfo');
+        var SummeryItem = [ "總額", "利潤", "成本" ];
+
+        $.each(item_value, function (index, item) 
+        {
+            if(item.BranchName == BranchName)
+            {
+                var items = "";
+                
+
+                for(var i=0; i<SummeryItem.length; i++)
+                {
+                    var amt;
+                    if(i==0) amt = item.Gross;
+                    if(i==1) amt = item.Profit;
+                    if(i==2) amt = item.cost;
+                    items += '<div class="col-xl-3 col-md-6 mb-4">';
+                    items += '<div class="card border-left-primary shadow h-100 py-2">';
+                    items += '<div class="card-body">';
+                    items += '<div class="row no-gutters align-items-center">';
+                    items += '<div class="col mr-2">';
+                    items += '<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">';
+                    items += SummeryItem[i]+'</div>';
+                    items += '<div class="h5 mb-0 font-weight-bold text-gray-800">$'+amt+'</div>';
+                    items += '</div>';
+                    items += '<div class="col-auto">';
+                    items += '<i class="fas fa-calendar fa-2x text-gray-300"</i>';
+                    items += '</div>';
+                    items += '</div>';
+                    items += '</div>';
+                    items += '</div>';
+                    items += '</div>';
+                }
+
+                BranchInfo.innerHTML = items;
+            }
+
+        });
+        // GetBranchInfo(item);
+
+    }
+    function random_bg_color() 
+        {
+        var x = Math.floor(Math.random() * 256);
+        var y = Math.floor(Math.random() * 256);
+        var z = Math.floor(Math.random() * 256);
+        var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+        // console.log(bgColor);
+        return bgColor;
+        // document.body.style.background = bgColor;
+    }
+    function GetBranchInfo(item)
+    {
+
+        
+    }
+    
+    
 </script>
 
 
