@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -114,88 +114,7 @@
                     <!-- Content Row -->
                     <div class="row" id = "BranchInfo">
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                淨利</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                淨賺</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">支出
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     <!-- Content Row -->
@@ -440,60 +359,131 @@ console.log(result);
     //選擇分店
     var item_value = [{ cs_name: "山子頂",cs_code:"AAA", InCome: "10000", OutCome: "5000", date: "2020-01-01" }
     , { cs_name: "山子頂",cs_code:"AAA", InCome: "2000", OutCome: "300", date: "2020-01-02" }
-    , { cs_name: "山子頂",cs_code:"AAA", InCome: "3000", OutCome: "100", date: "2020-01-03" }];
+    , { cs_name: "山子頂",cs_code:"AAA", InCome: "3000", OutCome: "100", date: "2020-02-03" }
+    , { cs_name: "中正店",cs_code:"BBB", InCome: "3000", OutCome: "100", date: "2020-01-01" }
+    , { cs_name: "中正店",cs_code:"BBB", InCome: "3000", OutCome: "100", date: "2020-04-01" }
+    , { cs_name: "中正店",cs_code:"BBB", InCome: "5000", OutCome: "100", date: "2020-04-03" }];
+
+    // var cs_list = new Array();
+    var month_OutCome = new Array();
+    var month_Income = new Array();
+    var tot_OutCome=0,tot_Income=0;
+    console.log(item_value.length);
+
+    //分店資訊
+    var count_cs=0;//分店數
     GetBranchName();
 
+    //資料處理
+    Mouth_total();
+
+    
+    //顯示分店訊息
     function GetBranchName()
     {
-        // console.log(item_value.length);
         
         var chooseBranch = document.getElementById('chooseBranch');
         var items = "";
-        $.each(item_value, function (index, item) 
+        
+        $.each(company_data, function (index, item) 
         {
-            console.log(item);
             items += '<div class="col-lg-3 mb-4" >';
-            items += '<div type = \"button\" id =\"Branch'+item.BranchName+'\" class=\"card text-white shadow\" style=\"background-color: cadetblue\" onclick = \"chooseBranch(\''+item.BranchName+'\');\">';
-            items += '<div class="card-body">'+item.BranchName;
+            items += '<div type = \"button\" id =\"Branch' + item.cs_name + '\" class=\"card text-white shadow\" style=\"background-color: cadetblue\" onclick = \" chooseBranch(\'' + item.cs_name+'\');\">';
+            items += '<div class="card-body">' + item.cs_name;
             // items += '<div class="text-white-50 small"></div>';
             items += '</div>';
             items += '</div>';
             items += '</div>';
+        //     console.log(item);
+           
 
         });
         chooseBranch.innerHTML = items;
         //
     }
+
+    //parse 每間店月份資訊
+    function Mouth_total()
+    {  
+        
+        
+        //給陣列空間[月份][分店數]
+        for(var j = 0; j < 13; j++)
+        { 
+            month_OutCome[j] = new Array();
+            month_Income[j] = new Array();
+            for(var i=0;i<company_data.length;i++)
+            {
+                month_OutCome[j][i] = 0;
+                month_Income[j][i] = 0;
+            }
+        }
+
+        //計算金額
+        for (var i = 0; i < item_value.length; i++)
+        {
+            
+            var vals = item_value[i].date.split('-');
+            var year = vals[0];
+            var month = vals[1];
+            var day = vals[2];
+            // console.log(day, month, year);
+            var cs_list_count=0;
+
+            for(var j=0;j<company_data.length;j++)
+            {           
+                if(company_data[j].cs_code == item_value[i].cs_code)
+                {
+                    cs_list_count = j;
+                    break;
+                }
+
+            }
+            console.log(cs_list_count);
+            month_OutCome[parseInt(month)][cs_list_count] += parseInt(item_value[i].OutCome);
+            month_Income[parseInt(month)][cs_list_count] += parseInt(item_value[i].InCome);
+            
+
+        }
+        console.log(month_OutCome);
+        console.log(month_Income);
+
+
+        
+    }
+    
+
     function chooseBranch(BranchName)
     {
+        var dt = new Date();
+        GetBranchName();
         var BranchID = 'Branch'+BranchName;
-        console.log(BranchID);
-        console.log(BranchName);
+        // console.log(BranchID);
+        // console.log(BranchName);
         var chooseBranch = document.getElementById(BranchID);
+
         chooseBranch.style.backgroundColor = "darkgoldenrod";
         var BranchInfo = document.getElementById('BranchInfo');
-        var SummeryItem = [ "總額", "利潤", "成本" ];
-
-        $.each(item_value, function (index, item) 
+        var SummeryItem = [ "總收入", "總支出" ];
+        var items = "";
+        for(var i=0;i<company_data.length;i++)
         {
-            if(item.BranchName == BranchName)
+            
+            if(company_data[i].cs_name == BranchName)
             {
-                var items = "";
-                
-
-                for(var i=0; i<SummeryItem.length; i++)
+                console.log("月份"+dt.getMonth()+1);
+                console.log("店名:"+company_data[i].cs_name+"編號:"+i);  
+                for(var j=0; j<SummeryItem.length; j++)
                 {
-                    var amt;
-                    if(i==0) amt = item.Gross;
-                    if(i==1) amt = item.Profit;
-                    if(i==2) amt = item.cost;
+                    if(j==0) amt = month_OutCome[dt.getMonth()+1][i];
+                    if(j==1) amt = month_Income[dt.getMonth()+1][i];
                     items += '<div class="col-xl-3 col-md-6 mb-4">';
                     items += '<div class="card border-left-primary shadow h-100 py-2">';
                     items += '<div class="card-body">';
                     items += '<div class="row no-gutters align-items-center">';
                     items += '<div class="col mr-2">';
                     items += '<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">';
-                    items += SummeryItem[i]+'</div>';
+                    items += SummeryItem[j]+'</div>';
                     items += '<div class="h5 mb-0 font-weight-bold text-gray-800">$'+amt+'</div>';
                     items += '</div>';
                     items += '<div class="col-auto">';
@@ -503,13 +493,14 @@ console.log(result);
                     items += '</div>';
                     items += '</div>';
                     items += '</div>';
+                    console.log(SummeryItem[j]);
                 }
-
-                BranchInfo.innerHTML = items;
+                LineChart(i);
             }
-
-        });
-        // GetBranchInfo(item);
+        }
+        BranchInfo.innerHTML = items;
+        
+        
 
     }
     function random_bg_color() 
@@ -522,10 +513,144 @@ console.log(result);
         return bgColor;
         // document.body.style.background = bgColor;
     }
-    function GetBranchInfo(item)
+
+
+
+
+    // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#858796';
+    function number_format(number, decimals, dec_point, thousands_sep) 
+    {
+        // *     example: number_format(1234.56, 2, ',', ' ');
+        // *     return: '1 234,56'
+        number = (number + '').replace(',', '').replace(' ', '');
+        var n = !isFinite(+number) ? 0 : +number,
+            prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+            sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+            dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+            s = '',
+            toFixedFix = function(n, prec) {
+            var k = Math.pow(10, prec);
+            return '' + Math.round(n * k) / k;
+            };
+        // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+        s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+        if (s[0].length > 3) {
+            s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+        }
+        if ((s[1] || '').length < prec) {
+            s[1] = s[1] || '';
+            s[1] += new Array(prec - s[1].length + 1).join('0');
+        }
+        return s.join(dec);
+    }
+    function LineChart(cs_count)
     {
 
-        
+        // Area Chart Example
+        var ctx = document.getElementById("myAreaChart");
+        var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [{
+            label: "Earnings",
+            lineTension: 0.3,
+            backgroundColor: "rgba(78, 115, 223, 0.05)",
+            borderColor: "rgba(78, 115, 223, 1)",
+            pointRadius: 3,
+            pointBackgroundColor: "rgba(78, 115, 223, 1)",
+            pointBorderColor: "rgba(78, 115, 223, 1)",
+            pointHoverRadius: 3,
+            pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+            pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+            pointHitRadius: 10,
+            pointBorderWidth: 2,
+            data: [month_OutCome[1][cs_count], month_OutCome[2][cs_count], month_OutCome[3][cs_count], month_OutCome[4][cs_count], month_OutCome[5][cs_count], month_OutCome[6][cs_count], month_OutCome[7][cs_count], month_OutCome[8][cs_count], month_OutCome[9][cs_count], month_OutCome[10][cs_count], month_OutCome[11][cs_count], month_OutCome[12][cs_count]],
+            }],
+        },
+        options: 
+        {
+            maintainAspectRatio: false,
+            layout: 
+            {
+                padding: 
+                {
+                    left: 10,
+                    right: 25,
+                    top: 25,
+                    bottom: 0
+                }
+            },
+            scales: 
+            {
+            xAxes: [
+                {
+                time: 
+                {
+                    unit: 'date'
+                },
+                gridLines: 
+                {
+                    display: false,
+                    drawBorder: false
+                },
+                ticks: 
+                {
+                    maxTicksLimit: 7
+                }
+            }],
+            yAxes: [{
+                ticks: 
+                {
+                    maxTicksLimit: 5,
+                    padding: 10,
+                    // Include a dollar sign in the ticks
+                    // callback: function(value, index, values) 
+                    // {
+                    //     return '$' + number_format(value);
+                    // }
+                },
+                gridLines: {
+                color: "rgb(234, 236, 244)",
+                zeroLineColor: "rgb(234, 236, 244)",
+                drawBorder: false,
+                borderDash: [2],
+                zeroLineBorderDash: [2]
+                }
+            }],
+        },
+        legend: 
+        {
+            display: false
+        },
+        // tooltips: 
+        // {
+        //     backgroundColor: "rgb(255,255,255)",
+        //     bodyFontColor: "#858796",
+        //     titleMarginBottom: 10,
+        //     titleFontColor: '#6e707e',
+        //     titleFontSize: 14,
+        //     borderColor: '#dddfeb',
+        //     borderWidth: 1,
+        //     xPadding: 15,
+        //     yPadding: 15,
+        //     displayColors: false,
+        //     intersect: false,
+        //     mode: 'index',
+        //     caretPadding: 10,
+        //     callbacks: 
+        //     {
+        //         label: function(tooltipItem, chart) 
+        //         {
+        //             var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+        //             return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+        //         }
+        //     }
+        // }
+        }
+        });
     }
     
     

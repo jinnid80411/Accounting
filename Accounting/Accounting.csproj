@@ -188,6 +188,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="TestHtmlList.aspx" />
+    <Content Include="TotalSummery copy.html" />
+    <Content Include="TotalSummery.html" />
     <Content Include="UsersList.aspx" />
     <Content Include="xml\CompanyGroupList.ashx" />
     <Content Include="xml\CompanyList.ashx" />
