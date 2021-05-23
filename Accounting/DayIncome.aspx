@@ -7,9 +7,9 @@
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">當日總額</h1>
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日現金收入</button>
-                        <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日現金支出</button>
-                        <button class="btn btn-outline-secondary" type="button" onclick="RunAjax_income('Save')">當日補零</button>
+                        <button class="btn btn-outline-secondary" type="button">當日現金收入</button>
+                        <button class="btn btn-outline-secondary" type="button">當日現金支出</button>
+                        <button class="btn btn-outline-secondary" type="button">當日補零</button>
                     </div>
                 </div>
 
@@ -54,20 +54,16 @@
                             <label class="input-group-text" for="inputGroupSelect01">元</label>
                         </div>
                     </div>
+                    <div style="padding-top:20px">
+                        <input class="btn btn-outline-secondary" style="min-width:100%" type="button" onclick="Update_Daily_Account()" value="確認完成" />
+                    </div>
             </div>
-            <div>
+            <div style="padding-top:30px">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Dashboard</h1>
+                    <h1 class="h2" id="當日現金收入">當日現金收入</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
-
                     </div>
                 </div>
-
-                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                    <span data-feather="calendar"></span>
-                    This week
-                </button>
-
 
                 <div class="input-group" style="padding-top:5px">
                     <div class="input-group-prepend">
@@ -134,6 +130,68 @@
                         <button class="btn btn-outline-secondary" type="button" onclick="RunAjax('Save')" >送出</button>
                     </div>
                 </div>
+            </div>
+            <div style="padding-top:30px">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">當日支出</h1>
+
+                </div>
+                <div class="input-group form-inline">
+                        <label class="input-group-text" for="inputGroupSelect01">類別</label>
+                        <select name="pets" id="category_List" class="form-control" aria-label="Text input with dropdown button" onchange="List_Expend_Item()"></select>
+                    
+                        <label class="input-group-text" for="inputGroupSelect01">品項</label>
+                        <select name="pets" id="cat_items" class="form-control" aria-label="Text input with dropdown button"></select>
+                    
+                        <label class="input-group-text" for="inputGroupSelect01">金額</label>
+                        <input type="text" id="cat_ExpendAmt" class="form-control" />
+                    
+                        <input class="btn btn-outline-secondary" type="button" onclick="Add_Expend();" value="新增" />
+                    
+                    <!-- <input type="text" id="category" class="form-control" aria-label="Text input with dropdown button"> -->
+                </div>
+               
+
+                <div id="SHORTCut">
+
+                </div>
+
+                <div class="input-group" style="padding-top:10px">
+
+
+
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" width="5%">序號</th>
+                                <th colspan="1" scope="col" width="25%">類別</th>
+                                <th colspan="1" scope="col" width="25%">品項</th>
+                                <th colspan="1" scope="col" width="25%">金額</th>
+                                <th colspan="1" scope="col" width="25%">修改</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody1"></tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="1" scope="col" width="25%">總數</th>
+                                <th colspan="1" scope="col" width="25%">
+                                    <div id="Expend_count"></div>
+                                </th>
+                                <th colspan="1" scope="col" width="25%">總計</th>
+                                <th colspan="1" scope="col" width="25%">
+                                    <div id="Total_Expend_Amt"></div>
+                                </th>
+                                <th colspan="2" scope="col" width="25%">
+                                    <input class="btn btn-outline-secondary" type="button" onclick="location.href = '#home';Send_Expend();" value="送出" />
+                                </th>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+
+                </div>
+
+
             </div>
         </main>
      <script>
